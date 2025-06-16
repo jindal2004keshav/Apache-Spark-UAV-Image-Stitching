@@ -453,24 +453,28 @@ class SparkImageStitcher:
         panorama = panorama / weight_map
         panorama = np.clip(panorama, 0, 255).astype(np.uint8)
 
+        # Save both uncropped and cropped panoramas
+        uncropped_panorama = np.clip(panorama, 0, 255).astype(np.uint8)
+        cv2.imwrite("spark_distributed_panorama_uncropped.jpg", uncropped_panorama)
+
         # Crop as before
         logger.info("Cropping final panorama...")
         try:
-            gray = cv2.cvtColor(panorama, cv2.COLOR_BGR2GRAY)
+            gray = cv2.cvtColor(uncropped_panorama, cv2.COLOR_BGR2GRAY)
             _, thresh = cv2.threshold(gray, 1, 255, cv2.THRESH_BINARY)
             contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             if contours:
                 largest_contour = max(contours, key=cv2.contourArea)
                 x, y, w, h = cv2.boundingRect(largest_contour)
-                cropped = panorama[y:y+h, x:x+w]
+                cropped = uncropped_panorama[y:y+h, x:x+w]
                 logger.info(f"Cropped to: {cropped.shape}")
                 return cropped
             else:
                 logger.warning("No contours found for cropping, returning full panorama.")
-                return panorama
+                return uncropped_panorama
         except Exception as e:
             logger.warning(f"Cropping failed: {e}, returning uncropped image.")
-            return panorama
+            return uncropped_panorama
 
     def stitch_center_referenced(self, features_data_list, min_match_count=10, match_ratio=0.6):
         """
@@ -652,6 +656,26 @@ class SparkImageStitcher:
             
             if final_panorama is not None:
                 logger.info(f"SUCCESS! Final panorama shape: {final_panorama.shape}")
+                # --- Post-processing: Sharpening and Contrast Enhancement ---
+                try:
+                    import cv2
+                    import numpy as np
+                    # Sharpening
+                    gaussian = cv2.GaussianBlur(final_panorama, (0, 0), 3)
+                    sharpened = cv2.addWeighted(final_panorama, 1.5, gaussian, -0.5, 0)
+                    # CLAHE Contrast Enhancement
+                    lab = cv2.cvtColor(sharpened, cv2.COLOR_BGR2LAB)
+                    l, a, b = cv2.split(lab)
+                    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+                    cl = clahe.apply(l)
+                    limg = cv2.merge((cl, a, b))
+                    enhanced = cv2.cvtColor(limg, cv2.COLOR_LAB2BGR)
+                    # Save both versions
+                    cv2.imwrite("spark_distributed_panorama_sharpened.jpg", sharpened)
+                    cv2.imwrite("spark_distributed_panorama_enhanced.jpg", enhanced)
+                    logger.info("Sharpened and contrast-enhanced panoramas saved as 'spark_distributed_panorama_sharpened.jpg' and 'spark_distributed_panorama_enhanced.jpg'")
+                except Exception as e:
+                    logger.error(f"Post-processing failed: {e}")
                 return final_panorama
             else:
                 logger.error("FAILED! Could not create final panorama")
