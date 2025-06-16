@@ -474,72 +474,82 @@ class SparkImageStitcher:
             logger.warning(f"Cropping failed: {e}, returning uncropped image.")
             return result
 
-    def stitch_sequentially(self, match_results, features_data_list, min_match_count=10):
+    def stitch_center_referenced(self, features_data_list, min_match_count=10, match_ratio=0.6):
         """
-        Stitch images sequentially by chaining homographies and then warping all images globally.
+        Stitch images by referencing all images to the center image (to reduce cumulative error).
         """
-        logger.info(f"Starting sequential stitching with {len(features_data_list)} images...")
-        
+        logger.info(f"Starting center-referenced stitching with {len(features_data_list)} images...")
         if len(features_data_list) < 2:
             logger.error("Need at least 2 images for stitching")
             return None
 
-        final_homographies = [np.identity(3)]
-        H_cumulative = np.identity(3)
+        N = len(features_data_list)
+        center_idx = N // 2
+        logger.info(f"Using image at index {center_idx} as center reference: {features_data_list[center_idx][0]}")
 
-        for i, match_result in enumerate(match_results):
-            logger.info(f"\n{'='*50}\nProcessing pair: {match_result['filenames']}\n{'='*50}")
-            
-            if len(match_result['matches']) < min_match_count:
-                logger.warning(f"SKIP: Insufficient matches ({len(match_result['matches'])} < {min_match_count}). Stopping chain.")
-                break
-            
-            kp1_data = match_result['keypoints1']
-            kp2_data = match_result['keypoints2']
+        # Prepare homographies: identity for center, others to be computed
+        homographies = [None] * N
+        homographies[center_idx] = np.eye(3)
 
-            if not kp1_data or not kp2_data:
-                logger.error("No keypoint data available for this pair. Stopping chain.")
-                break
-                
-            src_pts = np.float32([kp1_data[m[0]] for m in match_result['matches']]).reshape(-1, 1, 2)
-            dst_pts = np.float32([kp2_data[m[1]] for m in match_result['matches']]).reshape(-1, 1, 2)
+        # Helper to get image from features_data_list
+        def decode_img(img_str):
+            import base64, cv2, numpy as np
+            img_data = base64.b64decode(img_str)
+            nparr = np.frombuffer(img_data, np.uint8)
+            return cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
-            homography_local, mask = cv2.findHomography(
-                dst_pts, src_pts, 
-                cv2.RANSAC, 
-                ransacReprojThreshold=5.0,
-                confidence=0.99
-            )
+        center_img_str = features_data_list[center_idx][2]
+        center_img = decode_img(center_img_str)
+        center_features = features_data_list[center_idx][1]
 
-            if homography_local is None:
-                logger.error("Homography computation failed. Stopping chain.")
-                break
-            
-            try:
-                det = np.linalg.det(homography_local[0:2, 0:2])
-                if abs(det) < 0.1 or abs(det) > 10.0:
-                    logger.warning(f"Unstable homography detected (determinant={det}). Stopping chain.")
-                    break
-            except np.linalg.LinAlgError:
-                 logger.error("Linear algebra error in homography validation. Stopping chain.")
-                 break
-
-            H_cumulative = H_cumulative @ homography_local
-            final_homographies.append(H_cumulative)
-
-        logger.info(f"Computed {len(final_homographies)} chained homographies.")
-
-        images_to_stitch = []
-        for i in range(len(final_homographies)):
-            img = self.decode_image(features_data_list[i][2])
-            if img is not None:
-                images_to_stitch.append(img)
+        # Compute homographies to center
+        for i, (filename, features, img_str, shape) in enumerate(features_data_list):
+            if i == center_idx:
+                continue
+            img = decode_img(img_str)
+            best_matches = []
+            best_detector = None
+            best_kp1 = best_kp2 = None
+            # Try all detectors
+            for detector_name in features.keys():
+                if detector_name not in center_features:
+                    continue
+                kp1 = features[detector_name]['keypoints']
+                kp2 = center_features[detector_name]['keypoints']
+                desc1 = np.array(features[detector_name]['descriptors'], dtype=np.float32)
+                desc2 = np.array(center_features[detector_name]['descriptors'], dtype=np.float32)
+                if desc1.shape[0] == 0 or desc2.shape[0] == 0:
+                    continue
+                matcher = cv2.BFMatcher(cv2.NORM_L2, crossCheck=False)
+                matches = matcher.knnMatch(desc1, desc2, k=2)
+                good_matches = []
+                for m in matches:
+                    if len(m) == 2 and m[0].distance < match_ratio * m[1].distance:
+                        good_matches.append(m[0])
+                if len(good_matches) > len(best_matches):
+                    best_matches = good_matches
+                    best_detector = detector_name
+                    best_kp1 = kp1
+                    best_kp2 = kp2
+            if len(best_matches) < min_match_count or best_kp1 is None or best_kp2 is None:
+                logger.warning(f"Insufficient matches to center for image {filename} (found {len(best_matches)})")
+                homographies[i] = None
+                continue
+            src_pts = np.float32([best_kp1[m.queryIdx] for m in best_matches]).reshape(-1, 1, 2)
+            dst_pts = np.float32([best_kp2[m.trainIdx] for m in best_matches]).reshape(-1, 1, 2)
+            H, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
+            if H is not None:
+                homographies[i] = H
+                logger.info(f"Computed homography to center for image {filename}")
             else:
-                logger.error(f"Failed to decode image {features_data_list[i][0]}. Aborting.")
-                return None
-        
-        final_panorama = self.warp_and_blend_all(images_to_stitch, final_homographies)
-        return final_panorama
+                logger.warning(f"Failed to compute homography to center for image {filename}")
+                homographies[i] = None
+
+        # Decode all images
+        images = [decode_img(f[2]) for f in features_data_list]
+        # Blend all images using their homographies
+        panorama = self.warp_and_blend_all(images, homographies)
+        return panorama
 
     def stitch_images_distributed(self, directory_path, min_match_count=10, match_ratio=0.6):
         """Main distributed stitching pipeline with comprehensive logging"""
@@ -620,15 +630,14 @@ class SparkImageStitcher:
                 logger.error("No valid image pairs found for stitching!")
                 return None
             
-            # Step 4: Sequential stitching
+            # Step 4: Center-referenced stitching
             logger.info("\n" + "="*50)
-            logger.info("STEP 4: SEQUENTIAL STITCHING")
+            logger.info("STEP 4: CENTER-REFERENCED STITCHING")
             logger.info("="*50)
             start_time = time.time()
-            final_panorama = self.stitch_sequentially(match_results, features_data_list, min_match_count)
+            final_panorama = self.stitch_center_referenced(features_data_list, min_match_count, match_ratio)
             stitch_time = time.time() - start_time
-            
-            logger.info(f"Sequential stitching completed in {stitch_time:.2f} seconds")
+            logger.info(f"Center-referenced stitching completed in {stitch_time:.2f} seconds")
             
             # Calculate and display timing summary
             total_time = time.time() - total_start_time
