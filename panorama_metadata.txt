@@ -1,0 +1,7 @@
+GPS-Based Panorama Metadata
+==============================
+Reference GPS Point: (28.039109405381947, -82.69668147569445)
+Bounds (meters): (np.float64(-41.94205133280343), np.float64(-31.729007812660473), np.float64(57.7070469131519), np.float64(34.42484579862263))
+Resolution: 5.0 pixels/meter
+Size (pixels): (498, 330)
+Ground Coverage (meters): (np.float64(99.64909824595533), np.float64(66.1538536112831))

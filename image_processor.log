@@ -1,0 +1,25 @@
+2025-06-15 15:21:17,756 [INFO] Initializing Spark Session...
+2025-06-15 15:21:19,019 [INFO] Spark Session initialized.
+2025-06-15 15:21:19,019 [INFO] Processing images from: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
+2025-06-15 15:21:19,310 [INFO] Number of files found: 9
+2025-06-15 15:21:22,041 [INFO] [DONE] Total images processed and saved: 0
+2025-06-15 15:21:22,041 [INFO] Stopping Spark session...
+2025-06-15 15:21:23,042 [INFO] Spark session stopped.
+2025-06-15 15:21:23,043 [INFO] Closing down clientserver connection
+2025-06-15 15:27:43,328 [INFO] Initializing Spark Session...
+2025-06-15 15:27:44,629 [INFO] Spark Session initialized.
+2025-06-15 15:27:44,629 [INFO] Processing images from: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
+2025-06-15 15:27:44,917 [INFO] Number of files found: 9
+2025-06-15 15:27:49,680 [INFO] Saved processed image: C:\Users\user\Desktop\Keshav\Notes\DJI_0065.JPG
+2025-06-15 15:27:49,695 [INFO] Saved processed image: C:\Users\user\Desktop\Keshav\Notes\DJI_0066.JPG
+2025-06-15 15:27:49,710 [INFO] Saved processed image: C:\Users\user\Desktop\Keshav\Notes\DJI_0067.JPG
+2025-06-15 15:27:49,726 [INFO] Saved processed image: C:\Users\user\Desktop\Keshav\Notes\DJI_0068.JPG
+2025-06-15 15:27:49,741 [INFO] Saved processed image: C:\Users\user\Desktop\Keshav\Notes\DJI_0069.JPG
+2025-06-15 15:27:49,758 [INFO] Saved processed image: C:\Users\user\Desktop\Keshav\Notes\DJI_0070.JPG
+2025-06-15 15:27:49,773 [INFO] Saved processed image: C:\Users\user\Desktop\Keshav\Notes\DJI_0071.JPG
+2025-06-15 15:27:49,789 [INFO] Saved processed image: C:\Users\user\Desktop\Keshav\Notes\DJI_0072.JPG
+2025-06-15 15:27:49,806 [INFO] Saved processed image: C:\Users\user\Desktop\Keshav\Notes\DJI_0073.JPG
+2025-06-15 15:27:49,807 [INFO] [DONE] Total images processed and saved: 9
+2025-06-15 15:27:49,809 [INFO] Stopping Spark session...
+2025-06-15 15:27:50,525 [INFO] Spark session stopped.
+2025-06-15 15:27:50,525 [INFO] Closing down clientserver connection

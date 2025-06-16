@@ -1,0 +1,138 @@
+2025-06-17 01:06:53,971 [INFO] main:670 - ======================================================================
+2025-06-17 01:06:53,972 [INFO] main:671 - SPARK DISTRIBUTED IMAGE STITCHING
+2025-06-17 01:06:53,972 [INFO] main:672 - ======================================================================
+2025-06-17 01:06:53,972 [INFO] main:678 - Initializing Spark Image Stitcher...
+2025-06-17 01:06:53,972 [INFO] __init__:30 - Initializing SparkImageStitcher...
+2025-06-17 01:06:55,205 [INFO] __init__:49 - Spark session initialized successfully. Application ID: app-20250617010654-0002
+2025-06-17 01:06:55,205 [INFO] main:685 - Input directory: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
+2025-06-17 01:06:55,205 [INFO] main:686 - Output filename: spark_distributed_panorama.jpg
+2025-06-17 01:06:55,205 [INFO] main:694 - Starting distributed stitching process...
+2025-06-17 01:06:55,205 [INFO] stitch_images_distributed:547 - ======================================================================
+2025-06-17 01:06:55,205 [INFO] stitch_images_distributed:548 - DISTRIBUTED IMAGE STITCHING WITH SPARK
+2025-06-17 01:06:55,205 [INFO] stitch_images_distributed:549 - ======================================================================
+2025-06-17 01:06:55,205 [INFO] stitch_images_distributed:550 - Input directory: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
+2025-06-17 01:06:55,205 [INFO] stitch_images_distributed:551 - Minimum match count: 10
+2025-06-17 01:06:55,205 [INFO] stitch_images_distributed:552 - Match ratio threshold: 0.6
+2025-06-17 01:06:55,205 [INFO] stitch_images_distributed:553 - ======================================================================
+2025-06-17 01:06:55,205 [INFO] stitch_images_distributed:559 - 
+==================================================
+2025-06-17 01:06:55,205 [INFO] stitch_images_distributed:560 - STEP 1: LOADING IMAGES
+2025-06-17 01:06:55,205 [INFO] stitch_images_distributed:561 - ==================================================
+2025-06-17 01:06:55,206 [INFO] load_images_distributed:103 - Searching for files with extensions: ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif']
+2025-06-17 01:06:55,206 [INFO] load_images_distributed:105 - Loading images from: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
+2025-06-17 01:06:55,206 [INFO] load_images_distributed:122 - Found 45 image files
+2025-06-17 01:07:03,019 [INFO] load_images_distributed:167 - Successfully loaded 33 out of 45 images
+2025-06-17 01:07:03,019 [INFO] load_images_distributed:173 - All files: ['DJI_0065.JPG', 'DJI_0066.JPG', 'DJI_0067.JPG', 'DJI_0068.JPG', 'DJI_0069.JPG', 'DJI_0070.JPG', 'DJI_0071.JPG', 'DJI_0072.JPG', 'DJI_0073.JPG', 'DJI_0074.JPG', 'DJI_0075.JPG', 'DJI_0076.JPG', 'DJI_0077.JPG', 'DJI_0078.JPG', 'DJI_0079.JPG', 'DJI_0080.JPG', 'DJI_0081.JPG', 'DJI_0082.JPG', 'DJI_0083.JPG', 'DJI_0084.JPG', 'DJI_0085.JPG', 'DJI_0086.JPG', 'DJI_0087.JPG', 'DJI_0088.JPG', 'DJI_0089.JPG', 'DJI_0090.JPG', 'DJI_0091.JPG', 'DJI_0092.JPG', 'DJI_0093.JPG', 'DJI_0094.JPG', 'DJI_0095.JPG', 'DJI_0096.JPG', 'DJI_0097.JPG', 'DJI_0098.JPG', 'DJI_0099.JPG', 'DJI_0100.JPG', 'DJI_0101.JPG', 'DJI_0102.JPG', 'DJI_0103.JPG', 'DJI_0104.JPG', 'DJI_0105.JPG', 'DJI_0106.JPG', 'DJI_0107.JPG', 'DJI_0108.JPG', 'DJI_0109.JPG', 'Thumbs.db']
+2025-06-17 01:07:03,019 [INFO] load_images_distributed:174 - Image files: ['DJI_0065.JPG', 'DJI_0066.JPG', 'DJI_0067.JPG', 'DJI_0068.JPG', 'DJI_0069.JPG', 'DJI_0070.JPG', 'DJI_0071.JPG', 'DJI_0072.JPG', 'DJI_0073.JPG', 'DJI_0074.JPG', 'DJI_0075.JPG', 'DJI_0076.JPG', 'DJI_0077.JPG', 'DJI_0078.JPG', 'DJI_0079.JPG', 'DJI_0080.JPG', 'DJI_0081.JPG', 'DJI_0082.JPG', 'DJI_0083.JPG', 'DJI_0084.JPG', 'DJI_0085.JPG', 'DJI_0086.JPG', 'DJI_0087.JPG', 'DJI_0088.JPG', 'DJI_0089.JPG', 'DJI_0090.JPG', 'DJI_0091.JPG', 'DJI_0092.JPG', 'DJI_0093.JPG', 'DJI_0094.JPG', 'DJI_0095.JPG', 'DJI_0096.JPG', 'DJI_0097.JPG', 'DJI_0098.JPG', 'DJI_0099.JPG', 'DJI_0100.JPG', 'DJI_0101.JPG', 'DJI_0102.JPG', 'DJI_0103.JPG', 'DJI_0104.JPG', 'DJI_0105.JPG', 'DJI_0106.JPG', 'DJI_0107.JPG', 'DJI_0108.JPG', 'DJI_0109.JPG']
+2025-06-17 01:07:03,020 [INFO] stitch_images_distributed:566 - Image loading completed in 7.82 seconds
+2025-06-17 01:07:03,020 [INFO] stitch_images_distributed:567 - Images loaded: 33
+2025-06-17 01:07:03,020 [INFO] stitch_images_distributed:574 - 
+==================================================
+2025-06-17 01:07:03,020 [INFO] stitch_images_distributed:575 - STEP 2: FEATURE EXTRACTION
+2025-06-17 01:07:03,020 [INFO] stitch_images_distributed:576 - ==================================================
+2025-06-17 01:07:03,020 [INFO] extract_features_distributed:185 - Extracting features from 33 images...
+2025-06-17 01:07:10,801 [INFO] extract_features_distributed:261 - Feature extraction completed for 33 images
+2025-06-17 01:07:10,801 [INFO] stitch_images_distributed:581 - Feature extraction completed in 7.78 seconds
+2025-06-17 01:07:10,801 [INFO] stitch_images_distributed:582 - Images with features: 33
+2025-06-17 01:07:10,801 [INFO] stitch_images_distributed:589 - 
+==================================================
+2025-06-17 01:07:10,801 [INFO] stitch_images_distributed:590 - STEP 3: FEATURE MATCHING
+2025-06-17 01:07:10,801 [INFO] stitch_images_distributed:591 - ==================================================
+2025-06-17 01:07:10,801 [INFO] find_matches_parallel:277 - Finding matches between 33 images with ratio 0.6...
+2025-06-17 01:07:10,801 [INFO] find_matches_parallel:388 - Created 32 image pairs for matching
+2025-06-17 01:10:53,703 [ERROR] find_matches_parallel:406 - Error in find_matches_parallel: An error occurred while calling z:org.apache.spark.api.python.PythonRDD.collectAndServe.
+: org.apache.spark.SparkException: Job 2 cancelled 
+	at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2790)
+	at org.apache.spark.scheduler.DAGScheduler.handleJobCancellation(DAGScheduler.scala:2665)
+	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:2945)
+	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2928)
+	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2917)
+	at org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:49)
+	at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:976)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2258)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2279)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2298)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2323)
+	at org.apache.spark.rdd.RDD.$anonfun$collect$1(RDD.scala:1022)
+	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)
+	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)
+	at org.apache.spark.rdd.RDD.withScope(RDD.scala:408)
+	at org.apache.spark.rdd.RDD.collect(RDD.scala:1021)
+	at org.apache.spark.api.python.PythonRDD$.collectAndServe(PythonRDD.scala:193)
+	at org.apache.spark.api.python.PythonRDD.collectAndServe(PythonRDD.scala)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+	at py4j.Gateway.invoke(Gateway.java:282)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+
+2025-06-17 01:10:53,706 [ERROR] find_matches_parallel:407 - Traceback (most recent call last):
+  File "C:\Users\user\Desktop\Keshav\testStitchSpark.py", line 393, in find_matches_parallel
+    match_results = matches_rdd.collect()
+  File "C:\Spark\python\lib\pyspark.zip\pyspark\rdd.py", line 1814, in collect
+    sock_info = self.ctx._jvm.PythonRDD.collectAndServe(self._jrdd.rdd())
+  File "C:\Spark\python\lib\py4j-0.10.9.7.zip\py4j\java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+  File "C:\Spark\python\lib\pyspark.zip\pyspark\errors\exceptions\captured.py", line 169, in deco
+    return f(*a, **kw)
+  File "C:\Spark\python\lib\py4j-0.10.9.7.zip\py4j\protocol.py", line 326, in get_return_value
+    raise Py4JJavaError(
+py4j.protocol.Py4JJavaError: An error occurred while calling z:org.apache.spark.api.python.PythonRDD.collectAndServe.
+: org.apache.spark.SparkException: Job 2 cancelled 
+	at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2790)
+	at org.apache.spark.scheduler.DAGScheduler.handleJobCancellation(DAGScheduler.scala:2665)
+	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:2945)
+	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2928)
+	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2917)
+	at org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:49)
+	at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:976)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2258)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2279)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2298)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2323)
+	at org.apache.spark.rdd.RDD.$anonfun$collect$1(RDD.scala:1022)
+	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)
+	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)
+	at org.apache.spark.rdd.RDD.withScope(RDD.scala:408)
+	at org.apache.spark.rdd.RDD.collect(RDD.scala:1021)
+	at org.apache.spark.api.python.PythonRDD$.collectAndServe(PythonRDD.scala:193)
+	at org.apache.spark.api.python.PythonRDD.collectAndServe(PythonRDD.scala)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+	at py4j.Gateway.invoke(Gateway.java:282)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+
+
+2025-06-17 01:10:53,706 [INFO] stitch_images_distributed:596 - Feature matching completed in 222.90 seconds
+2025-06-17 01:10:53,706 [INFO] stitch_images_distributed:597 - Image pairs processed: 0
+2025-06-17 01:10:53,707 [INFO] stitch_images_distributed:600 - 
+MATCH RESULTS SUMMARY:
+2025-06-17 01:10:53,707 [INFO] stitch_images_distributed:601 - --------------------------------------------------
+2025-06-17 01:10:53,707 [INFO] stitch_images_distributed:616 - 
+Total matches found: 0
+2025-06-17 01:10:53,710 [ERROR] stitch_images_distributed:620 - No valid image pairs found for stitching!
+2025-06-17 01:10:53,866 [ERROR] main:742 - Could not create panorama with distributed processing
+2025-06-17 01:10:53,867 [INFO] main:743 - Possible issues:
+2025-06-17 01:10:53,867 [INFO] main:744 -   • Insufficient matching features between images
+2025-06-17 01:10:53,867 [INFO] main:745 -   • Images may not have sufficient overlap
+2025-06-17 01:10:53,867 [INFO] main:746 -   • Try adjusting match_ratio or min_match_count parameters
+2025-06-17 01:10:53,867 [INFO] main:747 -   • Check image quality and lighting conditions
+2025-06-17 01:10:53,867 [INFO] stop:661 - Stopping Spark session...
+2025-06-17 01:10:54,472 [INFO] stop:663 - Spark session stopped successfully
+2025-06-17 01:10:54,472 [INFO] main:761 - Program execution completed
+2025-06-17 01:10:54,473 [INFO] close:543 - Closing down clientserver connection
