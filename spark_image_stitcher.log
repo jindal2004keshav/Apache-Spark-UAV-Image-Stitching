@@ -1,319 +1,822 @@
-2025-06-17 01:18:10,122 [INFO] main:670 - ======================================================================
-2025-06-17 01:18:10,122 [INFO] main:671 - SPARK DISTRIBUTED IMAGE STITCHING
-2025-06-17 01:18:10,122 [INFO] main:672 - ======================================================================
-2025-06-17 01:18:10,122 [INFO] main:678 - Initializing Spark Image Stitcher...
-2025-06-17 01:18:10,122 [INFO] __init__:30 - Initializing SparkImageStitcher...
-2025-06-17 01:18:11,350 [INFO] __init__:49 - Spark session initialized successfully. Application ID: app-20250617011811-0003
-2025-06-17 01:18:11,350 [INFO] main:685 - Input directory: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
-2025-06-17 01:18:11,350 [INFO] main:686 - Output filename: spark_distributed_panorama.jpg
-2025-06-17 01:18:11,350 [INFO] main:694 - Starting distributed stitching process...
-2025-06-17 01:18:11,350 [INFO] stitch_images_distributed:547 - ======================================================================
-2025-06-17 01:18:11,350 [INFO] stitch_images_distributed:548 - DISTRIBUTED IMAGE STITCHING WITH SPARK
-2025-06-17 01:18:11,350 [INFO] stitch_images_distributed:549 - ======================================================================
-2025-06-17 01:18:11,350 [INFO] stitch_images_distributed:550 - Input directory: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
-2025-06-17 01:18:11,350 [INFO] stitch_images_distributed:551 - Minimum match count: 10
-2025-06-17 01:18:11,350 [INFO] stitch_images_distributed:552 - Match ratio threshold: 0.6
-2025-06-17 01:18:11,350 [INFO] stitch_images_distributed:553 - ======================================================================
-2025-06-17 01:18:11,350 [INFO] stitch_images_distributed:559 - 
+2025-06-17 01:41:33,221 [INFO] main:677 - ======================================================================
+2025-06-17 01:41:33,221 [INFO] main:678 - SPARK DISTRIBUTED IMAGE STITCHING
+2025-06-17 01:41:33,221 [INFO] main:679 - ======================================================================
+2025-06-17 01:41:33,221 [INFO] main:685 - Initializing Spark Image Stitcher...
+2025-06-17 01:41:33,221 [INFO] __init__:30 - Initializing SparkImageStitcher...
+2025-06-17 01:41:34,467 [INFO] __init__:49 - Spark session initialized successfully. Application ID: app-20250617014134-0005
+2025-06-17 01:41:34,467 [INFO] main:692 - Input directory: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
+2025-06-17 01:41:34,468 [INFO] main:693 - Output filename: spark_distributed_panorama.jpg
+2025-06-17 01:41:34,468 [INFO] main:701 - Starting distributed stitching process...
+2025-06-17 01:41:34,468 [INFO] stitch_images_distributed:555 - ======================================================================
+2025-06-17 01:41:34,468 [INFO] stitch_images_distributed:556 - DISTRIBUTED IMAGE STITCHING WITH SPARK
+2025-06-17 01:41:34,468 [INFO] stitch_images_distributed:557 - ======================================================================
+2025-06-17 01:41:34,468 [INFO] stitch_images_distributed:558 - Input directory: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
+2025-06-17 01:41:34,468 [INFO] stitch_images_distributed:559 - Minimum match count: 10
+2025-06-17 01:41:34,468 [INFO] stitch_images_distributed:560 - Match ratio threshold: 0.6
+2025-06-17 01:41:34,468 [INFO] stitch_images_distributed:561 - ======================================================================
+2025-06-17 01:41:34,468 [INFO] stitch_images_distributed:567 - 
 ==================================================
-2025-06-17 01:18:11,350 [INFO] stitch_images_distributed:560 - STEP 1: LOADING IMAGES
-2025-06-17 01:18:11,350 [INFO] stitch_images_distributed:561 - ==================================================
-2025-06-17 01:18:11,350 [INFO] load_images_distributed:103 - Searching for files with extensions: ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif']
-2025-06-17 01:18:11,351 [INFO] load_images_distributed:105 - Loading images from: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
-2025-06-17 01:18:11,351 [INFO] load_images_distributed:122 - Found 24 image files
-2025-06-17 01:18:17,429 [INFO] load_images_distributed:167 - Successfully loaded 24 out of 24 images
-2025-06-17 01:18:17,429 [INFO] load_images_distributed:173 - All files: ['DJI_0065.JPG', 'DJI_0066.JPG', 'DJI_0067.JPG', 'DJI_0068.JPG', 'DJI_0069.JPG', 'DJI_0070.JPG', 'DJI_0071.JPG', 'DJI_0072.JPG', 'DJI_0073.JPG', 'DJI_0074.JPG', 'DJI_0075.JPG', 'DJI_0076.JPG', 'DJI_0077.JPG', 'DJI_0078.JPG', 'DJI_0079.JPG', 'DJI_0080.JPG', 'DJI_0081.JPG', 'DJI_0082.JPG', 'DJI_0083.JPG', 'DJI_0084.JPG', 'DJI_0085.JPG', 'DJI_0086.JPG', 'DJI_0087.JPG', 'DJI_0088.JPG', 'Thumbs.db']
-2025-06-17 01:18:17,429 [INFO] load_images_distributed:174 - Image files: ['DJI_0065.JPG', 'DJI_0066.JPG', 'DJI_0067.JPG', 'DJI_0068.JPG', 'DJI_0069.JPG', 'DJI_0070.JPG', 'DJI_0071.JPG', 'DJI_0072.JPG', 'DJI_0073.JPG', 'DJI_0074.JPG', 'DJI_0075.JPG', 'DJI_0076.JPG', 'DJI_0077.JPG', 'DJI_0078.JPG', 'DJI_0079.JPG', 'DJI_0080.JPG', 'DJI_0081.JPG', 'DJI_0082.JPG', 'DJI_0083.JPG', 'DJI_0084.JPG', 'DJI_0085.JPG', 'DJI_0086.JPG', 'DJI_0087.JPG', 'DJI_0088.JPG']
-2025-06-17 01:18:17,429 [INFO] stitch_images_distributed:566 - Image loading completed in 6.08 seconds
-2025-06-17 01:18:17,429 [INFO] stitch_images_distributed:567 - Images loaded: 24
-2025-06-17 01:18:17,429 [INFO] stitch_images_distributed:574 - 
+2025-06-17 01:41:34,468 [INFO] stitch_images_distributed:568 - STEP 1: LOADING IMAGES
+2025-06-17 01:41:34,468 [INFO] stitch_images_distributed:569 - ==================================================
+2025-06-17 01:41:34,468 [INFO] load_images_distributed:103 - Searching for files with extensions: ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif']
+2025-06-17 01:41:34,468 [INFO] load_images_distributed:105 - Loading images from: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
+2025-06-17 01:41:34,468 [INFO] load_images_distributed:122 - Found 24 image files
+2025-06-17 01:41:40,691 [INFO] load_images_distributed:167 - Successfully loaded 24 out of 24 images
+2025-06-17 01:41:40,691 [INFO] load_images_distributed:173 - All files: ['DJI_0065.JPG', 'DJI_0066.JPG', 'DJI_0067.JPG', 'DJI_0068.JPG', 'DJI_0069.JPG', 'DJI_0070.JPG', 'DJI_0071.JPG', 'DJI_0072.JPG', 'DJI_0073.JPG', 'DJI_0074.JPG', 'DJI_0075.JPG', 'DJI_0076.JPG', 'DJI_0077.JPG', 'DJI_0078.JPG', 'DJI_0079.JPG', 'DJI_0080.JPG', 'DJI_0081.JPG', 'DJI_0082.JPG', 'DJI_0083.JPG', 'DJI_0084.JPG', 'DJI_0085.JPG', 'DJI_0086.JPG', 'DJI_0087.JPG', 'DJI_0088.JPG', 'Thumbs.db']
+2025-06-17 01:41:40,691 [INFO] load_images_distributed:174 - Image files: ['DJI_0065.JPG', 'DJI_0066.JPG', 'DJI_0067.JPG', 'DJI_0068.JPG', 'DJI_0069.JPG', 'DJI_0070.JPG', 'DJI_0071.JPG', 'DJI_0072.JPG', 'DJI_0073.JPG', 'DJI_0074.JPG', 'DJI_0075.JPG', 'DJI_0076.JPG', 'DJI_0077.JPG', 'DJI_0078.JPG', 'DJI_0079.JPG', 'DJI_0080.JPG', 'DJI_0081.JPG', 'DJI_0082.JPG', 'DJI_0083.JPG', 'DJI_0084.JPG', 'DJI_0085.JPG', 'DJI_0086.JPG', 'DJI_0087.JPG', 'DJI_0088.JPG']
+2025-06-17 01:41:40,691 [INFO] stitch_images_distributed:574 - Image loading completed in 6.22 seconds
+2025-06-17 01:41:40,691 [INFO] stitch_images_distributed:575 - Images loaded: 24
+2025-06-17 01:41:40,691 [INFO] stitch_images_distributed:582 - 
 ==================================================
-2025-06-17 01:18:17,429 [INFO] stitch_images_distributed:575 - STEP 2: FEATURE EXTRACTION
-2025-06-17 01:18:17,429 [INFO] stitch_images_distributed:576 - ==================================================
-2025-06-17 01:18:17,429 [INFO] extract_features_distributed:185 - Extracting features from 24 images...
-2025-06-17 01:18:23,338 [INFO] extract_features_distributed:261 - Feature extraction completed for 24 images
-2025-06-17 01:18:23,338 [INFO] stitch_images_distributed:581 - Feature extraction completed in 5.91 seconds
-2025-06-17 01:18:23,338 [INFO] stitch_images_distributed:582 - Images with features: 24
-2025-06-17 01:18:23,338 [INFO] stitch_images_distributed:589 - 
+2025-06-17 01:41:40,691 [INFO] stitch_images_distributed:583 - STEP 2: FEATURE EXTRACTION
+2025-06-17 01:41:40,691 [INFO] stitch_images_distributed:584 - ==================================================
+2025-06-17 01:41:40,691 [INFO] extract_features_distributed:185 - Extracting features from 24 images...
+2025-06-17 01:41:47,795 [INFO] extract_features_distributed:261 - Feature extraction completed for 24 images
+2025-06-17 01:41:47,795 [INFO] stitch_images_distributed:589 - Feature extraction completed in 7.10 seconds
+2025-06-17 01:41:47,796 [INFO] stitch_images_distributed:590 - Images with features: 24
+2025-06-17 01:41:47,796 [INFO] stitch_images_distributed:597 - 
 ==================================================
-2025-06-17 01:18:23,338 [INFO] stitch_images_distributed:590 - STEP 3: FEATURE MATCHING
-2025-06-17 01:18:23,338 [INFO] stitch_images_distributed:591 - ==================================================
-2025-06-17 01:18:23,338 [INFO] find_matches_parallel:277 - Finding matches between 24 images with ratio 0.6...
-2025-06-17 01:18:23,338 [INFO] find_matches_parallel:388 - Created 23 image pairs for matching
-2025-06-17 01:18:35,184 [INFO] find_matches_parallel:400 - Matched ('DJI_0065.JPG', 'DJI_0066.JPG'): 269 matches (detector: ORB, score: 11.078)
-2025-06-17 01:18:35,184 [INFO] find_matches_parallel:400 - Matched ('DJI_0066.JPG', 'DJI_0067.JPG'): 188 matches (detector: ORB, score: 7.353)
-2025-06-17 01:18:35,184 [INFO] find_matches_parallel:400 - Matched ('DJI_0067.JPG', 'DJI_0068.JPG'): 1373 matches (detector: AKAZE, score: 5.320)
-2025-06-17 01:18:35,184 [INFO] find_matches_parallel:400 - Matched ('DJI_0068.JPG', 'DJI_0069.JPG'): 166 matches (detector: ORB, score: 6.058)
-2025-06-17 01:18:35,184 [INFO] find_matches_parallel:400 - Matched ('DJI_0069.JPG', 'DJI_0070.JPG'): 144 matches (detector: ORB, score: 4.906)
-2025-06-17 01:18:35,184 [INFO] find_matches_parallel:400 - Matched ('DJI_0070.JPG', 'DJI_0071.JPG'): 126 matches (detector: ORB, score: 4.112)
-2025-06-17 01:18:35,184 [INFO] find_matches_parallel:400 - Matched ('DJI_0071.JPG', 'DJI_0072.JPG'): 151 matches (detector: ORB, score: 4.966)
-2025-06-17 01:18:35,184 [INFO] find_matches_parallel:400 - Matched ('DJI_0072.JPG', 'DJI_0073.JPG'): 239 matches (detector: ORB, score: 8.640)
-2025-06-17 01:18:35,184 [INFO] find_matches_parallel:400 - Matched ('DJI_0073.JPG', 'DJI_0074.JPG'): 109 matches (detector: ORB, score: 3.640)
-2025-06-17 01:18:35,184 [INFO] find_matches_parallel:400 - Matched ('DJI_0074.JPG', 'DJI_0075.JPG'): 3530 matches (detector: AKAZE, score: 15.407)
-2025-06-17 01:18:35,184 [INFO] find_matches_parallel:400 - Matched ('DJI_0075.JPG', 'DJI_0076.JPG'): 96 matches (detector: ORB, score: 3.218)
-2025-06-17 01:18:35,184 [INFO] find_matches_parallel:400 - Matched ('DJI_0076.JPG', 'DJI_0077.JPG'): 889 matches (detector: AKAZE, score: 3.381)
-2025-06-17 01:18:35,184 [INFO] find_matches_parallel:400 - Matched ('DJI_0077.JPG', 'DJI_0078.JPG'): 864 matches (detector: AKAZE, score: 3.292)
-2025-06-17 01:18:35,184 [INFO] find_matches_parallel:400 - Matched ('DJI_0078.JPG', 'DJI_0079.JPG'): 1117 matches (detector: AKAZE, score: 4.304)
-2025-06-17 01:18:35,184 [INFO] find_matches_parallel:400 - Matched ('DJI_0079.JPG', 'DJI_0080.JPG'): 1168 matches (detector: AKAZE, score: 4.549)
-2025-06-17 01:18:35,184 [INFO] find_matches_parallel:400 - Matched ('DJI_0080.JPG', 'DJI_0081.JPG'): 120 matches (detector: ORB, score: 4.533)
-2025-06-17 01:18:35,184 [INFO] find_matches_parallel:400 - Matched ('DJI_0081.JPG', 'DJI_0082.JPG'): 185 matches (detector: ORB, score: 7.701)
-2025-06-17 01:18:35,184 [INFO] find_matches_parallel:400 - Matched ('DJI_0082.JPG', 'DJI_0083.JPG'): 138 matches (detector: ORB, score: 5.366)
-2025-06-17 01:18:35,184 [INFO] find_matches_parallel:400 - Matched ('DJI_0083.JPG', 'DJI_0084.JPG'): 181 matches (detector: ORB, score: 7.420)
-2025-06-17 01:18:35,184 [INFO] find_matches_parallel:400 - Matched ('DJI_0084.JPG', 'DJI_0085.JPG'): 167 matches (detector: ORB, score: 6.420)
-2025-06-17 01:18:35,185 [INFO] find_matches_parallel:400 - Matched ('DJI_0085.JPG', 'DJI_0086.JPG'): 4202 matches (detector: AKAZE, score: 17.903)
-2025-06-17 01:18:35,185 [INFO] find_matches_parallel:400 - Matched ('DJI_0086.JPG', 'DJI_0087.JPG'): 170 matches (detector: ORB, score: 6.922)
-2025-06-17 01:18:35,185 [INFO] find_matches_parallel:400 - Matched ('DJI_0087.JPG', 'DJI_0088.JPG'): 126 matches (detector: ORB, score: 5.116)
-2025-06-17 01:18:35,185 [INFO] stitch_images_distributed:596 - Feature matching completed in 11.85 seconds
-2025-06-17 01:18:35,185 [INFO] stitch_images_distributed:597 - Image pairs processed: 23
-2025-06-17 01:18:35,185 [INFO] stitch_images_distributed:600 - 
+2025-06-17 01:41:47,796 [INFO] stitch_images_distributed:598 - STEP 3: FEATURE MATCHING
+2025-06-17 01:41:47,796 [INFO] stitch_images_distributed:599 - ==================================================
+2025-06-17 01:41:47,796 [INFO] find_matches_parallel:277 - Finding matches between 24 images with ratio 0.6...
+2025-06-17 01:41:47,796 [INFO] find_matches_parallel:388 - Created 23 image pairs for matching
+2025-06-17 01:42:00,948 [INFO] find_matches_parallel:400 - Matched ('DJI_0065.JPG', 'DJI_0066.JPG'): 269 matches (detector: ORB, score: 11.078)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0066.JPG', 'DJI_0067.JPG'): 188 matches (detector: ORB, score: 7.353)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0067.JPG', 'DJI_0068.JPG'): 1373 matches (detector: AKAZE, score: 5.320)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0068.JPG', 'DJI_0069.JPG'): 166 matches (detector: ORB, score: 6.058)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0069.JPG', 'DJI_0070.JPG'): 144 matches (detector: ORB, score: 4.906)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0070.JPG', 'DJI_0071.JPG'): 126 matches (detector: ORB, score: 4.112)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0071.JPG', 'DJI_0072.JPG'): 151 matches (detector: ORB, score: 4.966)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0072.JPG', 'DJI_0073.JPG'): 239 matches (detector: ORB, score: 8.640)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0073.JPG', 'DJI_0074.JPG'): 109 matches (detector: ORB, score: 3.640)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0074.JPG', 'DJI_0075.JPG'): 3530 matches (detector: AKAZE, score: 15.407)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0075.JPG', 'DJI_0076.JPG'): 96 matches (detector: ORB, score: 3.218)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0076.JPG', 'DJI_0077.JPG'): 889 matches (detector: AKAZE, score: 3.381)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0077.JPG', 'DJI_0078.JPG'): 864 matches (detector: AKAZE, score: 3.292)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0078.JPG', 'DJI_0079.JPG'): 1117 matches (detector: AKAZE, score: 4.304)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0079.JPG', 'DJI_0080.JPG'): 1168 matches (detector: AKAZE, score: 4.549)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0080.JPG', 'DJI_0081.JPG'): 120 matches (detector: ORB, score: 4.533)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0081.JPG', 'DJI_0082.JPG'): 185 matches (detector: ORB, score: 7.701)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0082.JPG', 'DJI_0083.JPG'): 138 matches (detector: ORB, score: 5.366)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0083.JPG', 'DJI_0084.JPG'): 181 matches (detector: ORB, score: 7.420)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0084.JPG', 'DJI_0085.JPG'): 167 matches (detector: ORB, score: 6.420)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0085.JPG', 'DJI_0086.JPG'): 4202 matches (detector: AKAZE, score: 17.903)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0086.JPG', 'DJI_0087.JPG'): 170 matches (detector: ORB, score: 6.922)
+2025-06-17 01:42:00,949 [INFO] find_matches_parallel:400 - Matched ('DJI_0087.JPG', 'DJI_0088.JPG'): 126 matches (detector: ORB, score: 5.116)
+2025-06-17 01:42:00,949 [INFO] stitch_images_distributed:604 - Feature matching completed in 13.15 seconds
+2025-06-17 01:42:00,949 [INFO] stitch_images_distributed:605 - Image pairs processed: 23
+2025-06-17 01:42:00,949 [INFO] stitch_images_distributed:608 - 
 MATCH RESULTS SUMMARY:
-2025-06-17 01:18:35,185 [INFO] stitch_images_distributed:601 - --------------------------------------------------
-2025-06-17 01:18:35,196 [INFO] stitch_images_distributed:616 - 
+2025-06-17 01:42:00,949 [INFO] stitch_images_distributed:609 - --------------------------------------------------
+2025-06-17 01:42:00,960 [INFO] stitch_images_distributed:624 - 
 Total matches found: 15718
-2025-06-17 01:18:35,196 [INFO] stitch_images_distributed:624 - 
+2025-06-17 01:42:00,960 [INFO] stitch_images_distributed:632 - 
 ==================================================
-2025-06-17 01:18:35,196 [INFO] stitch_images_distributed:625 - STEP 4: SEQUENTIAL STITCHING
-2025-06-17 01:18:35,196 [INFO] stitch_images_distributed:626 - ==================================================
-2025-06-17 01:18:35,196 [INFO] stitch_sequentially:481 - Starting sequential stitching with 24 images...
-2025-06-17 01:18:35,196 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0065.JPG', 'DJI_0066.JPG')
-==================================================
-2025-06-17 01:18:35,197 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0066.JPG', 'DJI_0067.JPG')
-==================================================
-2025-06-17 01:18:35,198 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0067.JPG', 'DJI_0068.JPG')
-==================================================
-2025-06-17 01:18:35,202 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0068.JPG', 'DJI_0069.JPG')
-==================================================
-2025-06-17 01:18:35,203 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0069.JPG', 'DJI_0070.JPG')
-==================================================
-2025-06-17 01:18:35,204 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0070.JPG', 'DJI_0071.JPG')
-==================================================
-2025-06-17 01:18:35,205 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0071.JPG', 'DJI_0072.JPG')
-==================================================
-2025-06-17 01:18:35,206 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0072.JPG', 'DJI_0073.JPG')
-==================================================
-2025-06-17 01:18:35,207 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0073.JPG', 'DJI_0074.JPG')
-==================================================
-2025-06-17 01:18:35,208 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0074.JPG', 'DJI_0075.JPG')
-==================================================
-2025-06-17 01:18:35,212 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0075.JPG', 'DJI_0076.JPG')
-==================================================
-2025-06-17 01:18:35,213 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0076.JPG', 'DJI_0077.JPG')
-==================================================
-2025-06-17 01:18:35,216 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0077.JPG', 'DJI_0078.JPG')
-==================================================
-2025-06-17 01:18:35,217 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0078.JPG', 'DJI_0079.JPG')
-==================================================
-2025-06-17 01:18:35,220 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0079.JPG', 'DJI_0080.JPG')
-==================================================
-2025-06-17 01:18:35,223 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0080.JPG', 'DJI_0081.JPG')
-==================================================
-2025-06-17 01:18:35,225 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0081.JPG', 'DJI_0082.JPG')
-==================================================
-2025-06-17 01:18:35,226 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0082.JPG', 'DJI_0083.JPG')
-==================================================
-2025-06-17 01:18:35,227 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0083.JPG', 'DJI_0084.JPG')
-==================================================
-2025-06-17 01:18:35,228 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0084.JPG', 'DJI_0085.JPG')
-==================================================
-2025-06-17 01:18:35,228 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0085.JPG', 'DJI_0086.JPG')
-==================================================
-2025-06-17 01:18:35,232 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0086.JPG', 'DJI_0087.JPG')
-==================================================
-2025-06-17 01:18:35,233 [INFO] stitch_sequentially:491 - 
-==================================================
-Processing pair: ('DJI_0087.JPG', 'DJI_0088.JPG')
-==================================================
-2025-06-17 01:18:35,233 [INFO] stitch_sequentially:530 - Computed 24 chained homographies.
-2025-06-17 01:18:35,635 [INFO] warp_and_blend_all:411 - Starting global warping and multi-band blending of all images.
-2025-06-17 01:18:35,635 [INFO] warp_and_blend_all:427 - Final canvas size: 2470x5267
-2025-06-17 01:18:38,977 [INFO] warp_and_blend_all:459 - Cropping final panorama...
-2025-06-17 01:18:38,985 [INFO] warp_and_blend_all:468 - Cropped to: (5266, 2470, 3)
-2025-06-17 01:18:38,994 [INFO] stitch_images_distributed:631 - Sequential stitching completed in 3.80 seconds
-2025-06-17 01:18:38,994 [INFO] stitch_images_distributed:636 - 
+2025-06-17 01:42:00,960 [INFO] stitch_images_distributed:633 - STEP 4: CENTER-REFERENCED STITCHING
+2025-06-17 01:42:00,960 [INFO] stitch_images_distributed:634 - ==================================================
+2025-06-17 01:42:00,960 [INFO] stitch_center_referenced:479 - Starting center-referenced stitching with 24 images...
+2025-06-17 01:42:00,960 [INFO] stitch_center_referenced:486 - Using image at index 12 as center reference: DJI_0077.JPG
+2025-06-17 01:42:01,193 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0065.JPG (found 1)
+2025-06-17 01:42:01,397 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0066.JPG (found 2)
+2025-06-17 01:42:01,595 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0067.JPG
+2025-06-17 01:42:01,799 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0068.JPG
+2025-06-17 01:42:02,008 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0069.JPG
+2025-06-17 01:42:02,293 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0070.JPG
+2025-06-17 01:42:03,471 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0071.JPG
+2025-06-17 01:42:04,607 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0072.JPG
+2025-06-17 01:42:05,680 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0073.JPG
+2025-06-17 01:42:06,798 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0074.JPG
+2025-06-17 01:42:07,988 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0075.JPG
+2025-06-17 01:42:09,199 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0076.JPG
+2025-06-17 01:42:10,363 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0078.JPG
+2025-06-17 01:42:11,439 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0079.JPG
+2025-06-17 01:42:12,481 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0080.JPG
+2025-06-17 01:42:13,513 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0081.JPG
+2025-06-17 01:42:14,581 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0082.JPG (found 5)
+2025-06-17 01:42:15,709 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0083.JPG (found 1)
+2025-06-17 01:42:16,575 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0084.JPG (found 1)
+2025-06-17 01:42:16,795 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0085.JPG (found 0)
+2025-06-17 01:42:17,018 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0086.JPG (found 1)
+2025-06-17 01:42:17,230 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0087.JPG (found 0)
+2025-06-17 01:42:17,437 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0088.JPG (found 0)
+2025-06-17 01:42:17,835 [INFO] warp_and_blend_all:411 - Starting global warping and simple feather blending of all images.
+2025-06-17 01:42:17,835 [INFO] warp_and_blend_all:427 - Final canvas size: 2818x3060
+2025-06-17 01:42:20,005 [INFO] warp_and_blend_all:457 - Cropping final panorama...
+2025-06-17 01:42:20,010 [INFO] warp_and_blend_all:466 - Cropped to: (3060, 2818, 3)
+2025-06-17 01:42:20,024 [INFO] stitch_images_distributed:638 - Center-referenced stitching completed in 19.06 seconds
+2025-06-17 01:42:20,024 [INFO] stitch_images_distributed:643 - 
 ======================================================================
-2025-06-17 01:18:38,994 [INFO] stitch_images_distributed:637 - TIMING SUMMARY
-2025-06-17 01:18:38,994 [INFO] stitch_images_distributed:638 - ======================================================================
-2025-06-17 01:18:38,994 [INFO] stitch_images_distributed:639 - Total processing time: 27.64 seconds
-2025-06-17 01:18:38,994 [INFO] stitch_images_distributed:640 -   • Image loading:     6.08s (22.0%)
-2025-06-17 01:18:38,994 [INFO] stitch_images_distributed:641 -   • Feature extraction: 5.91s (21.4%)
-2025-06-17 01:18:38,994 [INFO] stitch_images_distributed:642 -   • Feature matching:   11.85s (42.9%)
-2025-06-17 01:18:38,994 [INFO] stitch_images_distributed:643 -   • Image stitching:    3.80s (13.7%)
-2025-06-17 01:18:38,994 [INFO] stitch_images_distributed:644 - ======================================================================
-2025-06-17 01:18:38,994 [INFO] stitch_images_distributed:647 - SUCCESS! Final panorama shape: (5266, 2470, 3)
-2025-06-17 01:18:39,047 [INFO] main:705 - Saving panorama to: spark_distributed_panorama.jpg
-2025-06-17 01:18:39,077 [INFO] main:713 -   File size: 2.55 MB
-2025-06-17 01:18:39,077 [INFO] main:714 -   Image dimensions: (5266, 2470, 3)
-2025-06-17 01:18:39,315 [INFO] main:721 - Attempting to display result...
-2025-06-17 01:19:12,097 [INFO] stop:661 - Stopping Spark session...
-2025-06-17 01:19:12,429 [INFO] stop:663 - Spark session stopped successfully
-2025-06-17 01:19:12,429 [INFO] main:761 - Program execution completed
-2025-06-17 01:19:12,431 [INFO] close:543 - Closing down clientserver connection
-2025-06-17 01:31:50,108 [INFO] main:679 - ======================================================================
-2025-06-17 01:31:50,108 [INFO] main:680 - SPARK DISTRIBUTED IMAGE STITCHING
-2025-06-17 01:31:50,109 [INFO] main:681 - ======================================================================
-2025-06-17 01:31:50,109 [INFO] main:687 - Initializing Spark Image Stitcher...
-2025-06-17 01:31:50,109 [INFO] __init__:30 - Initializing SparkImageStitcher...
-2025-06-17 01:31:51,339 [INFO] __init__:49 - Spark session initialized successfully. Application ID: app-20250617013151-0004
-2025-06-17 01:31:51,339 [INFO] main:694 - Input directory: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
-2025-06-17 01:31:51,339 [INFO] main:695 - Output filename: spark_distributed_panorama.jpg
-2025-06-17 01:31:51,339 [INFO] main:703 - Starting distributed stitching process...
-2025-06-17 01:31:51,339 [INFO] stitch_images_distributed:557 - ======================================================================
-2025-06-17 01:31:51,339 [INFO] stitch_images_distributed:558 - DISTRIBUTED IMAGE STITCHING WITH SPARK
-2025-06-17 01:31:51,339 [INFO] stitch_images_distributed:559 - ======================================================================
-2025-06-17 01:31:51,339 [INFO] stitch_images_distributed:560 - Input directory: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
-2025-06-17 01:31:51,339 [INFO] stitch_images_distributed:561 - Minimum match count: 10
-2025-06-17 01:31:51,339 [INFO] stitch_images_distributed:562 - Match ratio threshold: 0.6
-2025-06-17 01:31:51,339 [INFO] stitch_images_distributed:563 - ======================================================================
-2025-06-17 01:31:51,339 [INFO] stitch_images_distributed:569 - 
+2025-06-17 01:42:20,024 [INFO] stitch_images_distributed:644 - TIMING SUMMARY
+2025-06-17 01:42:20,024 [INFO] stitch_images_distributed:645 - ======================================================================
+2025-06-17 01:42:20,024 [INFO] stitch_images_distributed:646 - Total processing time: 45.56 seconds
+2025-06-17 01:42:20,024 [INFO] stitch_images_distributed:647 -   • Image loading:     6.22s (13.7%)
+2025-06-17 01:42:20,024 [INFO] stitch_images_distributed:648 -   • Feature extraction: 7.10s (15.6%)
+2025-06-17 01:42:20,024 [INFO] stitch_images_distributed:649 -   • Feature matching:   13.15s (28.9%)
+2025-06-17 01:42:20,024 [INFO] stitch_images_distributed:650 -   • Image stitching:    19.06s (41.8%)
+2025-06-17 01:42:20,024 [INFO] stitch_images_distributed:651 - ======================================================================
+2025-06-17 01:42:20,024 [INFO] stitch_images_distributed:654 - SUCCESS! Final panorama shape: (3060, 2818, 3)
+2025-06-17 01:42:20,087 [INFO] main:712 - Saving panorama to: spark_distributed_panorama.jpg
+2025-06-17 01:42:20,111 [INFO] main:720 -   File size: 1.75 MB
+2025-06-17 01:42:20,111 [INFO] main:721 -   Image dimensions: (3060, 2818, 3)
+2025-06-17 01:42:20,349 [INFO] main:728 - Attempting to display result...
+2025-06-17 01:42:55,038 [INFO] stop:668 - Stopping Spark session...
+2025-06-17 01:42:55,299 [INFO] stop:670 - Spark session stopped successfully
+2025-06-17 01:42:55,299 [INFO] main:768 - Program execution completed
+2025-06-17 01:42:55,301 [INFO] close:543 - Closing down clientserver connection
+2025-06-17 01:44:21,970 [INFO] main:677 - ======================================================================
+2025-06-17 01:44:21,970 [INFO] main:678 - SPARK DISTRIBUTED IMAGE STITCHING
+2025-06-17 01:44:21,970 [INFO] main:679 - ======================================================================
+2025-06-17 01:44:21,970 [INFO] main:685 - Initializing Spark Image Stitcher...
+2025-06-17 01:44:21,970 [INFO] __init__:30 - Initializing SparkImageStitcher...
+2025-06-17 01:44:23,233 [INFO] __init__:49 - Spark session initialized successfully. Application ID: app-20250617014422-0006
+2025-06-17 01:44:23,233 [INFO] main:692 - Input directory: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
+2025-06-17 01:44:23,233 [INFO] main:693 - Output filename: spark_distributed_panorama.jpg
+2025-06-17 01:44:23,233 [INFO] main:701 - Starting distributed stitching process...
+2025-06-17 01:44:23,233 [INFO] stitch_images_distributed:555 - ======================================================================
+2025-06-17 01:44:23,233 [INFO] stitch_images_distributed:556 - DISTRIBUTED IMAGE STITCHING WITH SPARK
+2025-06-17 01:44:23,233 [INFO] stitch_images_distributed:557 - ======================================================================
+2025-06-17 01:44:23,233 [INFO] stitch_images_distributed:558 - Input directory: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
+2025-06-17 01:44:23,233 [INFO] stitch_images_distributed:559 - Minimum match count: 10
+2025-06-17 01:44:23,233 [INFO] stitch_images_distributed:560 - Match ratio threshold: 0.6
+2025-06-17 01:44:23,233 [INFO] stitch_images_distributed:561 - ======================================================================
+2025-06-17 01:44:23,233 [INFO] stitch_images_distributed:567 - 
 ==================================================
-2025-06-17 01:31:51,339 [INFO] stitch_images_distributed:570 - STEP 1: LOADING IMAGES
-2025-06-17 01:31:51,339 [INFO] stitch_images_distributed:571 - ==================================================
-2025-06-17 01:31:51,339 [INFO] load_images_distributed:103 - Searching for files with extensions: ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif']
-2025-06-17 01:31:51,339 [INFO] load_images_distributed:105 - Loading images from: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
-2025-06-17 01:31:51,340 [INFO] load_images_distributed:122 - Found 24 image files
-2025-06-17 01:31:57,567 [INFO] load_images_distributed:167 - Successfully loaded 24 out of 24 images
-2025-06-17 01:31:57,567 [INFO] load_images_distributed:173 - All files: ['DJI_0065.JPG', 'DJI_0066.JPG', 'DJI_0067.JPG', 'DJI_0068.JPG', 'DJI_0069.JPG', 'DJI_0070.JPG', 'DJI_0071.JPG', 'DJI_0072.JPG', 'DJI_0073.JPG', 'DJI_0074.JPG', 'DJI_0075.JPG', 'DJI_0076.JPG', 'DJI_0077.JPG', 'DJI_0078.JPG', 'DJI_0079.JPG', 'DJI_0080.JPG', 'DJI_0081.JPG', 'DJI_0082.JPG', 'DJI_0083.JPG', 'DJI_0084.JPG', 'DJI_0085.JPG', 'DJI_0086.JPG', 'DJI_0087.JPG', 'DJI_0088.JPG', 'Thumbs.db']
-2025-06-17 01:31:57,567 [INFO] load_images_distributed:174 - Image files: ['DJI_0065.JPG', 'DJI_0066.JPG', 'DJI_0067.JPG', 'DJI_0068.JPG', 'DJI_0069.JPG', 'DJI_0070.JPG', 'DJI_0071.JPG', 'DJI_0072.JPG', 'DJI_0073.JPG', 'DJI_0074.JPG', 'DJI_0075.JPG', 'DJI_0076.JPG', 'DJI_0077.JPG', 'DJI_0078.JPG', 'DJI_0079.JPG', 'DJI_0080.JPG', 'DJI_0081.JPG', 'DJI_0082.JPG', 'DJI_0083.JPG', 'DJI_0084.JPG', 'DJI_0085.JPG', 'DJI_0086.JPG', 'DJI_0087.JPG', 'DJI_0088.JPG']
-2025-06-17 01:31:57,567 [INFO] stitch_images_distributed:576 - Image loading completed in 6.23 seconds
-2025-06-17 01:31:57,567 [INFO] stitch_images_distributed:577 - Images loaded: 24
-2025-06-17 01:31:57,567 [INFO] stitch_images_distributed:584 - 
+2025-06-17 01:44:23,233 [INFO] stitch_images_distributed:568 - STEP 1: LOADING IMAGES
+2025-06-17 01:44:23,233 [INFO] stitch_images_distributed:569 - ==================================================
+2025-06-17 01:44:23,233 [INFO] load_images_distributed:103 - Searching for files with extensions: ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif']
+2025-06-17 01:44:23,233 [INFO] load_images_distributed:105 - Loading images from: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
+2025-06-17 01:44:23,234 [INFO] load_images_distributed:122 - Found 30 image files
+2025-06-17 01:44:30,279 [INFO] load_images_distributed:167 - Successfully loaded 30 out of 30 images
+2025-06-17 01:44:30,279 [INFO] load_images_distributed:173 - All files: ['DJI_0065.JPG', 'DJI_0066.JPG', 'DJI_0067.JPG', 'DJI_0068.JPG', 'DJI_0069.JPG', 'DJI_0070.JPG', 'DJI_0071.JPG', 'DJI_0072.JPG', 'DJI_0073.JPG', 'DJI_0074.JPG', 'DJI_0075.JPG', 'DJI_0076.JPG', 'DJI_0077.JPG', 'DJI_0078.JPG', 'DJI_0079.JPG', 'DJI_0080.JPG', 'DJI_0081.JPG', 'DJI_0082.JPG', 'DJI_0083.JPG', 'DJI_0084.JPG', 'DJI_0085.JPG', 'DJI_0086.JPG', 'DJI_0087.JPG', 'DJI_0088.JPG', 'DJI_0089.JPG', 'DJI_0090.JPG', 'DJI_0091.JPG', 'DJI_0092.JPG', 'DJI_0093.JPG', 'DJI_0094.JPG', 'Thumbs.db']
+2025-06-17 01:44:30,280 [INFO] load_images_distributed:174 - Image files: ['DJI_0065.JPG', 'DJI_0066.JPG', 'DJI_0067.JPG', 'DJI_0068.JPG', 'DJI_0069.JPG', 'DJI_0070.JPG', 'DJI_0071.JPG', 'DJI_0072.JPG', 'DJI_0073.JPG', 'DJI_0074.JPG', 'DJI_0075.JPG', 'DJI_0076.JPG', 'DJI_0077.JPG', 'DJI_0078.JPG', 'DJI_0079.JPG', 'DJI_0080.JPG', 'DJI_0081.JPG', 'DJI_0082.JPG', 'DJI_0083.JPG', 'DJI_0084.JPG', 'DJI_0085.JPG', 'DJI_0086.JPG', 'DJI_0087.JPG', 'DJI_0088.JPG', 'DJI_0089.JPG', 'DJI_0090.JPG', 'DJI_0091.JPG', 'DJI_0092.JPG', 'DJI_0093.JPG', 'DJI_0094.JPG']
+2025-06-17 01:44:30,280 [INFO] stitch_images_distributed:574 - Image loading completed in 7.05 seconds
+2025-06-17 01:44:30,280 [INFO] stitch_images_distributed:575 - Images loaded: 30
+2025-06-17 01:44:30,280 [INFO] stitch_images_distributed:582 - 
 ==================================================
-2025-06-17 01:31:57,567 [INFO] stitch_images_distributed:585 - STEP 2: FEATURE EXTRACTION
-2025-06-17 01:31:57,567 [INFO] stitch_images_distributed:586 - ==================================================
-2025-06-17 01:31:57,567 [INFO] extract_features_distributed:185 - Extracting features from 24 images...
-2025-06-17 01:32:03,558 [INFO] extract_features_distributed:261 - Feature extraction completed for 24 images
-2025-06-17 01:32:03,559 [INFO] stitch_images_distributed:591 - Feature extraction completed in 5.99 seconds
-2025-06-17 01:32:03,559 [INFO] stitch_images_distributed:592 - Images with features: 24
-2025-06-17 01:32:03,559 [INFO] stitch_images_distributed:599 - 
+2025-06-17 01:44:30,280 [INFO] stitch_images_distributed:583 - STEP 2: FEATURE EXTRACTION
+2025-06-17 01:44:30,280 [INFO] stitch_images_distributed:584 - ==================================================
+2025-06-17 01:44:30,280 [INFO] extract_features_distributed:185 - Extracting features from 30 images...
+2025-06-17 01:44:39,255 [INFO] extract_features_distributed:261 - Feature extraction completed for 30 images
+2025-06-17 01:44:39,255 [INFO] stitch_images_distributed:589 - Feature extraction completed in 8.98 seconds
+2025-06-17 01:44:39,255 [INFO] stitch_images_distributed:590 - Images with features: 30
+2025-06-17 01:44:39,255 [INFO] stitch_images_distributed:597 - 
 ==================================================
-2025-06-17 01:32:03,559 [INFO] stitch_images_distributed:600 - STEP 3: FEATURE MATCHING
-2025-06-17 01:32:03,559 [INFO] stitch_images_distributed:601 - ==================================================
-2025-06-17 01:32:03,559 [INFO] find_matches_parallel:277 - Finding matches between 24 images with ratio 0.6...
-2025-06-17 01:32:03,559 [INFO] find_matches_parallel:388 - Created 23 image pairs for matching
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0065.JPG', 'DJI_0066.JPG'): 269 matches (detector: ORB, score: 11.078)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0066.JPG', 'DJI_0067.JPG'): 188 matches (detector: ORB, score: 7.353)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0067.JPG', 'DJI_0068.JPG'): 1373 matches (detector: AKAZE, score: 5.320)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0068.JPG', 'DJI_0069.JPG'): 166 matches (detector: ORB, score: 6.058)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0069.JPG', 'DJI_0070.JPG'): 144 matches (detector: ORB, score: 4.906)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0070.JPG', 'DJI_0071.JPG'): 126 matches (detector: ORB, score: 4.112)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0071.JPG', 'DJI_0072.JPG'): 151 matches (detector: ORB, score: 4.966)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0072.JPG', 'DJI_0073.JPG'): 239 matches (detector: ORB, score: 8.640)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0073.JPG', 'DJI_0074.JPG'): 109 matches (detector: ORB, score: 3.640)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0074.JPG', 'DJI_0075.JPG'): 3530 matches (detector: AKAZE, score: 15.407)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0075.JPG', 'DJI_0076.JPG'): 96 matches (detector: ORB, score: 3.218)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0076.JPG', 'DJI_0077.JPG'): 889 matches (detector: AKAZE, score: 3.381)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0077.JPG', 'DJI_0078.JPG'): 864 matches (detector: AKAZE, score: 3.292)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0078.JPG', 'DJI_0079.JPG'): 1117 matches (detector: AKAZE, score: 4.304)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0079.JPG', 'DJI_0080.JPG'): 1168 matches (detector: AKAZE, score: 4.549)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0080.JPG', 'DJI_0081.JPG'): 120 matches (detector: ORB, score: 4.533)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0081.JPG', 'DJI_0082.JPG'): 185 matches (detector: ORB, score: 7.701)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0082.JPG', 'DJI_0083.JPG'): 138 matches (detector: ORB, score: 5.366)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0083.JPG', 'DJI_0084.JPG'): 181 matches (detector: ORB, score: 7.420)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0084.JPG', 'DJI_0085.JPG'): 167 matches (detector: ORB, score: 6.420)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0085.JPG', 'DJI_0086.JPG'): 4202 matches (detector: AKAZE, score: 17.903)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0086.JPG', 'DJI_0087.JPG'): 170 matches (detector: ORB, score: 6.922)
-2025-06-17 01:32:14,336 [INFO] find_matches_parallel:400 - Matched ('DJI_0087.JPG', 'DJI_0088.JPG'): 126 matches (detector: ORB, score: 5.116)
-2025-06-17 01:32:14,336 [INFO] stitch_images_distributed:606 - Feature matching completed in 10.78 seconds
-2025-06-17 01:32:14,336 [INFO] stitch_images_distributed:607 - Image pairs processed: 23
-2025-06-17 01:32:14,336 [INFO] stitch_images_distributed:610 - 
+2025-06-17 01:44:39,255 [INFO] stitch_images_distributed:598 - STEP 3: FEATURE MATCHING
+2025-06-17 01:44:39,255 [INFO] stitch_images_distributed:599 - ==================================================
+2025-06-17 01:44:39,255 [INFO] find_matches_parallel:277 - Finding matches between 30 images with ratio 0.6...
+2025-06-17 01:44:39,255 [INFO] find_matches_parallel:388 - Created 29 image pairs for matching
+2025-06-17 01:45:37,677 [ERROR] find_matches_parallel:406 - Error in find_matches_parallel: An error occurred while calling z:org.apache.spark.api.python.PythonRDD.collectAndServe.
+: org.apache.spark.SparkException: Job 2 cancelled because SparkContext was shut down
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$cleanUpAfterSchedulerStop$1(DAGScheduler.scala:1217)
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$cleanUpAfterSchedulerStop$1$adapted(DAGScheduler.scala:1215)
+	at scala.collection.mutable.HashSet.foreach(HashSet.scala:79)
+	at org.apache.spark.scheduler.DAGScheduler.cleanUpAfterSchedulerStop(DAGScheduler.scala:1215)
+	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onStop(DAGScheduler.scala:3016)
+	at org.apache.spark.util.EventLoop.stop(EventLoop.scala:84)
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$stop$3(DAGScheduler.scala:2907)
+	at org.apache.spark.util.Utils$.tryLogNonFatalError(Utils.scala:1509)
+	at org.apache.spark.scheduler.DAGScheduler.stop(DAGScheduler.scala:2907)
+	at org.apache.spark.SparkContext.$anonfun$stop$12(SparkContext.scala:2123)
+	at org.apache.spark.util.Utils$.tryLogNonFatalError(Utils.scala:1509)
+	at org.apache.spark.SparkContext.stop(SparkContext.scala:2123)
+	at org.apache.spark.SparkContext.stop(SparkContext.scala:2076)
+	at org.apache.spark.SparkContext.$anonfun$new$31(SparkContext.scala:659)
+	at org.apache.spark.util.SparkShutdownHook.run(ShutdownHookManager.scala:214)
+	at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$2(ShutdownHookManager.scala:188)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+	at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:2088)
+	at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$1(ShutdownHookManager.scala:188)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+	at scala.util.Try$.apply(Try.scala:213)
+	at org.apache.spark.util.SparkShutdownHookManager.runAll(ShutdownHookManager.scala:188)
+	at org.apache.spark.util.SparkShutdownHookManager$$anon$2.run(ShutdownHookManager.scala:178)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+	at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:976)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2258)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2279)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2298)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2323)
+	at org.apache.spark.rdd.RDD.$anonfun$collect$1(RDD.scala:1022)
+	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)
+	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)
+	at org.apache.spark.rdd.RDD.withScope(RDD.scala:408)
+	at org.apache.spark.rdd.RDD.collect(RDD.scala:1021)
+	at org.apache.spark.api.python.PythonRDD$.collectAndServe(PythonRDD.scala:193)
+	at org.apache.spark.api.python.PythonRDD.collectAndServe(PythonRDD.scala)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+	at py4j.Gateway.invoke(Gateway.java:282)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+
+2025-06-17 01:45:37,679 [ERROR] find_matches_parallel:407 - Traceback (most recent call last):
+  File "C:\Users\user\Desktop\Keshav\testStitchSpark.py", line 393, in find_matches_parallel
+    match_results = matches_rdd.collect()
+  File "C:\Spark\python\lib\pyspark.zip\pyspark\rdd.py", line 1814, in collect
+    sock_info = self.ctx._jvm.PythonRDD.collectAndServe(self._jrdd.rdd())
+  File "C:\Spark\python\lib\py4j-0.10.9.7.zip\py4j\java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+  File "C:\Spark\python\lib\pyspark.zip\pyspark\errors\exceptions\captured.py", line 169, in deco
+    return f(*a, **kw)
+  File "C:\Spark\python\lib\py4j-0.10.9.7.zip\py4j\protocol.py", line 326, in get_return_value
+    raise Py4JJavaError(
+py4j.protocol.Py4JJavaError: An error occurred while calling z:org.apache.spark.api.python.PythonRDD.collectAndServe.
+: org.apache.spark.SparkException: Job 2 cancelled because SparkContext was shut down
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$cleanUpAfterSchedulerStop$1(DAGScheduler.scala:1217)
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$cleanUpAfterSchedulerStop$1$adapted(DAGScheduler.scala:1215)
+	at scala.collection.mutable.HashSet.foreach(HashSet.scala:79)
+	at org.apache.spark.scheduler.DAGScheduler.cleanUpAfterSchedulerStop(DAGScheduler.scala:1215)
+	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onStop(DAGScheduler.scala:3016)
+	at org.apache.spark.util.EventLoop.stop(EventLoop.scala:84)
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$stop$3(DAGScheduler.scala:2907)
+	at org.apache.spark.util.Utils$.tryLogNonFatalError(Utils.scala:1509)
+	at org.apache.spark.scheduler.DAGScheduler.stop(DAGScheduler.scala:2907)
+	at org.apache.spark.SparkContext.$anonfun$stop$12(SparkContext.scala:2123)
+	at org.apache.spark.util.Utils$.tryLogNonFatalError(Utils.scala:1509)
+	at org.apache.spark.SparkContext.stop(SparkContext.scala:2123)
+	at org.apache.spark.SparkContext.stop(SparkContext.scala:2076)
+	at org.apache.spark.SparkContext.$anonfun$new$31(SparkContext.scala:659)
+	at org.apache.spark.util.SparkShutdownHook.run(ShutdownHookManager.scala:214)
+	at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$2(ShutdownHookManager.scala:188)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+	at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:2088)
+	at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$1(ShutdownHookManager.scala:188)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+	at scala.util.Try$.apply(Try.scala:213)
+	at org.apache.spark.util.SparkShutdownHookManager.runAll(ShutdownHookManager.scala:188)
+	at org.apache.spark.util.SparkShutdownHookManager$$anon$2.run(ShutdownHookManager.scala:178)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+	at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:976)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2258)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2279)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2298)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2323)
+	at org.apache.spark.rdd.RDD.$anonfun$collect$1(RDD.scala:1022)
+	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)
+	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)
+	at org.apache.spark.rdd.RDD.withScope(RDD.scala:408)
+	at org.apache.spark.rdd.RDD.collect(RDD.scala:1021)
+	at org.apache.spark.api.python.PythonRDD$.collectAndServe(PythonRDD.scala:193)
+	at org.apache.spark.api.python.PythonRDD.collectAndServe(PythonRDD.scala)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+	at py4j.Gateway.invoke(Gateway.java:282)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+
+
+2025-06-17 01:45:37,679 [INFO] stitch_images_distributed:604 - Feature matching completed in 58.42 seconds
+2025-06-17 01:45:37,679 [INFO] stitch_images_distributed:605 - Image pairs processed: 0
+2025-06-17 01:45:37,679 [INFO] stitch_images_distributed:608 - 
 MATCH RESULTS SUMMARY:
-2025-06-17 01:32:14,336 [INFO] stitch_images_distributed:611 - --------------------------------------------------
-2025-06-17 01:32:14,347 [INFO] stitch_images_distributed:626 - 
-Total matches found: 15718
-2025-06-17 01:32:14,347 [INFO] stitch_images_distributed:634 - 
+2025-06-17 01:45:37,679 [INFO] stitch_images_distributed:609 - --------------------------------------------------
+2025-06-17 01:45:37,679 [INFO] stitch_images_distributed:624 - 
+Total matches found: 0
+2025-06-17 01:45:37,682 [ERROR] stitch_images_distributed:628 - No valid image pairs found for stitching!
+2025-06-17 01:45:37,749 [ERROR] main:749 - Could not create panorama with distributed processing
+2025-06-17 01:45:37,749 [INFO] main:750 - Possible issues:
+2025-06-17 01:45:37,750 [INFO] main:751 -   • Insufficient matching features between images
+2025-06-17 01:45:37,750 [INFO] main:752 -   • Images may not have sufficient overlap
+2025-06-17 01:45:37,750 [INFO] main:753 -   • Try adjusting match_ratio or min_match_count parameters
+2025-06-17 01:45:37,750 [INFO] main:754 -   • Check image quality and lighting conditions
+2025-06-17 01:45:37,750 [INFO] stop:668 - Stopping Spark session...
+2025-06-17 01:45:38,204 [INFO] send_command:538 - Error while receiving.
+Traceback (most recent call last):
+  File "C:\Spark\python\lib\py4j-0.10.9.7.zip\py4j\clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-06-17 01:45:38,207 [INFO] close:543 - Closing down clientserver connection
+2025-06-17 01:45:38,207 [ERROR] send_command:1055 - Exception while sending command.
+Traceback (most recent call last):
+  File "C:\Spark\python\lib\py4j-0.10.9.7.zip\py4j\clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Spark\python\lib\py4j-0.10.9.7.zip\py4j\java_gateway.py", line 1038, in send_command
+    response = connection.send_command(command)
+  File "C:\Spark\python\lib\py4j-0.10.9.7.zip\py4j\clientserver.py", line 539, in send_command
+    raise Py4JNetworkError(
+py4j.protocol.Py4JNetworkError: Error while sending or receiving
+2025-06-17 01:45:38,207 [INFO] close:543 - Closing down clientserver connection
+2025-06-17 01:45:40,229 [INFO] close:543 - Closing down clientserver connection
+2025-06-17 01:45:40,230 [ERROR] stop:672 - Error stopping Spark session: [WinError 10061] No connection could be made because the target machine actively refused it
+2025-06-17 01:45:40,230 [INFO] close:543 - Closing down clientserver connection
+2025-06-17 01:45:40,230 [INFO] main:768 - Program execution completed
+2025-06-17 01:45:40,232 [INFO] close:543 - Closing down clientserver connection
+2025-06-17 01:45:52,144 [INFO] main:677 - ======================================================================
+2025-06-17 01:45:52,144 [INFO] main:678 - SPARK DISTRIBUTED IMAGE STITCHING
+2025-06-17 01:45:52,144 [INFO] main:679 - ======================================================================
+2025-06-17 01:45:52,144 [INFO] main:685 - Initializing Spark Image Stitcher...
+2025-06-17 01:45:52,144 [INFO] __init__:30 - Initializing SparkImageStitcher...
+2025-06-17 01:45:53,376 [INFO] __init__:49 - Spark session initialized successfully. Application ID: app-20250617014553-0007
+2025-06-17 01:45:53,377 [INFO] main:692 - Input directory: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
+2025-06-17 01:45:53,377 [INFO] main:693 - Output filename: spark_distributed_panorama.jpg
+2025-06-17 01:45:53,377 [INFO] main:701 - Starting distributed stitching process...
+2025-06-17 01:45:53,377 [INFO] stitch_images_distributed:555 - ======================================================================
+2025-06-17 01:45:53,377 [INFO] stitch_images_distributed:556 - DISTRIBUTED IMAGE STITCHING WITH SPARK
+2025-06-17 01:45:53,377 [INFO] stitch_images_distributed:557 - ======================================================================
+2025-06-17 01:45:53,377 [INFO] stitch_images_distributed:558 - Input directory: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
+2025-06-17 01:45:53,377 [INFO] stitch_images_distributed:559 - Minimum match count: 10
+2025-06-17 01:45:53,377 [INFO] stitch_images_distributed:560 - Match ratio threshold: 0.6
+2025-06-17 01:45:53,377 [INFO] stitch_images_distributed:561 - ======================================================================
+2025-06-17 01:45:53,377 [INFO] stitch_images_distributed:567 - 
 ==================================================
-2025-06-17 01:32:14,347 [INFO] stitch_images_distributed:635 - STEP 4: CENTER-REFERENCED STITCHING
-2025-06-17 01:32:14,347 [INFO] stitch_images_distributed:636 - ==================================================
-2025-06-17 01:32:14,347 [INFO] stitch_center_referenced:481 - Starting center-referenced stitching with 24 images...
-2025-06-17 01:32:14,347 [INFO] stitch_center_referenced:488 - Using image at index 12 as center reference: DJI_0077.JPG
-2025-06-17 01:32:14,633 [WARNING] stitch_center_referenced:535 - Insufficient matches to center for image DJI_0065.JPG (found 1)
-2025-06-17 01:32:14,834 [WARNING] stitch_center_referenced:535 - Insufficient matches to center for image DJI_0066.JPG (found 2)
-2025-06-17 01:32:15,034 [INFO] stitch_center_referenced:543 - Computed homography to center for image DJI_0067.JPG
-2025-06-17 01:32:15,237 [INFO] stitch_center_referenced:543 - Computed homography to center for image DJI_0068.JPG
-2025-06-17 01:32:15,441 [INFO] stitch_center_referenced:543 - Computed homography to center for image DJI_0069.JPG
-2025-06-17 01:32:15,647 [INFO] stitch_center_referenced:543 - Computed homography to center for image DJI_0070.JPG
-2025-06-17 01:32:15,863 [INFO] stitch_center_referenced:543 - Computed homography to center for image DJI_0071.JPG
-2025-06-17 01:32:16,073 [INFO] stitch_center_referenced:543 - Computed homography to center for image DJI_0072.JPG
-2025-06-17 01:32:16,290 [INFO] stitch_center_referenced:543 - Computed homography to center for image DJI_0073.JPG
-2025-06-17 01:32:16,501 [INFO] stitch_center_referenced:543 - Computed homography to center for image DJI_0074.JPG
-2025-06-17 01:32:16,709 [INFO] stitch_center_referenced:543 - Computed homography to center for image DJI_0075.JPG
-2025-06-17 01:32:16,922 [INFO] stitch_center_referenced:543 - Computed homography to center for image DJI_0076.JPG
-2025-06-17 01:32:17,135 [INFO] stitch_center_referenced:543 - Computed homography to center for image DJI_0078.JPG
-2025-06-17 01:32:17,341 [INFO] stitch_center_referenced:543 - Computed homography to center for image DJI_0079.JPG
-2025-06-17 01:32:17,543 [INFO] stitch_center_referenced:543 - Computed homography to center for image DJI_0080.JPG
-2025-06-17 01:32:17,748 [INFO] stitch_center_referenced:543 - Computed homography to center for image DJI_0081.JPG
-2025-06-17 01:32:17,954 [WARNING] stitch_center_referenced:535 - Insufficient matches to center for image DJI_0082.JPG (found 5)
-2025-06-17 01:32:18,162 [WARNING] stitch_center_referenced:535 - Insufficient matches to center for image DJI_0083.JPG (found 1)
-2025-06-17 01:32:18,370 [WARNING] stitch_center_referenced:535 - Insufficient matches to center for image DJI_0084.JPG (found 1)
-2025-06-17 01:32:18,591 [WARNING] stitch_center_referenced:535 - Insufficient matches to center for image DJI_0085.JPG (found 0)
-2025-06-17 01:32:18,813 [WARNING] stitch_center_referenced:535 - Insufficient matches to center for image DJI_0086.JPG (found 1)
-2025-06-17 01:32:19,023 [WARNING] stitch_center_referenced:535 - Insufficient matches to center for image DJI_0087.JPG (found 0)
-2025-06-17 01:32:19,230 [WARNING] stitch_center_referenced:535 - Insufficient matches to center for image DJI_0088.JPG (found 0)
-2025-06-17 01:32:19,622 [INFO] warp_and_blend_all:411 - Starting global warping and multi-band blending of all images.
-2025-06-17 01:32:19,622 [INFO] warp_and_blend_all:427 - Final canvas size: 2818x3060
-2025-06-17 01:32:21,077 [INFO] warp_and_blend_all:459 - Cropping final panorama...
-2025-06-17 01:32:21,082 [INFO] warp_and_blend_all:468 - Cropped to: (3060, 2818, 3)
-2025-06-17 01:32:21,090 [INFO] stitch_images_distributed:640 - Center-referenced stitching completed in 6.74 seconds
-2025-06-17 01:32:21,091 [INFO] stitch_images_distributed:645 - 
+2025-06-17 01:45:53,377 [INFO] stitch_images_distributed:568 - STEP 1: LOADING IMAGES
+2025-06-17 01:45:53,377 [INFO] stitch_images_distributed:569 - ==================================================
+2025-06-17 01:45:53,377 [INFO] load_images_distributed:103 - Searching for files with extensions: ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif']
+2025-06-17 01:45:53,377 [INFO] load_images_distributed:105 - Loading images from: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
+2025-06-17 01:45:53,377 [INFO] load_images_distributed:122 - Found 27 image files
+2025-06-17 01:45:59,839 [INFO] load_images_distributed:167 - Successfully loaded 27 out of 27 images
+2025-06-17 01:45:59,840 [INFO] load_images_distributed:173 - All files: ['DJI_0065.JPG', 'DJI_0066.JPG', 'DJI_0067.JPG', 'DJI_0068.JPG', 'DJI_0069.JPG', 'DJI_0070.JPG', 'DJI_0071.JPG', 'DJI_0072.JPG', 'DJI_0073.JPG', 'DJI_0074.JPG', 'DJI_0075.JPG', 'DJI_0076.JPG', 'DJI_0077.JPG', 'DJI_0078.JPG', 'DJI_0079.JPG', 'DJI_0080.JPG', 'DJI_0081.JPG', 'DJI_0082.JPG', 'DJI_0083.JPG', 'DJI_0084.JPG', 'DJI_0085.JPG', 'DJI_0086.JPG', 'DJI_0087.JPG', 'DJI_0088.JPG', 'DJI_0089.JPG', 'DJI_0090.JPG', 'DJI_0091.JPG', 'Thumbs.db']
+2025-06-17 01:45:59,840 [INFO] load_images_distributed:174 - Image files: ['DJI_0065.JPG', 'DJI_0066.JPG', 'DJI_0067.JPG', 'DJI_0068.JPG', 'DJI_0069.JPG', 'DJI_0070.JPG', 'DJI_0071.JPG', 'DJI_0072.JPG', 'DJI_0073.JPG', 'DJI_0074.JPG', 'DJI_0075.JPG', 'DJI_0076.JPG', 'DJI_0077.JPG', 'DJI_0078.JPG', 'DJI_0079.JPG', 'DJI_0080.JPG', 'DJI_0081.JPG', 'DJI_0082.JPG', 'DJI_0083.JPG', 'DJI_0084.JPG', 'DJI_0085.JPG', 'DJI_0086.JPG', 'DJI_0087.JPG', 'DJI_0088.JPG', 'DJI_0089.JPG', 'DJI_0090.JPG', 'DJI_0091.JPG']
+2025-06-17 01:45:59,840 [INFO] stitch_images_distributed:574 - Image loading completed in 6.46 seconds
+2025-06-17 01:45:59,840 [INFO] stitch_images_distributed:575 - Images loaded: 27
+2025-06-17 01:45:59,840 [INFO] stitch_images_distributed:582 - 
+==================================================
+2025-06-17 01:45:59,840 [INFO] stitch_images_distributed:583 - STEP 2: FEATURE EXTRACTION
+2025-06-17 01:45:59,840 [INFO] stitch_images_distributed:584 - ==================================================
+2025-06-17 01:45:59,840 [INFO] extract_features_distributed:185 - Extracting features from 27 images...
+2025-06-17 01:46:06,728 [INFO] extract_features_distributed:261 - Feature extraction completed for 27 images
+2025-06-17 01:46:06,728 [INFO] stitch_images_distributed:589 - Feature extraction completed in 6.89 seconds
+2025-06-17 01:46:06,729 [INFO] stitch_images_distributed:590 - Images with features: 27
+2025-06-17 01:46:06,729 [INFO] stitch_images_distributed:597 - 
+==================================================
+2025-06-17 01:46:06,729 [INFO] stitch_images_distributed:598 - STEP 3: FEATURE MATCHING
+2025-06-17 01:46:06,729 [INFO] stitch_images_distributed:599 - ==================================================
+2025-06-17 01:46:06,729 [INFO] find_matches_parallel:277 - Finding matches between 27 images with ratio 0.6...
+2025-06-17 01:46:06,729 [INFO] find_matches_parallel:388 - Created 26 image pairs for matching
+2025-06-17 01:46:22,425 [ERROR] find_matches_parallel:406 - Error in find_matches_parallel: An error occurred while calling z:org.apache.spark.api.python.PythonRDD.collectAndServe.
+: org.apache.spark.SparkException: Job 2 cancelled because SparkContext was shut down
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$cleanUpAfterSchedulerStop$1(DAGScheduler.scala:1217)
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$cleanUpAfterSchedulerStop$1$adapted(DAGScheduler.scala:1215)
+	at scala.collection.mutable.HashSet.foreach(HashSet.scala:79)
+	at org.apache.spark.scheduler.DAGScheduler.cleanUpAfterSchedulerStop(DAGScheduler.scala:1215)
+	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onStop(DAGScheduler.scala:3016)
+	at org.apache.spark.util.EventLoop.stop(EventLoop.scala:84)
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$stop$3(DAGScheduler.scala:2907)
+	at org.apache.spark.util.Utils$.tryLogNonFatalError(Utils.scala:1509)
+	at org.apache.spark.scheduler.DAGScheduler.stop(DAGScheduler.scala:2907)
+	at org.apache.spark.SparkContext.$anonfun$stop$12(SparkContext.scala:2123)
+	at org.apache.spark.util.Utils$.tryLogNonFatalError(Utils.scala:1509)
+	at org.apache.spark.SparkContext.stop(SparkContext.scala:2123)
+	at org.apache.spark.SparkContext.stop(SparkContext.scala:2076)
+	at org.apache.spark.SparkContext.$anonfun$new$31(SparkContext.scala:659)
+	at org.apache.spark.util.SparkShutdownHook.run(ShutdownHookManager.scala:214)
+	at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$2(ShutdownHookManager.scala:188)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+	at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:2088)
+	at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$1(ShutdownHookManager.scala:188)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+	at scala.util.Try$.apply(Try.scala:213)
+	at org.apache.spark.util.SparkShutdownHookManager.runAll(ShutdownHookManager.scala:188)
+	at org.apache.spark.util.SparkShutdownHookManager$$anon$2.run(ShutdownHookManager.scala:178)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+	at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:976)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2258)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2279)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2298)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2323)
+	at org.apache.spark.rdd.RDD.$anonfun$collect$1(RDD.scala:1022)
+	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)
+	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)
+	at org.apache.spark.rdd.RDD.withScope(RDD.scala:408)
+	at org.apache.spark.rdd.RDD.collect(RDD.scala:1021)
+	at org.apache.spark.api.python.PythonRDD$.collectAndServe(PythonRDD.scala:193)
+	at org.apache.spark.api.python.PythonRDD.collectAndServe(PythonRDD.scala)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+	at py4j.Gateway.invoke(Gateway.java:282)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+
+2025-06-17 01:46:22,428 [ERROR] find_matches_parallel:407 - Traceback (most recent call last):
+  File "C:\Users\user\Desktop\Keshav\testStitchSpark.py", line 393, in find_matches_parallel
+    match_results = matches_rdd.collect()
+  File "C:\Spark\python\lib\pyspark.zip\pyspark\rdd.py", line 1814, in collect
+    sock_info = self.ctx._jvm.PythonRDD.collectAndServe(self._jrdd.rdd())
+  File "C:\Spark\python\lib\py4j-0.10.9.7.zip\py4j\java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+  File "C:\Spark\python\lib\pyspark.zip\pyspark\errors\exceptions\captured.py", line 169, in deco
+    return f(*a, **kw)
+  File "C:\Spark\python\lib\py4j-0.10.9.7.zip\py4j\protocol.py", line 326, in get_return_value
+    raise Py4JJavaError(
+py4j.protocol.Py4JJavaError: An error occurred while calling z:org.apache.spark.api.python.PythonRDD.collectAndServe.
+: org.apache.spark.SparkException: Job 2 cancelled because SparkContext was shut down
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$cleanUpAfterSchedulerStop$1(DAGScheduler.scala:1217)
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$cleanUpAfterSchedulerStop$1$adapted(DAGScheduler.scala:1215)
+	at scala.collection.mutable.HashSet.foreach(HashSet.scala:79)
+	at org.apache.spark.scheduler.DAGScheduler.cleanUpAfterSchedulerStop(DAGScheduler.scala:1215)
+	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onStop(DAGScheduler.scala:3016)
+	at org.apache.spark.util.EventLoop.stop(EventLoop.scala:84)
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$stop$3(DAGScheduler.scala:2907)
+	at org.apache.spark.util.Utils$.tryLogNonFatalError(Utils.scala:1509)
+	at org.apache.spark.scheduler.DAGScheduler.stop(DAGScheduler.scala:2907)
+	at org.apache.spark.SparkContext.$anonfun$stop$12(SparkContext.scala:2123)
+	at org.apache.spark.util.Utils$.tryLogNonFatalError(Utils.scala:1509)
+	at org.apache.spark.SparkContext.stop(SparkContext.scala:2123)
+	at org.apache.spark.SparkContext.stop(SparkContext.scala:2076)
+	at org.apache.spark.SparkContext.$anonfun$new$31(SparkContext.scala:659)
+	at org.apache.spark.util.SparkShutdownHook.run(ShutdownHookManager.scala:214)
+	at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$2(ShutdownHookManager.scala:188)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+	at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:2088)
+	at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$1(ShutdownHookManager.scala:188)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+	at scala.util.Try$.apply(Try.scala:213)
+	at org.apache.spark.util.SparkShutdownHookManager.runAll(ShutdownHookManager.scala:188)
+	at org.apache.spark.util.SparkShutdownHookManager$$anon$2.run(ShutdownHookManager.scala:178)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+	at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:976)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2258)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2279)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2298)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2323)
+	at org.apache.spark.rdd.RDD.$anonfun$collect$1(RDD.scala:1022)
+	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)
+	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)
+	at org.apache.spark.rdd.RDD.withScope(RDD.scala:408)
+	at org.apache.spark.rdd.RDD.collect(RDD.scala:1021)
+	at org.apache.spark.api.python.PythonRDD$.collectAndServe(PythonRDD.scala:193)
+	at org.apache.spark.api.python.PythonRDD.collectAndServe(PythonRDD.scala)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+	at py4j.Gateway.invoke(Gateway.java:282)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+
+
+2025-06-17 01:46:22,428 [INFO] stitch_images_distributed:604 - Feature matching completed in 15.70 seconds
+2025-06-17 01:46:22,428 [INFO] stitch_images_distributed:605 - Image pairs processed: 0
+2025-06-17 01:46:22,428 [INFO] stitch_images_distributed:608 - 
+MATCH RESULTS SUMMARY:
+2025-06-17 01:46:22,428 [INFO] stitch_images_distributed:609 - --------------------------------------------------
+2025-06-17 01:46:22,428 [INFO] stitch_images_distributed:624 - 
+Total matches found: 0
+2025-06-17 01:46:22,430 [ERROR] stitch_images_distributed:628 - No valid image pairs found for stitching!
+2025-06-17 01:46:22,490 [ERROR] main:749 - Could not create panorama with distributed processing
+2025-06-17 01:46:22,490 [INFO] main:750 - Possible issues:
+2025-06-17 01:46:22,491 [INFO] main:751 -   • Insufficient matching features between images
+2025-06-17 01:46:22,491 [INFO] main:752 -   • Images may not have sufficient overlap
+2025-06-17 01:46:22,491 [INFO] main:753 -   • Try adjusting match_ratio or min_match_count parameters
+2025-06-17 01:46:22,491 [INFO] main:754 -   • Check image quality and lighting conditions
+2025-06-17 01:46:22,491 [INFO] stop:668 - Stopping Spark session...
+2025-06-17 01:46:22,962 [INFO] send_command:538 - Error while receiving.
+Traceback (most recent call last):
+  File "C:\Spark\python\lib\py4j-0.10.9.7.zip\py4j\clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-06-17 01:46:22,963 [INFO] close:543 - Closing down clientserver connection
+2025-06-17 01:46:22,963 [ERROR] send_command:1055 - Exception while sending command.
+Traceback (most recent call last):
+  File "C:\Spark\python\lib\py4j-0.10.9.7.zip\py4j\clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Spark\python\lib\py4j-0.10.9.7.zip\py4j\java_gateway.py", line 1038, in send_command
+    response = connection.send_command(command)
+  File "C:\Spark\python\lib\py4j-0.10.9.7.zip\py4j\clientserver.py", line 539, in send_command
+    raise Py4JNetworkError(
+py4j.protocol.Py4JNetworkError: Error while sending or receiving
+2025-06-17 01:46:22,963 [INFO] close:543 - Closing down clientserver connection
+2025-06-17 01:46:24,985 [INFO] close:543 - Closing down clientserver connection
+2025-06-17 01:46:24,986 [ERROR] stop:672 - Error stopping Spark session: [WinError 10061] No connection could be made because the target machine actively refused it
+2025-06-17 01:46:24,986 [INFO] close:543 - Closing down clientserver connection
+2025-06-17 01:46:24,986 [INFO] main:768 - Program execution completed
+2025-06-17 01:46:24,989 [INFO] close:543 - Closing down clientserver connection
+2025-06-17 01:48:16,941 [INFO] main:677 - ======================================================================
+2025-06-17 01:48:16,941 [INFO] main:678 - SPARK DISTRIBUTED IMAGE STITCHING
+2025-06-17 01:48:16,941 [INFO] main:679 - ======================================================================
+2025-06-17 01:48:16,941 [INFO] main:685 - Initializing Spark Image Stitcher...
+2025-06-17 01:48:16,941 [INFO] __init__:30 - Initializing SparkImageStitcher...
+2025-06-17 01:48:18,180 [INFO] __init__:49 - Spark session initialized successfully. Application ID: app-20250617014817-0008
+2025-06-17 01:48:18,180 [INFO] main:692 - Input directory: C:\Users\user\Desktop\Keshav\Nesac_Outreach_Mapping
+2025-06-17 01:48:18,180 [INFO] main:693 - Output filename: spark_distributed_panorama.jpg
+2025-06-17 01:48:18,180 [INFO] main:701 - Starting distributed stitching process...
+2025-06-17 01:48:18,180 [INFO] stitch_images_distributed:555 - ======================================================================
+2025-06-17 01:48:18,180 [INFO] stitch_images_distributed:556 - DISTRIBUTED IMAGE STITCHING WITH SPARK
+2025-06-17 01:48:18,180 [INFO] stitch_images_distributed:557 - ======================================================================
+2025-06-17 01:48:18,180 [INFO] stitch_images_distributed:558 - Input directory: C:\Users\user\Desktop\Keshav\Nesac_Outreach_Mapping
+2025-06-17 01:48:18,180 [INFO] stitch_images_distributed:559 - Minimum match count: 10
+2025-06-17 01:48:18,180 [INFO] stitch_images_distributed:560 - Match ratio threshold: 0.6
+2025-06-17 01:48:18,180 [INFO] stitch_images_distributed:561 - ======================================================================
+2025-06-17 01:48:18,180 [INFO] stitch_images_distributed:567 - 
+==================================================
+2025-06-17 01:48:18,180 [INFO] stitch_images_distributed:568 - STEP 1: LOADING IMAGES
+2025-06-17 01:48:18,180 [INFO] stitch_images_distributed:569 - ==================================================
+2025-06-17 01:48:18,180 [INFO] load_images_distributed:103 - Searching for files with extensions: ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif']
+2025-06-17 01:48:18,180 [INFO] load_images_distributed:105 - Loading images from: C:\Users\user\Desktop\Keshav\Nesac_Outreach_Mapping
+2025-06-17 01:48:18,180 [INFO] load_images_distributed:122 - Found 52 image files
+2025-06-17 01:48:28,169 [INFO] load_images_distributed:167 - Successfully loaded 52 out of 52 images
+2025-06-17 01:48:28,170 [INFO] load_images_distributed:173 - All files: ['DJI_0437.JPG', 'DJI_0438.JPG', 'DJI_0439.JPG', 'DJI_0440.JPG', 'DJI_0441.JPG', 'DJI_0442.JPG', 'DJI_0443.JPG', 'DJI_0444.JPG', 'DJI_0445.JPG', 'DJI_0446.JPG', 'DJI_0447.JPG', 'DJI_0448.JPG', 'DJI_0449.JPG', 'DJI_0450.JPG', 'DJI_0451.JPG', 'DJI_0452.JPG', 'DJI_0453.JPG', 'DJI_0454.JPG', 'DJI_0455.JPG', 'DJI_0456.JPG', 'DJI_0457.JPG', 'DJI_0458.JPG', 'DJI_0459.JPG', 'DJI_0460.JPG', 'DJI_0461.JPG', 'DJI_0462.JPG', 'DJI_0463.JPG', 'DJI_0464.JPG', 'DJI_0465.JPG', 'DJI_0466.JPG', 'DJI_0467.JPG', 'DJI_0468.JPG', 'DJI_0469.JPG', 'DJI_0470.JPG', 'DJI_0471.JPG', 'DJI_0472.JPG', 'DJI_0473.JPG', 'DJI_0474.JPG', 'DJI_0475.JPG', 'DJI_0476.JPG', 'DJI_0477.JPG', 'DJI_0478.JPG', 'DJI_0479.JPG', 'DJI_0480.JPG', 'DJI_0481.JPG', 'DJI_0482.JPG', 'DJI_0483.JPG', 'DJI_0484.JPG', 'DJI_0485.JPG', 'DJI_0486.JPG', 'DJI_0487.JPG', 'DJI_0488.JPG', 'Thumbs.db']
+2025-06-17 01:48:28,170 [INFO] load_images_distributed:174 - Image files: ['DJI_0437.JPG', 'DJI_0438.JPG', 'DJI_0439.JPG', 'DJI_0440.JPG', 'DJI_0441.JPG', 'DJI_0442.JPG', 'DJI_0443.JPG', 'DJI_0444.JPG', 'DJI_0445.JPG', 'DJI_0446.JPG', 'DJI_0447.JPG', 'DJI_0448.JPG', 'DJI_0449.JPG', 'DJI_0450.JPG', 'DJI_0451.JPG', 'DJI_0452.JPG', 'DJI_0453.JPG', 'DJI_0454.JPG', 'DJI_0455.JPG', 'DJI_0456.JPG', 'DJI_0457.JPG', 'DJI_0458.JPG', 'DJI_0459.JPG', 'DJI_0460.JPG', 'DJI_0461.JPG', 'DJI_0462.JPG', 'DJI_0463.JPG', 'DJI_0464.JPG', 'DJI_0465.JPG', 'DJI_0466.JPG', 'DJI_0467.JPG', 'DJI_0468.JPG', 'DJI_0469.JPG', 'DJI_0470.JPG', 'DJI_0471.JPG', 'DJI_0472.JPG', 'DJI_0473.JPG', 'DJI_0474.JPG', 'DJI_0475.JPG', 'DJI_0476.JPG', 'DJI_0477.JPG', 'DJI_0478.JPG', 'DJI_0479.JPG', 'DJI_0480.JPG', 'DJI_0481.JPG', 'DJI_0482.JPG', 'DJI_0483.JPG', 'DJI_0484.JPG', 'DJI_0485.JPG', 'DJI_0486.JPG', 'DJI_0487.JPG', 'DJI_0488.JPG']
+2025-06-17 01:48:28,170 [INFO] stitch_images_distributed:574 - Image loading completed in 9.99 seconds
+2025-06-17 01:48:28,170 [INFO] stitch_images_distributed:575 - Images loaded: 52
+2025-06-17 01:48:28,170 [INFO] stitch_images_distributed:582 - 
+==================================================
+2025-06-17 01:48:28,170 [INFO] stitch_images_distributed:583 - STEP 2: FEATURE EXTRACTION
+2025-06-17 01:48:28,170 [INFO] stitch_images_distributed:584 - ==================================================
+2025-06-17 01:48:28,170 [INFO] extract_features_distributed:185 - Extracting features from 52 images...
+2025-06-17 01:48:43,266 [INFO] extract_features_distributed:261 - Feature extraction completed for 52 images
+2025-06-17 01:48:43,267 [INFO] stitch_images_distributed:589 - Feature extraction completed in 15.10 seconds
+2025-06-17 01:48:43,267 [INFO] stitch_images_distributed:590 - Images with features: 52
+2025-06-17 01:48:43,267 [INFO] stitch_images_distributed:597 - 
+==================================================
+2025-06-17 01:48:43,267 [INFO] stitch_images_distributed:598 - STEP 3: FEATURE MATCHING
+2025-06-17 01:48:43,267 [INFO] stitch_images_distributed:599 - ==================================================
+2025-06-17 01:48:43,267 [INFO] find_matches_parallel:277 - Finding matches between 52 images with ratio 0.6...
+2025-06-17 01:48:43,267 [INFO] find_matches_parallel:388 - Created 51 image pairs for matching
+2025-06-17 01:49:02,949 [ERROR] find_matches_parallel:406 - Error in find_matches_parallel: An error occurred while calling z:org.apache.spark.api.python.PythonRDD.collectAndServe.
+: org.apache.spark.SparkException: Job 2 cancelled because killed via the Web UI
+	at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2790)
+	at org.apache.spark.scheduler.DAGScheduler.handleJobCancellation(DAGScheduler.scala:2665)
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$handleStageCancellation$1(DAGScheduler.scala:2654)
+	at scala.runtime.java8.JFunction1$mcVI$sp.apply(JFunction1$mcVI$sp.java:23)
+	at scala.collection.IndexedSeqOptimized.foreach(IndexedSeqOptimized.scala:36)
+	at scala.collection.IndexedSeqOptimized.foreach$(IndexedSeqOptimized.scala:33)
+	at scala.collection.mutable.ArrayOps$ofInt.foreach(ArrayOps.scala:246)
+	at org.apache.spark.scheduler.DAGScheduler.handleStageCancellation(DAGScheduler.scala:2647)
+	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:2942)
+	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2928)
+	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2917)
+	at org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:49)
+	at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:976)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2258)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2279)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2298)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2323)
+	at org.apache.spark.rdd.RDD.$anonfun$collect$1(RDD.scala:1022)
+	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)
+	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)
+	at org.apache.spark.rdd.RDD.withScope(RDD.scala:408)
+	at org.apache.spark.rdd.RDD.collect(RDD.scala:1021)
+	at org.apache.spark.api.python.PythonRDD$.collectAndServe(PythonRDD.scala:193)
+	at org.apache.spark.api.python.PythonRDD.collectAndServe(PythonRDD.scala)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+	at py4j.Gateway.invoke(Gateway.java:282)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+
+2025-06-17 01:49:02,952 [ERROR] find_matches_parallel:407 - Traceback (most recent call last):
+  File "C:\Users\user\Desktop\Keshav\testStitchSpark.py", line 393, in find_matches_parallel
+    match_results = matches_rdd.collect()
+  File "C:\Spark\python\lib\pyspark.zip\pyspark\rdd.py", line 1814, in collect
+    sock_info = self.ctx._jvm.PythonRDD.collectAndServe(self._jrdd.rdd())
+  File "C:\Spark\python\lib\py4j-0.10.9.7.zip\py4j\java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+  File "C:\Spark\python\lib\pyspark.zip\pyspark\errors\exceptions\captured.py", line 169, in deco
+    return f(*a, **kw)
+  File "C:\Spark\python\lib\py4j-0.10.9.7.zip\py4j\protocol.py", line 326, in get_return_value
+    raise Py4JJavaError(
+py4j.protocol.Py4JJavaError: An error occurred while calling z:org.apache.spark.api.python.PythonRDD.collectAndServe.
+: org.apache.spark.SparkException: Job 2 cancelled because killed via the Web UI
+	at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2790)
+	at org.apache.spark.scheduler.DAGScheduler.handleJobCancellation(DAGScheduler.scala:2665)
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$handleStageCancellation$1(DAGScheduler.scala:2654)
+	at scala.runtime.java8.JFunction1$mcVI$sp.apply(JFunction1$mcVI$sp.java:23)
+	at scala.collection.IndexedSeqOptimized.foreach(IndexedSeqOptimized.scala:36)
+	at scala.collection.IndexedSeqOptimized.foreach$(IndexedSeqOptimized.scala:33)
+	at scala.collection.mutable.ArrayOps$ofInt.foreach(ArrayOps.scala:246)
+	at org.apache.spark.scheduler.DAGScheduler.handleStageCancellation(DAGScheduler.scala:2647)
+	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:2942)
+	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2928)
+	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2917)
+	at org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:49)
+	at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:976)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2258)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2279)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2298)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2323)
+	at org.apache.spark.rdd.RDD.$anonfun$collect$1(RDD.scala:1022)
+	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)
+	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)
+	at org.apache.spark.rdd.RDD.withScope(RDD.scala:408)
+	at org.apache.spark.rdd.RDD.collect(RDD.scala:1021)
+	at org.apache.spark.api.python.PythonRDD$.collectAndServe(PythonRDD.scala:193)
+	at org.apache.spark.api.python.PythonRDD.collectAndServe(PythonRDD.scala)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+	at py4j.Gateway.invoke(Gateway.java:282)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+
+
+2025-06-17 01:49:02,953 [INFO] stitch_images_distributed:604 - Feature matching completed in 19.69 seconds
+2025-06-17 01:49:02,953 [INFO] stitch_images_distributed:605 - Image pairs processed: 0
+2025-06-17 01:49:02,953 [INFO] stitch_images_distributed:608 - 
+MATCH RESULTS SUMMARY:
+2025-06-17 01:49:02,953 [INFO] stitch_images_distributed:609 - --------------------------------------------------
+2025-06-17 01:49:02,953 [INFO] stitch_images_distributed:624 - 
+Total matches found: 0
+2025-06-17 01:49:02,956 [ERROR] stitch_images_distributed:628 - No valid image pairs found for stitching!
+2025-06-17 01:49:03,134 [ERROR] main:749 - Could not create panorama with distributed processing
+2025-06-17 01:49:03,134 [INFO] main:750 - Possible issues:
+2025-06-17 01:49:03,134 [INFO] main:751 -   • Insufficient matching features between images
+2025-06-17 01:49:03,134 [INFO] main:752 -   • Images may not have sufficient overlap
+2025-06-17 01:49:03,134 [INFO] main:753 -   • Try adjusting match_ratio or min_match_count parameters
+2025-06-17 01:49:03,134 [INFO] main:754 -   • Check image quality and lighting conditions
+2025-06-17 01:49:03,134 [INFO] stop:668 - Stopping Spark session...
+2025-06-17 01:49:03,321 [INFO] stop:670 - Spark session stopped successfully
+2025-06-17 01:49:03,321 [INFO] main:768 - Program execution completed
+2025-06-17 01:49:03,322 [INFO] close:543 - Closing down clientserver connection
+2025-06-17 01:49:21,467 [INFO] main:677 - ======================================================================
+2025-06-17 01:49:21,467 [INFO] main:678 - SPARK DISTRIBUTED IMAGE STITCHING
+2025-06-17 01:49:21,467 [INFO] main:679 - ======================================================================
+2025-06-17 01:49:21,467 [INFO] main:685 - Initializing Spark Image Stitcher...
+2025-06-17 01:49:21,467 [INFO] __init__:30 - Initializing SparkImageStitcher...
+2025-06-17 01:49:22,683 [INFO] __init__:49 - Spark session initialized successfully. Application ID: app-20250617014922-0009
+2025-06-17 01:49:22,683 [INFO] main:692 - Input directory: C:\Users\user\Desktop\Keshav\Nesac_Outreach_Mapping
+2025-06-17 01:49:22,683 [INFO] main:693 - Output filename: spark_distributed_panorama.jpg
+2025-06-17 01:49:22,683 [INFO] main:701 - Starting distributed stitching process...
+2025-06-17 01:49:22,684 [INFO] stitch_images_distributed:555 - ======================================================================
+2025-06-17 01:49:22,684 [INFO] stitch_images_distributed:556 - DISTRIBUTED IMAGE STITCHING WITH SPARK
+2025-06-17 01:49:22,684 [INFO] stitch_images_distributed:557 - ======================================================================
+2025-06-17 01:49:22,684 [INFO] stitch_images_distributed:558 - Input directory: C:\Users\user\Desktop\Keshav\Nesac_Outreach_Mapping
+2025-06-17 01:49:22,684 [INFO] stitch_images_distributed:559 - Minimum match count: 10
+2025-06-17 01:49:22,684 [INFO] stitch_images_distributed:560 - Match ratio threshold: 0.6
+2025-06-17 01:49:22,684 [INFO] stitch_images_distributed:561 - ======================================================================
+2025-06-17 01:49:22,684 [INFO] stitch_images_distributed:567 - 
+==================================================
+2025-06-17 01:49:22,684 [INFO] stitch_images_distributed:568 - STEP 1: LOADING IMAGES
+2025-06-17 01:49:22,684 [INFO] stitch_images_distributed:569 - ==================================================
+2025-06-17 01:49:22,684 [INFO] load_images_distributed:103 - Searching for files with extensions: ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif']
+2025-06-17 01:49:22,684 [INFO] load_images_distributed:105 - Loading images from: C:\Users\user\Desktop\Keshav\Nesac_Outreach_Mapping
+2025-06-17 01:49:22,684 [INFO] load_images_distributed:122 - Found 26 image files
+2025-06-17 01:49:28,368 [INFO] load_images_distributed:167 - Successfully loaded 26 out of 26 images
+2025-06-17 01:49:28,368 [INFO] load_images_distributed:173 - All files: ['DJI_0437.JPG', 'DJI_0438.JPG', 'DJI_0439.JPG', 'DJI_0440.JPG', 'DJI_0441.JPG', 'DJI_0442.JPG', 'DJI_0443.JPG', 'DJI_0444.JPG', 'DJI_0445.JPG', 'DJI_0446.JPG', 'DJI_0447.JPG', 'DJI_0448.JPG', 'DJI_0449.JPG', 'DJI_0450.JPG', 'DJI_0451.JPG', 'DJI_0452.JPG', 'DJI_0453.JPG', 'DJI_0454.JPG', 'DJI_0455.JPG', 'DJI_0456.JPG', 'DJI_0457.JPG', 'DJI_0458.JPG', 'DJI_0459.JPG', 'DJI_0460.JPG', 'DJI_0461.JPG', 'DJI_0462.JPG', 'Thumbs.db']
+2025-06-17 01:49:28,368 [INFO] load_images_distributed:174 - Image files: ['DJI_0437.JPG', 'DJI_0438.JPG', 'DJI_0439.JPG', 'DJI_0440.JPG', 'DJI_0441.JPG', 'DJI_0442.JPG', 'DJI_0443.JPG', 'DJI_0444.JPG', 'DJI_0445.JPG', 'DJI_0446.JPG', 'DJI_0447.JPG', 'DJI_0448.JPG', 'DJI_0449.JPG', 'DJI_0450.JPG', 'DJI_0451.JPG', 'DJI_0452.JPG', 'DJI_0453.JPG', 'DJI_0454.JPG', 'DJI_0455.JPG', 'DJI_0456.JPG', 'DJI_0457.JPG', 'DJI_0458.JPG', 'DJI_0459.JPG', 'DJI_0460.JPG', 'DJI_0461.JPG', 'DJI_0462.JPG']
+2025-06-17 01:49:28,368 [INFO] stitch_images_distributed:574 - Image loading completed in 5.68 seconds
+2025-06-17 01:49:28,368 [INFO] stitch_images_distributed:575 - Images loaded: 26
+2025-06-17 01:49:28,368 [INFO] stitch_images_distributed:582 - 
+==================================================
+2025-06-17 01:49:28,368 [INFO] stitch_images_distributed:583 - STEP 2: FEATURE EXTRACTION
+2025-06-17 01:49:28,368 [INFO] stitch_images_distributed:584 - ==================================================
+2025-06-17 01:49:28,368 [INFO] extract_features_distributed:185 - Extracting features from 26 images...
+2025-06-17 01:49:34,195 [INFO] extract_features_distributed:261 - Feature extraction completed for 26 images
+2025-06-17 01:49:34,195 [INFO] stitch_images_distributed:589 - Feature extraction completed in 5.83 seconds
+2025-06-17 01:49:34,195 [INFO] stitch_images_distributed:590 - Images with features: 26
+2025-06-17 01:49:34,195 [INFO] stitch_images_distributed:597 - 
+==================================================
+2025-06-17 01:49:34,195 [INFO] stitch_images_distributed:598 - STEP 3: FEATURE MATCHING
+2025-06-17 01:49:34,196 [INFO] stitch_images_distributed:599 - ==================================================
+2025-06-17 01:49:34,196 [INFO] find_matches_parallel:277 - Finding matches between 26 images with ratio 0.6...
+2025-06-17 01:49:34,196 [INFO] find_matches_parallel:388 - Created 25 image pairs for matching
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0437.JPG', 'DJI_0438.JPG'): 141 matches (detector: ORB, score: 4.763)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0438.JPG', 'DJI_0439.JPG'): 154 matches (detector: ORB, score: 5.651)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0439.JPG', 'DJI_0440.JPG'): 186 matches (detector: ORB, score: 7.226)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0440.JPG', 'DJI_0441.JPG'): 163 matches (detector: ORB, score: 6.277)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0441.JPG', 'DJI_0442.JPG'): 134 matches (detector: ORB, score: 4.903)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0442.JPG', 'DJI_0443.JPG'): 96 matches (detector: ORB, score: 3.310)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0443.JPG', 'DJI_0444.JPG'): 121 matches (detector: ORB, score: 4.216)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0444.JPG', 'DJI_0445.JPG'): 69 matches (detector: ORB, score: 2.333)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0445.JPG', 'DJI_0446.JPG'): 77 matches (detector: ORB, score: 2.771)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0446.JPG', 'DJI_0447.JPG'): 80 matches (detector: ORB, score: 3.010)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0447.JPG', 'DJI_0448.JPG'): 63 matches (detector: ORB, score: 2.249)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0448.JPG', 'DJI_0449.JPG'): 51 matches (detector: ORB, score: 1.814)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0449.JPG', 'DJI_0450.JPG'): 46 matches (detector: AKAZE, score: 0.178)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0450.JPG', 'DJI_0451.JPG'): 52 matches (detector: ORB, score: 1.878)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0451.JPG', 'DJI_0452.JPG'): 83 matches (detector: ORB, score: 3.039)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0452.JPG', 'DJI_0453.JPG'): 112 matches (detector: ORB, score: 3.992)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0453.JPG', 'DJI_0454.JPG'): 136 matches (detector: ORB, score: 4.702)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0454.JPG', 'DJI_0455.JPG'): 118 matches (detector: ORB, score: 4.267)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0455.JPG', 'DJI_0456.JPG'): 155 matches (detector: ORB, score: 5.666)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0456.JPG', 'DJI_0457.JPG'): 145 matches (detector: ORB, score: 5.646)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0457.JPG', 'DJI_0458.JPG'): 195 matches (detector: ORB, score: 7.206)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0458.JPG', 'DJI_0459.JPG'): 191 matches (detector: ORB, score: 7.006)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0459.JPG', 'DJI_0460.JPG'): 1331 matches (detector: AKAZE, score: 5.413)
+2025-06-17 01:49:39,809 [INFO] find_matches_parallel:400 - Matched ('DJI_0460.JPG', 'DJI_0461.JPG'): 1369 matches (detector: AKAZE, score: 5.499)
+2025-06-17 01:49:39,810 [INFO] find_matches_parallel:400 - Matched ('DJI_0461.JPG', 'DJI_0462.JPG'): 23 matches (detector: ORB, score: 0.811)
+2025-06-17 01:49:39,810 [INFO] stitch_images_distributed:604 - Feature matching completed in 5.61 seconds
+2025-06-17 01:49:39,810 [INFO] stitch_images_distributed:605 - Image pairs processed: 25
+2025-06-17 01:49:39,810 [INFO] stitch_images_distributed:608 - 
+MATCH RESULTS SUMMARY:
+2025-06-17 01:49:39,810 [INFO] stitch_images_distributed:609 - --------------------------------------------------
+2025-06-17 01:49:39,820 [INFO] stitch_images_distributed:624 - 
+Total matches found: 5291
+2025-06-17 01:49:39,820 [INFO] stitch_images_distributed:632 - 
+==================================================
+2025-06-17 01:49:39,820 [INFO] stitch_images_distributed:633 - STEP 4: CENTER-REFERENCED STITCHING
+2025-06-17 01:49:39,820 [INFO] stitch_images_distributed:634 - ==================================================
+2025-06-17 01:49:39,820 [INFO] stitch_center_referenced:479 - Starting center-referenced stitching with 26 images...
+2025-06-17 01:49:39,820 [INFO] stitch_center_referenced:486 - Using image at index 13 as center reference: DJI_0450.JPG
+2025-06-17 01:49:39,978 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0437.JPG (found 0)
+2025-06-17 01:49:40,108 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0438.JPG (found 0)
+2025-06-17 01:49:40,250 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0439.JPG (found 1)
+2025-06-17 01:49:40,376 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0440.JPG (found 1)
+2025-06-17 01:49:40,501 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0441.JPG (found 1)
+2025-06-17 01:49:40,629 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0442.JPG (found 3)
+2025-06-17 01:49:40,753 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0443.JPG (found 3)
+2025-06-17 01:49:40,877 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0444.JPG (found 2)
+2025-06-17 01:49:41,005 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0445.JPG (found 8)
+2025-06-17 01:49:41,135 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0446.JPG
+2025-06-17 01:49:41,266 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0447.JPG
+2025-06-17 01:49:41,392 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0448.JPG
+2025-06-17 01:49:41,516 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0449.JPG
+2025-06-17 01:49:41,638 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0451.JPG
+2025-06-17 01:49:41,763 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0452.JPG
+2025-06-17 01:49:41,883 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0453.JPG
+2025-06-17 01:49:41,997 [INFO] stitch_center_referenced:541 - Computed homography to center for image DJI_0454.JPG
+2025-06-17 01:49:42,112 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0455.JPG (found 3)
+2025-06-17 01:49:42,229 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0456.JPG (found 0)
+2025-06-17 01:49:42,343 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0457.JPG (found 1)
+2025-06-17 01:49:42,462 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0458.JPG (found 0)
+2025-06-17 01:49:42,582 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0459.JPG (found 2)
+2025-06-17 01:49:42,704 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0460.JPG (found 0)
+2025-06-17 01:49:42,835 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0461.JPG (found 0)
+2025-06-17 01:49:42,965 [WARNING] stitch_center_referenced:533 - Insufficient matches to center for image DJI_0462.JPG (found 1)
+2025-06-17 01:49:43,382 [INFO] warp_and_blend_all:411 - Starting global warping and simple feather blending of all images.
+2025-06-17 01:49:43,383 [INFO] warp_and_blend_all:427 - Final canvas size: 1669x1638
+2025-06-17 01:49:43,843 [INFO] warp_and_blend_all:457 - Cropping final panorama...
+2025-06-17 01:49:43,846 [INFO] warp_and_blend_all:466 - Cropped to: (1638, 1668, 3)
+2025-06-17 01:49:43,852 [INFO] stitch_images_distributed:638 - Center-referenced stitching completed in 4.03 seconds
+2025-06-17 01:49:43,852 [INFO] stitch_images_distributed:643 - 
 ======================================================================
-2025-06-17 01:32:21,091 [INFO] stitch_images_distributed:646 - TIMING SUMMARY
-2025-06-17 01:32:21,091 [INFO] stitch_images_distributed:647 - ======================================================================
-2025-06-17 01:32:21,091 [INFO] stitch_images_distributed:648 - Total processing time: 29.75 seconds
-2025-06-17 01:32:21,091 [INFO] stitch_images_distributed:649 -   • Image loading:     6.23s (20.9%)
-2025-06-17 01:32:21,091 [INFO] stitch_images_distributed:650 -   • Feature extraction: 5.99s (20.1%)
-2025-06-17 01:32:21,091 [INFO] stitch_images_distributed:651 -   • Feature matching:   10.78s (36.2%)
-2025-06-17 01:32:21,091 [INFO] stitch_images_distributed:652 -   • Image stitching:    6.74s (22.7%)
-2025-06-17 01:32:21,091 [INFO] stitch_images_distributed:653 - ======================================================================
-2025-06-17 01:32:21,091 [INFO] stitch_images_distributed:656 - SUCCESS! Final panorama shape: (3060, 2818, 3)
-2025-06-17 01:32:21,147 [INFO] main:714 - Saving panorama to: spark_distributed_panorama.jpg
-2025-06-17 01:32:21,171 [INFO] main:722 -   File size: 1.67 MB
-2025-06-17 01:32:21,171 [INFO] main:723 -   Image dimensions: (3060, 2818, 3)
-2025-06-17 01:32:21,403 [INFO] main:730 - Attempting to display result...
-2025-06-17 01:32:49,473 [INFO] stop:670 - Stopping Spark session...
-2025-06-17 01:32:49,597 [INFO] stop:672 - Spark session stopped successfully
-2025-06-17 01:32:49,597 [INFO] main:770 - Program execution completed
-2025-06-17 01:32:49,600 [INFO] close:543 - Closing down clientserver connection
+2025-06-17 01:49:43,852 [INFO] stitch_images_distributed:644 - TIMING SUMMARY
+2025-06-17 01:49:43,852 [INFO] stitch_images_distributed:645 - ======================================================================
+2025-06-17 01:49:43,852 [INFO] stitch_images_distributed:646 - Total processing time: 21.17 seconds
+2025-06-17 01:49:43,852 [INFO] stitch_images_distributed:647 -   • Image loading:     5.68s (26.9%)
+2025-06-17 01:49:43,852 [INFO] stitch_images_distributed:648 -   • Feature extraction: 5.83s (27.5%)
+2025-06-17 01:49:43,852 [INFO] stitch_images_distributed:649 -   • Feature matching:   5.61s (26.5%)
+2025-06-17 01:49:43,852 [INFO] stitch_images_distributed:650 -   • Image stitching:    4.03s (19.0%)
+2025-06-17 01:49:43,852 [INFO] stitch_images_distributed:651 - ======================================================================
+2025-06-17 01:49:43,852 [INFO] stitch_images_distributed:654 - SUCCESS! Final panorama shape: (1638, 1668, 3)
+2025-06-17 01:49:43,905 [INFO] main:712 - Saving panorama to: spark_distributed_panorama.jpg
+2025-06-17 01:49:43,918 [INFO] main:720 -   File size: 0.89 MB
+2025-06-17 01:49:43,918 [INFO] main:721 -   Image dimensions: (1638, 1668, 3)
+2025-06-17 01:49:44,153 [INFO] main:728 - Attempting to display result...
+2025-06-17 01:50:13,461 [INFO] stop:668 - Stopping Spark session...
+2025-06-17 01:50:14,061 [INFO] stop:670 - Spark session stopped successfully
+2025-06-17 01:50:14,061 [INFO] main:768 - Program execution completed
+2025-06-17 01:50:14,062 [INFO] close:543 - Closing down clientserver connection

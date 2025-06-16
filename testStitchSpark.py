@@ -408,7 +408,7 @@ class SparkImageStitcher:
             return []
 
     def warp_and_blend_all(self, images, homographies):
-        logger.info("Starting global warping and multi-band blending of all images.")
+        logger.info("Starting global warping and simple feather blending of all images.")
 
         base_image_shape = images[0].shape
         h, w = base_image_shape[:2]
@@ -433,46 +433,44 @@ class SparkImageStitcher:
 
         H_translation = np.array([[1, 0, -x_min], [0, 1, -y_min], [0, 0, 1]], dtype=np.float64)
 
-        # Initialize and prepare MultiBandBlender
-        blender = cv2.detail_MultiBandBlender(try_gpu=0)
-        blender.setNumBands(8)
-        blender.prepare((0, 0, canvas_width, canvas_height))
+        # Simple feather blending
+        panorama = np.zeros((canvas_height, canvas_width, 3), dtype=np.float32)
+        weight_map = np.zeros((canvas_height, canvas_width, 1), dtype=np.float32)
 
         for i, img in enumerate(images):
             if homographies[i] is None:
                 continue
-            
             H_final = H_translation @ homographies[i]
-            warped_img = cv2.warpPerspective(img, H_final, (canvas_width, canvas_height))
-            
-            mask = np.ones(img.shape[:2], dtype=np.uint8) * 255
+            warped_img = cv2.warpPerspective(img.astype(np.float32), H_final, (canvas_width, canvas_height))
+            mask = np.ones(img.shape[:2], dtype=np.float32)
             warped_mask = cv2.warpPerspective(mask, H_final, (canvas_width, canvas_height))
+            warped_mask = np.expand_dims(warped_mask, axis=2)
+            panorama += warped_img * warped_mask
+            weight_map += warped_mask
 
-            # Feed the full warped image and mask to the prepared blender
-            img_int16 = warped_img.astype(np.int16)
-            blender.feed(img_int16, warped_mask, (0, 0))
-
-        result, result_mask = blender.blend(None, None)
-        result = np.clip(result, 0, 255).astype(np.uint8)
+        # Avoid division by zero
+        weight_map[weight_map == 0] = 1.0
+        panorama = panorama / weight_map
+        panorama = np.clip(panorama, 0, 255).astype(np.uint8)
 
         # Crop as before
         logger.info("Cropping final panorama...")
         try:
-            gray = cv2.cvtColor(result, cv2.COLOR_BGR2GRAY)
+            gray = cv2.cvtColor(panorama, cv2.COLOR_BGR2GRAY)
             _, thresh = cv2.threshold(gray, 1, 255, cv2.THRESH_BINARY)
             contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             if contours:
                 largest_contour = max(contours, key=cv2.contourArea)
                 x, y, w, h = cv2.boundingRect(largest_contour)
-                cropped = result[y:y+h, x:x+w]
+                cropped = panorama[y:y+h, x:x+w]
                 logger.info(f"Cropped to: {cropped.shape}")
                 return cropped
             else:
                 logger.warning("No contours found for cropping, returning full panorama.")
-                return result
+                return panorama
         except Exception as e:
             logger.warning(f"Cropping failed: {e}, returning uncropped image.")
-            return result
+            return panorama
 
     def stitch_center_referenced(self, features_data_list, min_match_count=10, match_ratio=0.6):
         """
@@ -688,7 +686,7 @@ def main():
         stitcher = SparkImageStitcher(spark_master="spark://10.0.42.43:7077")
         
         # Configuration
-        custom_dir = r'C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING'
+        custom_dir = r'C:\Users\user\Desktop\Keshav\Nesac_Outreach_Mapping'
         output_filename = "spark_distributed_panorama.jpg"
         
         logger.info(f"Input directory: {custom_dir}")
