@@ -334,81 +334,74 @@ class SparkImageStitcher:
             return []
         
         def match_image_pair(pair_data):
-            
             import cv2
             import numpy as np
-            
             idx1, idx2, feat1, feat2, img1_str, img2_str = pair_data
             filename1, features1, _, shape1 = feat1
             filename2, features2, _, shape2 = feat2
-            
             try:
                 best_matches = []
                 best_score = 0
                 best_detector = None
-                
                 # Try each detector type
                 for detector_name in features1.keys():
                     if detector_name not in features2:
                         continue
-                    
                     try:
-                        # Get descriptors
                         desc1_data = features1[detector_name]['descriptors']
                         desc2_data = features2[detector_name]['descriptors']
-                        
                         if not desc1_data or not desc2_data:
                             continue
-                        
-                        # Convert to numpy arrays with proper dtype
                         if detector_name == 'ORB':
                             desc1 = np.array(desc1_data, dtype=np.uint8)
                             desc2 = np.array(desc2_data, dtype=np.uint8)
                         else:
                             desc1 = np.array(desc1_data, dtype=np.float32)
                             desc2 = np.array(desc2_data, dtype=np.float32)
-                        
-                        # Validate descriptor shapes
                         if desc1.shape[0] == 0 or desc2.shape[0] == 0:
                             continue
-                            
                         if len(desc1.shape) != 2 or len(desc2.shape) != 2:
                             continue
-                            
                         if desc1.shape[1] != desc2.shape[1]:
                             continue
-                        
                         # Create matcher
                         if detector_name == 'ORB':
                             matcher = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=False)
                         else:
                             matcher = cv2.BFMatcher(cv2.NORM_L2, crossCheck=False)
-                        
-                        # K-nearest neighbors matching
-                        matches = matcher.knnMatch(desc1, desc2, k=2)
-                        
-                        # Apply ratio test
-                        good_matches = []
-                        for match in matches:
+                        # KNN match for Lowe's ratio test
+                        matches_1to2 = matcher.knnMatch(desc1, desc2, k=2)
+                        good_matches_1to2 = []
+                        for match in matches_1to2:
                             if len(match) == 2:
                                 m, n = match
                                 if m.distance < match_ratio * n.distance:
-                                    good_matches.append((m.queryIdx, m.trainIdx, m.distance))
-                        
+                                    good_matches_1to2.append((m.queryIdx, m.trainIdx, m.distance))
+                        # Cross-check: match in the other direction
+                        matches_2to1 = matcher.knnMatch(desc2, desc1, k=2)
+                        good_matches_2to1 = []
+                        for match in matches_2to1:
+                            if len(match) == 2:
+                                m, n = match
+                                if m.distance < match_ratio * n.distance:
+                                    good_matches_2to1.append((m.queryIdx, m.trainIdx, m.distance))
+                        # Cross-check filter: only keep matches that agree in both directions
+                        cross_checked_matches = []
+                        set_2to1 = set((m[1], m[0]) for m in good_matches_2to1)
+                        for m in good_matches_1to2:
+                            if (m[0], m[1]) in set_2to1:
+                                cross_checked_matches.append(m)
                         # Calculate match quality score
-                        if len(good_matches) > 0:
-                            distances = [m[2] for m in good_matches]
+                        if len(cross_checked_matches) > 0:
+                            distances = [m[2] for m in cross_checked_matches]
                             avg_distance = np.mean(distances)
-                            score = len(good_matches) / (1 + avg_distance)
-                            
+                            score = len(cross_checked_matches) / (1 + avg_distance)
                             if score > best_score:
                                 best_score = score
-                                best_matches = good_matches
+                                best_matches = cross_checked_matches
                                 best_detector = detector_name
-                    
                     except Exception as e:
                         continue
-                
                 return {
                     'pair': (idx1, idx2),
                     'filenames': (filename1, filename2),
@@ -418,7 +411,6 @@ class SparkImageStitcher:
                     'keypoints1': features1.get(best_detector, {}).get('keypoints', []) if best_detector else [],
                     'keypoints2': features2.get(best_detector, {}).get('keypoints', []) if best_detector else []
                 }
-                
             except Exception as e:
                 return {
                     'pair': (idx1, idx2),
@@ -897,7 +889,7 @@ def main():
         stitcher = SparkImageStitcher(spark_master="spark://10.0.42.43:7077")
         
         # Configuration
-        custom_dir = r'C:\Users\user\Desktop\Keshav\Nesac_Outreach_Mapping'
+        custom_dir = r'C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING'
         output_filename = "spark_distributed_panorama.jpg"
         
         logger.info(f"Input directory: {custom_dir}")
