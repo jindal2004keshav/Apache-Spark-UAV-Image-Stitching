@@ -27,30 +27,63 @@ logger = logging.getLogger(__name__)
 
 class SparkImageStitcher:
     def __init__(self, spark_master="spark://10.0.42.43:7077"):
-        """Initialize Spark session for image stitching"""
+        """Initialize Spark session with optimized configuration"""
         logger.info("Initializing SparkImageStitcher...")
         
         try:
-            self.spark = SparkSession.builder \
-                .appName("DistributedImageStitching") \
-                .master(spark_master) \
-                .config("spark.local.dir", "C:\\spark-temp") \
-                .config("spark.serializer", "org.apache.spark.serializer.KryoSerializer") \
-                .config("spark.ui.port", "4050") \
-                .config("spark.sql.adaptive.enabled", "true") \
-                .config("spark.sql.adaptive.coalescePartitions.enabled", "true") \
-                .config("spark.executor.memory", "4g") \
-                .config("spark.executor.cores", "2") \
-                .config("spark.driver.memory", "2g") \
-                .config("spark.driver.maxResultSize", "1g") \
-                .config("spark.sql.execution.arrow.pyspark.enabled", "false") \
-                .getOrCreate()
+            # Get the current Python executable path
+            import sys
+            python_executable = sys.executable
+            logger.info(f"Using Python executable: {python_executable}")
             
+            # Configure Spark with optimized settings
+            conf = SparkConf()
+            conf.setMaster(spark_master)
+            conf.setAppName("SparkImageStitcher")
+            
+            # Memory and performance settings
+            conf.set("spark.driver.memory", "10g")
+            conf.set("spark.executor.memory", "12g")
+            conf.set("spark.driver.maxResultSize", "8g")
+            conf.set("spark.sql.adaptive.enabled", "true")
+            conf.set("spark.sql.adaptive.coalescePartitions.enabled", "true")
+            conf.set("spark.sql.adaptive.skewJoin.enabled", "true")
+            
+            # Serialization settings
+            conf.set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+            conf.set("spark.kryoserializer.buffer.max", "2047m")
+            conf.set("spark.kryoserializer.buffer", "1024m")
+            
+            # Python version compatibility - ensure same Python version on all nodes
+            conf.set("spark.pyspark.python", python_executable)
+            conf.set("spark.pyspark.driver.python", python_executable)
+            conf.set("spark.python.worker.python", python_executable)
+            
+            # Set environment variables for Python version consistency
+            import os
+            os.environ['PYSPARK_PYTHON'] = python_executable
+            os.environ['PYSPARK_DRIVER_PYTHON'] = python_executable
+            
+            # Network and timeout settings
+            conf.set("spark.network.timeout", "800s")
+            conf.set("spark.executor.heartbeatInterval", "60s")
+            conf.set("spark.dynamicAllocation.enabled", "false")
+            
+            # Logging level
+            conf.set("spark.eventLog.enabled", "false")
+            
+            # Create Spark session
+            self.spark = SparkSession.builder.config(conf=conf).getOrCreate()
             self.sc = self.spark.sparkContext
+            
+            # Set log level
+            self.sc.setLogLevel("WARN")
+            
             logger.info(f"Spark session initialized successfully. Application ID: {self.sc.applicationId}")
             
         except Exception as e:
             logger.error(f"Failed to initialize Spark session: {str(e)}")
+            logger.error(traceback.format_exc())
             raise
 
     def encode_image(self, img):
@@ -146,17 +179,33 @@ class SparkImageStitcher:
                         logger.warning(f"cv2.imread failed to load image: {path}")
                         return None
                     h, w = img.shape[:2]
-                    max_width, max_height = 1200, 800
+                    
+                    # More aggressive resolution reduction for large datasets
+                    # Start with smaller max dimensions for better memory management
+                    max_width, max_height = 600, 450  # Reduced from 800x600
+                    
+                    # If we have many images, reduce resolution further
+                    if len(image_paths) > 30:
+                        max_width, max_height = 400, 300
+                    elif len(image_paths) > 20:
+                        max_width, max_height = 500, 375
+                    
                     scale = min(max_width / w, max_height / h, 1.0)
                     if scale < 1.0:
                         new_w = int(w * scale)
                         new_h = int(h * scale)
                         img = cv2.resize(img, (new_w, new_h), interpolation=cv2.INTER_AREA)
+                        logger.debug(f"Resized {os.path.basename(path)} from {w}x{h} to {new_w}x{new_h}")
+                    
                     success, buffer = cv2.imencode('.png', img)
                     if not success:
                         logger.warning(f"cv2.imencode failed for image: {path}")
                         return None
                     img_str = base64.b64encode(buffer).decode()
+                    
+                    # Force garbage collection
+                    gc.collect()
+                    
                     return (os.path.basename(path), img_str, img.shape)
                 except Exception as e:
                     logger.error(f"Exception loading image {path}: {e}")
@@ -190,9 +239,9 @@ class SparkImageStitcher:
             return []
             
         detector_configs = {
-            'SIFT': {'type': 'SIFT', 'nfeatures': 1000, 'contrastThreshold': 0.03, 'edgeThreshold': 15},
-            'ORB': {'type': 'ORB', 'nfeatures': 1000, 'scaleFactor': 1.2, 'nlevels': 8},
-            'AKAZE': {'type': 'AKAZE', 'threshold': 0.0003}
+            'SIFT': {'type': 'SIFT', 'nfeatures': 500, 'contrastThreshold': 0.04, 'edgeThreshold': 10},
+            'ORB': {'type': 'ORB', 'nfeatures': 500, 'scaleFactor': 1.2, 'nlevels': 8},
+            'AKAZE': {'type': 'AKAZE', 'threshold': 0.0008}
         }
         
         def extract_features_from_image(image_data):
@@ -252,6 +301,9 @@ class SparkImageStitcher:
                 
             except Exception as e:
                 return None
+            finally:
+                # Force garbage collection
+                gc.collect()
 
         try:
             # Extract features in parallel
@@ -273,7 +325,7 @@ class SparkImageStitcher:
             logger.error(traceback.format_exc())
             return []
 
-    def find_matches_parallel(self, features_data_list, match_ratio=0.75):
+    def find_matches_parallel(self, features_data_list, match_ratio=0.75, adjacent_only=True):
        
         logger.info(f"Finding matches between {len(features_data_list)} images with ratio {match_ratio}...")
         
@@ -382,26 +434,48 @@ class SparkImageStitcher:
         try:
             # Create pairs for matching
             pairs = []
-            for i in range(len(features_data_list) - 1):
-                pairs.append((i, i+1, features_data_list[i], features_data_list[i+1], 
-                             features_data_list[i][2], features_data_list[i+1][2]))
+            if adjacent_only:
+                # Only match adjacent images (for sequential stitching)
+                for i in range(len(features_data_list) - 1):
+                    pairs.append((i, i+1, features_data_list[i], features_data_list[i+1], 
+                                 features_data_list[i][2], features_data_list[i+1][2]))
+                logger.info(f"Created {len(pairs)} adjacent image pairs for matching")
+            else:
+                # Match all possible pairs (for graph-based stitching)
+                for i in range(len(features_data_list)):
+                    for j in range(i+1, len(features_data_list)):
+                        pairs.append((i, j, features_data_list[i], features_data_list[j], 
+                                     features_data_list[i][2], features_data_list[j][2]))
+                logger.info(f"Created {len(pairs)} total image pairs for matching")
             
-            logger.info(f"Created {len(pairs)} image pairs for matching")
+            # Process matches in batches to reduce memory usage
+            batch_size = 10  # Process 10 pairs at a time
+            all_match_results = []
             
-            # Match pairs in parallel
-            pairs_rdd = self.sc.parallelize(pairs)
-            matches_rdd = pairs_rdd.map(match_image_pair)
-            match_results = matches_rdd.collect()
+            for i in range(0, len(pairs), batch_size):
+                batch_pairs = pairs[i:i+batch_size]
+                logger.info(f"Processing batch {i//batch_size + 1}/{(len(pairs) + batch_size - 1)//batch_size} ({len(batch_pairs)} pairs)")
+                
+                # Match pairs in parallel for this batch
+                pairs_rdd = self.sc.parallelize(batch_pairs)
+                matches_rdd = pairs_rdd.map(match_image_pair)
+                batch_results = matches_rdd.collect()
+                
+                # Log matching results for this batch
+                for result in batch_results:
+                    if 'error' in result:
+                        logger.warning(f"Matching error for {result['filenames']}: {result['error']}")
+                    else:
+                        logger.info(f"Matched {result['filenames']}: {len(result['matches'])} matches "
+                                  f"(detector: {result['detector']}, score: {result['score']:.3f})")
+                
+                all_match_results.extend(batch_results)
+                
+                # Force garbage collection after each batch
+                import gc
+                gc.collect()
             
-            # Log matching results
-            for result in match_results:
-                if 'error' in result:
-                    logger.warning(f"Matching error for {result['filenames']}: {result['error']}")
-                else:
-                    logger.info(f"Matched {result['filenames']}: {len(result['matches'])} matches "
-                              f"(detector: {result['detector']}, score: {result['score']:.3f})")
-            
-            return match_results
+            return all_match_results
             
         except Exception as e:
             logger.error(f"Error in find_matches_parallel: {str(e)}")
@@ -409,64 +483,121 @@ class SparkImageStitcher:
             return []
 
     def warp_and_blend_all(self, images, homographies):
+        """Warp and blend all images using global homographies"""
         logger.info("Starting global warping and simple feather blending of all images.")
-
-        if not images:
-            logger.error("No images provided for warping.")
+        
+        if not images or not homographies:
+            logger.error("No images or homographies provided")
             return None
-        if len(images) != len(homographies):
-            logger.error(f"Mismatch between image count ({len(images)}) and homography count ({len(homographies)}).")
-            return None
-
-        # Calculate the dimensions of the output canvas
-        corners_list = []
+        
+        # Calculate canvas bounds
+        all_corners = []
         for i, img in enumerate(images):
             if homographies[i] is not None:
                 h, w = img.shape[:2]
-                corners = np.float32([[0, 0], [0, h], [w, h], [w, 0]]).reshape(-1, 1, 2)
-                transformed_corners = cv2.perspectiveTransform(corners, homographies[i])
-                corners_list.append(transformed_corners)
-
-        if not corners_list:
-            logger.error("No valid homographies to calculate canvas size.")
+                corners = np.float32([[0, 0], [w, 0], [w, h], [0, h]]).reshape(-1, 1, 2)
+                warped_corners = cv2.perspectiveTransform(corners, homographies[i])
+                all_corners.append(warped_corners.reshape(-1, 2))
+        
+        if not all_corners:
+            logger.error("No valid homographies found")
             return None
-
-        all_corners = np.concatenate(corners_list, axis=0)
+        
+        all_corners = np.vstack(all_corners)
         x_min, y_min = np.int32(all_corners.min(axis=0).ravel() - 0.5)
         x_max, y_max = np.int32(all_corners.max(axis=0).ravel() + 0.5)
         
         canvas_width, canvas_height = x_max - x_min, y_max - y_min
-        logger.info(f"Final canvas size: {canvas_width}x{canvas_height}")
+        logger.info(f"Calculated canvas size: {canvas_width}x{canvas_height}")
 
-        max_canvas_dim = 25000
+        # Check if canvas is too large and apply scaling if needed
+        max_canvas_dim = 20000  # Reduced from 25000 for safety
+        scale_factor = 1.0
+        
         if canvas_width > max_canvas_dim or canvas_height > max_canvas_dim:
-            logger.error(f"Canvas size ({canvas_width}x{canvas_height}) exceeds max dimension ({max_canvas_dim}).")
+            scale_factor = min(max_canvas_dim / canvas_width, max_canvas_dim / canvas_height)
+            canvas_width = int(canvas_width * scale_factor)
+            canvas_height = int(canvas_height * scale_factor)
+            logger.info(f"Canvas too large, applying scale factor: {scale_factor:.3f}")
+            logger.info(f"Scaled canvas size: {canvas_width}x{canvas_height}")
+            
+            # Apply scaling to homographies
+            scale_matrix = np.array([[scale_factor, 0, 0], [0, scale_factor, 0], [0, 0, 1]], dtype=np.float64)
+            homographies = [h @ scale_matrix if h is not None else None for h in homographies]
+            
+            # Recalculate corners with scaled homographies
+            all_corners = []
+            for i, img in enumerate(images):
+                if homographies[i] is not None:
+                    h, w = img.shape[:2]
+                    corners = np.float32([[0, 0], [w, 0], [w, h], [0, h]]).reshape(-1, 1, 2)
+                    warped_corners = cv2.perspectiveTransform(corners, homographies[i])
+                    all_corners.append(warped_corners.reshape(-1, 2))
+            
+            all_corners = np.vstack(all_corners)
+            x_min, y_min = np.int32(all_corners.min(axis=0).ravel() - 0.5)
+            x_max, y_max = np.int32(all_corners.max(axis=0).ravel() + 0.5)
+            canvas_width, canvas_height = x_max - x_min, y_max - y_min
+            logger.info(f"Final scaled canvas size: {canvas_width}x{canvas_height}")
+
+        # Safety check for extremely large canvases
+        if canvas_width > 25000 or canvas_height > 25000:
+            logger.error(f"Canvas size ({canvas_width}x{canvas_height}) still exceeds maximum allowed dimension (25000).")
+            logger.error("Consider reducing the number of images or using a smaller dataset.")
             return None
 
         # Create the translation matrix to shift images to the positive quadrant
         H_translation = np.array([[1, 0, -x_min], [0, 1, -y_min], [0, 0, 1]], dtype=np.float64)
 
-        panorama = np.zeros((canvas_height, canvas_width, 3), dtype=np.float32)
-        weight_map = np.zeros((canvas_height, canvas_width, 1), dtype=np.float32)
+        # Check memory requirements before creating canvas
+        estimated_memory_mb = (canvas_width * canvas_height * 3 * 4) / (1024 * 1024)  # 4 bytes per float32
+        logger.info(f"Estimated memory requirement: {estimated_memory_mb:.1f} MB")
+        
+        if estimated_memory_mb > 8000:  # 8GB limit
+            logger.error(f"Estimated memory requirement ({estimated_memory_mb:.1f} MB) exceeds 8GB limit.")
+            logger.error("Consider reducing image resolution or number of images.")
+            return None
 
+        try:
+            panorama = np.zeros((canvas_height, canvas_width, 3), dtype=np.float32)
+            weight_map = np.zeros((canvas_height, canvas_width, 1), dtype=np.float32)
+        except MemoryError:
+            logger.error("Memory error while creating canvas. Canvas too large.")
+            return None
+
+        logger.info(f"Processing {len(images)} images for blending...")
+        
         for i, img in enumerate(images):
             if homographies[i] is not None:
-                H_final = H_translation @ homographies[i]
-                warped_img = cv2.warpPerspective(img.astype(np.float32), H_final, (canvas_width, canvas_height))
-                
-                # Create a mask for blending
-                mask = np.ones(img.shape[:2], dtype=np.float32)
-                warped_mask = cv2.warpPerspective(mask, H_final, (canvas_width, canvas_height))
-                warped_mask = np.expand_dims(warped_mask, axis=2)
-                
-                panorama += warped_img * warped_mask
-                weight_map += warped_mask
+                try:
+                    H_final = H_translation @ homographies[i]
+                    warped_img = cv2.warpPerspective(img.astype(np.float32), H_final, (canvas_width, canvas_height))
+                    
+                    # Create a mask for blending
+                    mask = np.ones(img.shape[:2], dtype=np.float32)
+                    warped_mask = cv2.warpPerspective(mask, H_final, (canvas_width, canvas_height))
+                    warped_mask = np.expand_dims(warped_mask, axis=2)
+                    
+                    panorama += warped_img * warped_mask
+                    weight_map += warped_mask
+                    
+                    logger.debug(f"Processed image {i+1}/{len(images)}")
+                except Exception as e:
+                    logger.warning(f"Error processing image {i}: {e}")
+                    continue
 
+        # Avoid division by zero
         weight_map[weight_map == 0] = 1.0
         panorama = (panorama / weight_map).clip(0, 255).astype(np.uint8)
 
-        cv2.imwrite("spark_distributed_panorama_uncropped.jpg", panorama)
+        # Save uncropped version
+        try:
+            cv2.imwrite("spark_distributed_panorama_uncropped.jpg", panorama)
+            logger.info("Saved uncropped panorama")
+        except Exception as e:
+            logger.warning(f"Could not save uncropped panorama: {e}")
 
+        # Crop the panorama
         logger.info("Cropping final panorama...")
         try:
             gray = cv2.cvtColor(panorama, cv2.COLOR_BGR2GRAY)
@@ -474,7 +605,9 @@ class SparkImageStitcher:
             contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             if contours:
                 x, y, w, h = cv2.boundingRect(max(contours, key=cv2.contourArea))
-                return panorama[y:y+h, x:x+w]
+                cropped = panorama[y:y+h, x:x+w]
+                logger.info(f"Cropped panorama size: {cropped.shape[1]}x{cropped.shape[0]}")
+                return cropped
             else:
                 logger.warning("No contours found for cropping.")
                 return panorama
@@ -483,13 +616,69 @@ class SparkImageStitcher:
             return panorama
 
     def stitch_sequentially(self, match_results, features_data_list, min_match_count):
-        """Sequential stitching method"""
+        """Sequential stitching method with fallback for large datasets"""
         logger.info("Starting sequential stitching...")
         if not match_results:
             logger.error("No match results for sequential stitching")
             return None
 
         images = [self.decode_image(f[2]) for f in features_data_list]
+        
+        # Try with all images first
+        panorama = self._try_stitch_with_images(images, match_results, features_data_list, min_match_count)
+        
+        if panorama is not None:
+            return panorama
+        
+        # If failed, try with fewer images (every 2nd image)
+        logger.warning("Stitching failed with all images. Trying with reduced dataset...")
+        reduced_images = images[::2]  # Take every 2nd image
+        reduced_features = features_data_list[::2]
+        
+        # Create reduced match results for the subset
+        reduced_matches = []
+        for i in range(len(reduced_images) - 1):
+            # Find the corresponding match result for this pair
+            for result in match_results:
+                if (result['pair'][0] == i*2 and result['pair'][1] == i*2 + 1):
+                    # Adjust pair indices for reduced dataset
+                    adjusted_result = result.copy()
+                    adjusted_result['pair'] = (i, i+1)
+                    reduced_matches.append(adjusted_result)
+                    break
+        
+        if len(reduced_matches) > 0:
+            panorama = self._try_stitch_with_images(reduced_images, reduced_matches, reduced_features, min_match_count)
+            if panorama is not None:
+                logger.info("Successfully created panorama with reduced dataset")
+                return panorama
+        
+        # If still failed, try with even fewer images (every 3rd image)
+        logger.warning("Stitching failed with reduced dataset. Trying with minimal dataset...")
+        minimal_images = images[::3]  # Take every 3rd image
+        minimal_features = features_data_list[::3]
+        
+        minimal_matches = []
+        for i in range(len(minimal_images) - 1):
+            for result in match_results:
+                if (result['pair'][0] == i*3 and result['pair'][1] == i*3 + 1):
+                    adjusted_result = result.copy()
+                    adjusted_result['pair'] = (i, i+1)
+                    minimal_matches.append(adjusted_result)
+                    break
+        
+        if len(minimal_matches) > 0:
+            panorama = self._try_stitch_with_images(minimal_images, minimal_matches, minimal_features, min_match_count)
+            if panorama is not None:
+                logger.info("Successfully created panorama with minimal dataset")
+                return panorama
+        
+        logger.error("All stitching attempts failed")
+        return None
+
+    def _try_stitch_with_images(self, images, match_results, features_data_list, min_match_count):
+        """Helper function to attempt stitching with a given set of images"""
+        logger.info(f"Attempting to stitch {len(images)} images...")
         
         # Calculate pairwise homographies (H_i+1 -> H_i)
         pairwise_homographies = []
@@ -566,6 +755,10 @@ class SparkImageStitcher:
             logger.info(f"Image loading completed in {load_time:.2f} seconds")
             logger.info(f"Images loaded: {len(image_data_list)}")
             
+            # Force garbage collection after image loading
+            import gc
+            gc.collect()
+            
             if len(image_data_list) < 2:
                 logger.error(f"Insufficient images for stitching (found {len(image_data_list)}, need >=2)")
                 return None
@@ -581,6 +774,9 @@ class SparkImageStitcher:
             logger.info(f"Feature extraction completed in {feature_time:.2f} seconds")
             logger.info(f"Images with features: {len(features_data_list)}")
             
+            # Force garbage collection after feature extraction
+            gc.collect()
+            
             if len(features_data_list) < 2:
                 logger.error(f"Insufficient images with features (found {len(features_data_list)}, need >=2)")
                 return None
@@ -590,11 +786,14 @@ class SparkImageStitcher:
             logger.info("STEP 3: FEATURE MATCHING")
             logger.info("="*50)
             start_time = time.time()
-            match_results = self.find_matches_parallel(features_data_list, match_ratio)
+            match_results = self.find_matches_parallel(features_data_list, match_ratio, adjacent_only=True)
             match_time = time.time() - start_time
             
             logger.info(f"Feature matching completed in {match_time:.2f} seconds")
             logger.info(f"Image pairs processed: {len(match_results)}")
+            
+            # Force garbage collection after feature matching
+            gc.collect()
             
             # Display detailed match results
             logger.info("\nMATCH RESULTS SUMMARY:")
