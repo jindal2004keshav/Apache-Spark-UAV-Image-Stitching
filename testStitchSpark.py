@@ -12,6 +12,7 @@ import pickle
 from io import BytesIO
 import logging
 import traceback
+from collections import deque, defaultdict
 
 
 logging.basicConfig(
@@ -410,19 +411,30 @@ class SparkImageStitcher:
     def warp_and_blend_all(self, images, homographies):
         logger.info("Starting global warping and simple feather blending of all images.")
 
-        base_image_shape = images[0].shape
-        h, w = base_image_shape[:2]
+        if not images:
+            logger.error("No images provided for warping.")
+            return None
+        if len(images) != len(homographies):
+            logger.error(f"Mismatch between image count ({len(images)}) and homography count ({len(homographies)}).")
+            return None
 
-        corners_list = [np.float32([[0, 0], [0, h], [w, h], [w, 0]]).reshape(-1, 1, 2)]
-        for i in range(1, len(images)):
-            h_i, w_i = images[i].shape[:2]
-            corners_i = np.float32([[0, 0], [0, h_i], [w_i, h_i], [w_i, 0]]).reshape(-1, 1, 2)
+        # Calculate the dimensions of the output canvas
+        corners_list = []
+        for i, img in enumerate(images):
             if homographies[i] is not None:
-                corners_list.append(cv2.perspectiveTransform(corners_i, homographies[i]))
+                h, w = img.shape[:2]
+                corners = np.float32([[0, 0], [0, h], [w, h], [w, 0]]).reshape(-1, 1, 2)
+                transformed_corners = cv2.perspectiveTransform(corners, homographies[i])
+                corners_list.append(transformed_corners)
+
+        if not corners_list:
+            logger.error("No valid homographies to calculate canvas size.")
+            return None
 
         all_corners = np.concatenate(corners_list, axis=0)
-        [x_min, y_min] = np.int32(all_corners.min(axis=0).ravel() - 0.5)
-        [x_max, y_max] = np.int32(all_corners.max(axis=0).ravel() + 0.5)
+        x_min, y_min = np.int32(all_corners.min(axis=0).ravel() - 0.5)
+        x_max, y_max = np.int32(all_corners.max(axis=0).ravel() + 0.5)
+        
         canvas_width, canvas_height = x_max - x_min, y_max - y_min
         logger.info(f"Final canvas size: {canvas_width}x{canvas_height}")
 
@@ -431,126 +443,102 @@ class SparkImageStitcher:
             logger.error(f"Canvas size ({canvas_width}x{canvas_height}) exceeds max dimension ({max_canvas_dim}).")
             return None
 
+        # Create the translation matrix to shift images to the positive quadrant
         H_translation = np.array([[1, 0, -x_min], [0, 1, -y_min], [0, 0, 1]], dtype=np.float64)
 
-        # Simple feather blending
         panorama = np.zeros((canvas_height, canvas_width, 3), dtype=np.float32)
         weight_map = np.zeros((canvas_height, canvas_width, 1), dtype=np.float32)
 
         for i, img in enumerate(images):
-            if homographies[i] is None:
-                continue
-            H_final = H_translation @ homographies[i]
-            warped_img = cv2.warpPerspective(img.astype(np.float32), H_final, (canvas_width, canvas_height))
-            mask = np.ones(img.shape[:2], dtype=np.float32)
-            warped_mask = cv2.warpPerspective(mask, H_final, (canvas_width, canvas_height))
-            warped_mask = np.expand_dims(warped_mask, axis=2)
-            panorama += warped_img * warped_mask
-            weight_map += warped_mask
+            if homographies[i] is not None:
+                H_final = H_translation @ homographies[i]
+                warped_img = cv2.warpPerspective(img.astype(np.float32), H_final, (canvas_width, canvas_height))
+                
+                # Create a mask for blending
+                mask = np.ones(img.shape[:2], dtype=np.float32)
+                warped_mask = cv2.warpPerspective(mask, H_final, (canvas_width, canvas_height))
+                warped_mask = np.expand_dims(warped_mask, axis=2)
+                
+                panorama += warped_img * warped_mask
+                weight_map += warped_mask
 
-        # Avoid division by zero
         weight_map[weight_map == 0] = 1.0
-        panorama = panorama / weight_map
-        panorama = np.clip(panorama, 0, 255).astype(np.uint8)
+        panorama = (panorama / weight_map).clip(0, 255).astype(np.uint8)
 
-        # Save both uncropped and cropped panoramas
-        uncropped_panorama = np.clip(panorama, 0, 255).astype(np.uint8)
-        cv2.imwrite("spark_distributed_panorama_uncropped.jpg", uncropped_panorama)
+        cv2.imwrite("spark_distributed_panorama_uncropped.jpg", panorama)
 
-        # Crop as before
         logger.info("Cropping final panorama...")
         try:
-            gray = cv2.cvtColor(uncropped_panorama, cv2.COLOR_BGR2GRAY)
+            gray = cv2.cvtColor(panorama, cv2.COLOR_BGR2GRAY)
             _, thresh = cv2.threshold(gray, 1, 255, cv2.THRESH_BINARY)
             contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             if contours:
-                largest_contour = max(contours, key=cv2.contourArea)
-                x, y, w, h = cv2.boundingRect(largest_contour)
-                cropped = uncropped_panorama[y:y+h, x:x+w]
-                logger.info(f"Cropped to: {cropped.shape}")
-                return cropped
+                x, y, w, h = cv2.boundingRect(max(contours, key=cv2.contourArea))
+                return panorama[y:y+h, x:x+w]
             else:
-                logger.warning("No contours found for cropping, returning full panorama.")
-                return uncropped_panorama
+                logger.warning("No contours found for cropping.")
+                return panorama
         except Exception as e:
             logger.warning(f"Cropping failed: {e}, returning uncropped image.")
-            return uncropped_panorama
+            return panorama
 
-    def stitch_center_referenced(self, features_data_list, min_match_count=10, match_ratio=0.6):
-        """
-        Stitch images by referencing all images to the center image (to reduce cumulative error).
-        """
-        logger.info(f"Starting center-referenced stitching with {len(features_data_list)} images...")
-        if len(features_data_list) < 2:
-            logger.error("Need at least 2 images for stitching")
+    def stitch_sequentially(self, match_results, features_data_list, min_match_count):
+        """Sequential stitching method"""
+        logger.info("Starting sequential stitching...")
+        if not match_results:
+            logger.error("No match results for sequential stitching")
             return None
 
-        N = len(features_data_list)
-        center_idx = N // 2
-        logger.info(f"Using image at index {center_idx} as center reference: {features_data_list[center_idx][0]}")
+        images = [self.decode_image(f[2]) for f in features_data_list]
+        
+        # Calculate pairwise homographies (H_i+1 -> H_i)
+        pairwise_homographies = []
+        for result in match_results:
+            if result['matches'] and len(result['matches']) >= min_match_count:
+                detector_name = result['detector']
+                if detector_name:
+                    try:
+                        kp1_data = features_data_list[result['pair'][0]][1][detector_name]['keypoints']
+                        kp2_data = features_data_list[result['pair'][1]][1][detector_name]['keypoints']
+                        
+                        src_pts = np.float32([kp2_data[m[1]] for m in result['matches'] if m[1] < len(kp2_data)])
+                        dst_pts = np.float32([kp1_data[m[0]] for m in result['matches'] if m[0] < len(kp1_data)])
 
-        # Prepare homographies: identity for center, others to be computed
-        homographies = [None] * N
-        homographies[center_idx] = np.eye(3)
-
-        # Helper to get image from features_data_list
-        def decode_img(img_str):
-            import base64, cv2, numpy as np
-            img_data = base64.b64decode(img_str)
-            nparr = np.frombuffer(img_data, np.uint8)
-            return cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-
-        center_img_str = features_data_list[center_idx][2]
-        center_img = decode_img(center_img_str)
-        center_features = features_data_list[center_idx][1]
-
-        # Compute homographies to center
-        for i, (filename, features, img_str, shape) in enumerate(features_data_list):
-            if i == center_idx:
-                continue
-            img = decode_img(img_str)
-            best_matches = []
-            best_detector = None
-            best_kp1 = best_kp2 = None
-            # Try all detectors
-            for detector_name in features.keys():
-                if detector_name not in center_features:
-                    continue
-                kp1 = features[detector_name]['keypoints']
-                kp2 = center_features[detector_name]['keypoints']
-                desc1 = np.array(features[detector_name]['descriptors'], dtype=np.float32)
-                desc2 = np.array(center_features[detector_name]['descriptors'], dtype=np.float32)
-                if desc1.shape[0] == 0 or desc2.shape[0] == 0:
-                    continue
-                matcher = cv2.BFMatcher(cv2.NORM_L2, crossCheck=False)
-                matches = matcher.knnMatch(desc1, desc2, k=2)
-                good_matches = []
-                for m in matches:
-                    if len(m) == 2 and m[0].distance < match_ratio * m[1].distance:
-                        good_matches.append(m[0])
-                if len(good_matches) > len(best_matches):
-                    best_matches = good_matches
-                    best_detector = detector_name
-                    best_kp1 = kp1
-                    best_kp2 = kp2
-            if len(best_matches) < min_match_count or best_kp1 is None or best_kp2 is None:
-                logger.warning(f"Insufficient matches to center for image {filename} (found {len(best_matches)})")
-                homographies[i] = None
-                continue
-            src_pts = np.float32([best_kp1[m.queryIdx] for m in best_matches]).reshape(-1, 1, 2)
-            dst_pts = np.float32([best_kp2[m.trainIdx] for m in best_matches]).reshape(-1, 1, 2)
-            H, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
-            if H is not None:
-                homographies[i] = H
-                logger.info(f"Computed homography to center for image {filename}")
+                        if len(src_pts) >= 4:
+                            H, _ = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
+                            pairwise_homographies.append(H)
+                        else:
+                            pairwise_homographies.append(None)
+                    except Exception as e:
+                        logger.error(f"Error computing homography for {result['filenames']}: {e}")
+                        pairwise_homographies.append(None)
+                else:
+                    pairwise_homographies.append(None)
             else:
-                logger.warning(f"Failed to compute homography to center for image {filename}")
-                homographies[i] = None
+                pairwise_homographies.append(None)
 
-        # Decode all images
-        images = [decode_img(f[2]) for f in features_data_list]
-        # Blend all images using their homographies
-        panorama = self.warp_and_blend_all(images, homographies)
+        # Convert pairwise to global homographies (H_i -> H_0)
+        logger.info("Calculating cumulative homographies...")
+        global_homographies = [np.identity(3)]
+        h_cumulative = np.identity(3)
+        for h_pairwise in pairwise_homographies:
+            if h_pairwise is not None:
+                h_cumulative = h_cumulative @ h_pairwise
+                global_homographies.append(h_cumulative)
+            else:
+                logger.warning("Broken link in homography chain. Stitching will stop here.")
+                remaining = len(images) - len(global_homographies)
+                global_homographies.extend([None] * remaining)
+                break
+
+        panorama = self.warp_and_blend_all(images, global_homographies)
+        
+        if panorama is None:
+            logger.error("Panorama creation failed in warp_and_blend_all.")
+            return None
+
+        valid_homographies = [h for h in global_homographies if h is not None]
+        logger.info(f"Computed {len(valid_homographies)} valid global homographies.")
         return panorama
 
     def stitch_images_distributed(self, directory_path, min_match_count=10, match_ratio=0.6):
@@ -579,7 +567,7 @@ class SparkImageStitcher:
             logger.info(f"Images loaded: {len(image_data_list)}")
             
             if len(image_data_list) < 2:
-                logger.error(f"Insufficient images for stitching (found {len(image_data_list)}, need ≥2)")
+                logger.error(f"Insufficient images for stitching (found {len(image_data_list)}, need >=2)")
                 return None
             
             # Step 2: Extract features in parallel
@@ -594,7 +582,7 @@ class SparkImageStitcher:
             logger.info(f"Images with features: {len(features_data_list)}")
             
             if len(features_data_list) < 2:
-                logger.error(f"Insufficient images with features (found {len(features_data_list)}, need ≥2)")
+                logger.error(f"Insufficient images with features (found {len(features_data_list)}, need >=2)")
                 return None
             
             # Step 3: Find matches in parallel
@@ -617,29 +605,29 @@ class SparkImageStitcher:
             for i, result in enumerate(match_results):
                 match_count = len(result['matches'])
                 total_matches += match_count
-                status = "✓ VALID" if match_count >= min_match_count else "✗ INSUFFICIENT"
+                status = "VALID" if match_count >= min_match_count else "X INSUFFICIENT"
                 if match_count >= min_match_count:
                     valid_pairs += 1
                 
-                logger.info(f"Pair {i+1}: {result['filenames'][0]} → {result['filenames'][1]}")
+                logger.info(f"Pair {i+1}: {result['filenames'][0]} -> {result['filenames'][1]}")
                 logger.info(f"  Matches: {match_count} | Detector: {result['detector']} | "
                           f"Score: {result['score']:.3f} | {status}")
             
             logger.info(f"\nTotal matches found: {total_matches}")
-            logger.info(f"Valid pairs (≥{min_match_count} matches): {valid_pairs}/{len(match_results)}")
+            logger.info(f"Valid pairs (>={min_match_count} matches): {valid_pairs}/{len(match_results)}")
             
             if valid_pairs == 0:
                 logger.error("No valid image pairs found for stitching!")
                 return None
             
-            # Step 4: Center-referenced stitching
+            # Step 4: Sequential stitching
             logger.info("\n" + "="*50)
-            logger.info("STEP 4: CENTER-REFERENCED STITCHING")
+            logger.info("STEP 4: SEQUENTIAL STITCHING")
             logger.info("="*50)
             start_time = time.time()
-            final_panorama = self.stitch_center_referenced(features_data_list, min_match_count, match_ratio)
+            final_panorama = self.stitch_sequentially(match_results, features_data_list, min_match_count)
             stitch_time = time.time() - start_time
-            logger.info(f"Center-referenced stitching completed in {stitch_time:.2f} seconds")
+            logger.info(f"Sequential stitching completed in {stitch_time:.2f} seconds")
             
             # Calculate and display timing summary
             total_time = time.time() - total_start_time
@@ -648,10 +636,10 @@ class SparkImageStitcher:
             logger.info("TIMING SUMMARY")
             logger.info("="*70)
             logger.info(f"Total processing time: {total_time:.2f} seconds")
-            logger.info(f"  • Image loading:     {load_time:.2f}s ({load_time/total_time*100:.1f}%)")
-            logger.info(f"  • Feature extraction: {feature_time:.2f}s ({feature_time/total_time*100:.1f}%)")
-            logger.info(f"  • Feature matching:   {match_time:.2f}s ({match_time/total_time*100:.1f}%)")
-            logger.info(f"  • Image stitching:    {stitch_time:.2f}s ({stitch_time/total_time*100:.1f}%)")
+            logger.info(f"  * Image loading:     {load_time:.2f}s ({load_time/total_time*100:.1f}%)")
+            logger.info(f"  * Feature extraction: {feature_time:.2f}s ({feature_time/total_time*100:.1f}%)")
+            logger.info(f"  * Feature matching:   {match_time:.2f}s ({match_time/total_time*100:.1f}%)")
+            logger.info(f"  * Image stitching:    {stitch_time:.2f}s ({stitch_time/total_time*100:.1f}%)")
             logger.info("="*70)
             
             if final_panorama is not None:
@@ -737,7 +725,7 @@ def main():
                 success = cv2.imwrite(output_filename, final_panorama)
                 
                 if success:
-                    logger.info(f"✓ Panorama saved successfully: {output_filename}")
+                    logger.info(f" Panorama saved successfully: {output_filename}")
                     
                     # Log file info
                     file_size = os.path.getsize(output_filename) / (1024 * 1024)  # MB
@@ -759,7 +747,7 @@ def main():
                     plt.savefig("panorama_preview.png", dpi=150, bbox_inches='tight')
                     plt.show()
                     
-                    logger.info("✓ Panorama displayed and preview saved")
+                    logger.info("Panorama displayed and preview saved")
                     
                 except ImportError:
                     logger.info("Matplotlib not available - skipping display")
@@ -772,10 +760,10 @@ def main():
         else:
             logger.error("Could not create panorama with distributed processing")
             logger.info("Possible issues:")
-            logger.info("  • Insufficient matching features between images")
-            logger.info("  • Images may not have sufficient overlap")
-            logger.info("  • Try adjusting match_ratio or min_match_count parameters")
-            logger.info("  • Check image quality and lighting conditions")
+            logger.info("  * Insufficient matching features between images")
+            logger.info("  * Images may not have sufficient overlap")
+            logger.info("  * Try adjusting match_ratio or min_match_count parameters")
+            logger.info("  * Check image quality and lighting conditions")
     
     except Exception as e:
         logger.error(f"Fatal error in main execution: {str(e)}")
