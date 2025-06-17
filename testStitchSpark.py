@@ -874,6 +874,30 @@ class SparkImageStitcher:
         except Exception as e:
             logger.error(f"Error stopping Spark session: {str(e)}")
 
+def postprocess_and_save(image_path):
+    import cv2
+    import os
+    img = cv2.imread(image_path)
+    base, ext = os.path.splitext(image_path)
+
+    # Bilateral Filtering
+    bilateral = cv2.bilateralFilter(img, d=9, sigmaColor=75, sigmaSpace=75)
+    cv2.imwrite(base + '_bilateral' + ext, bilateral)
+
+    # Non-Local Means Denoising
+    nlmeans = cv2.fastNlMeansDenoisingColored(img, None, h=10, hColor=10, templateWindowSize=7, searchWindowSize=21)
+    cv2.imwrite(base + '_nlmeans' + ext, nlmeans)
+
+    # Gaussian Blur
+    gaussian = cv2.GaussianBlur(img, (7, 7), 0)
+    cv2.imwrite(base + '_gaussian' + ext, gaussian)
+
+    # All three in sequence: Bilateral -> NLMeans -> Gaussian
+    combo = cv2.bilateralFilter(img, d=9, sigmaColor=75, sigmaSpace=75)
+    combo = cv2.fastNlMeansDenoisingColored(combo, None, h=10, hColor=10, templateWindowSize=7, searchWindowSize=21)
+    combo = cv2.GaussianBlur(combo, (7, 7), 0)
+    cv2.imwrite(base + '_smooth_combo' + ext, combo)
+
 def main():
     """Main execution with enhanced error handling and logging"""
     
@@ -969,6 +993,9 @@ def main():
                 logger.error(f"Error stopping stitcher: {str(e)}")
         
         logger.info("Program execution completed")
+
+    # After saving 'spark_distributed_panorama_uncropped.jpg', run postprocessing
+    postprocess_and_save('spark_distributed_panorama_uncropped.jpg')
 
 if __name__ == "__main__":
     main()

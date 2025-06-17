@@ -1,452 +1,226 @@
-2025-06-18 01:47:24,540 [INFO] main:880 - ======================================================================
-2025-06-18 01:47:24,541 [INFO] main:881 - SPARK DISTRIBUTED IMAGE STITCHING
-2025-06-18 01:47:24,541 [INFO] main:882 - ======================================================================
-2025-06-18 01:47:24,541 [INFO] main:888 - Initializing Spark Image Stitcher...
-2025-06-18 01:47:24,541 [INFO] __init__:31 - Initializing SparkImageStitcher...
-2025-06-18 01:47:24,541 [INFO] __init__:37 - Using Python executable: C:\Users\user\AppData\Local\Programs\Python\Python310\python.exe
-2025-06-18 01:47:25,794 [INFO] __init__:82 - Spark session initialized successfully. Application ID: app-20250618014725-0025
-2025-06-18 01:47:25,794 [INFO] main:895 - Input directory: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
-2025-06-18 01:47:25,794 [INFO] main:896 - Output filename: spark_distributed_panorama.jpg
-2025-06-18 01:47:25,794 [INFO] main:904 - Starting distributed stitching process...
-2025-06-18 01:47:25,794 [INFO] stitch_images_distributed:728 - ======================================================================
-2025-06-18 01:47:25,794 [INFO] stitch_images_distributed:729 - DISTRIBUTED IMAGE STITCHING WITH SPARK
-2025-06-18 01:47:25,795 [INFO] stitch_images_distributed:730 - ======================================================================
-2025-06-18 01:47:25,795 [INFO] stitch_images_distributed:731 - Input directory: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
-2025-06-18 01:47:25,795 [INFO] stitch_images_distributed:732 - Minimum match count: 10
-2025-06-18 01:47:25,795 [INFO] stitch_images_distributed:733 - Match ratio threshold: 0.6
-2025-06-18 01:47:25,795 [INFO] stitch_images_distributed:734 - ======================================================================
-2025-06-18 01:47:25,795 [INFO] stitch_images_distributed:740 - 
+2025-06-18 02:18:42,301 [INFO] main:904 - ======================================================================
+2025-06-18 02:18:42,301 [INFO] main:905 - SPARK DISTRIBUTED IMAGE STITCHING
+2025-06-18 02:18:42,301 [INFO] main:906 - ======================================================================
+2025-06-18 02:18:42,301 [INFO] main:912 - Initializing Spark Image Stitcher...
+2025-06-18 02:18:42,301 [INFO] __init__:31 - Initializing SparkImageStitcher...
+2025-06-18 02:18:42,301 [INFO] __init__:37 - Using Python executable: C:\Users\user\AppData\Local\Programs\Python\Python310\python.exe
+2025-06-18 02:18:43,537 [INFO] __init__:82 - Spark session initialized successfully. Application ID: app-20250618021843-0027
+2025-06-18 02:18:43,537 [INFO] main:919 - Input directory: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
+2025-06-18 02:18:43,537 [INFO] main:920 - Output filename: spark_distributed_panorama.jpg
+2025-06-18 02:18:43,537 [INFO] main:928 - Starting distributed stitching process...
+2025-06-18 02:18:43,537 [INFO] stitch_images_distributed:728 - ======================================================================
+2025-06-18 02:18:43,537 [INFO] stitch_images_distributed:729 - DISTRIBUTED IMAGE STITCHING WITH SPARK
+2025-06-18 02:18:43,537 [INFO] stitch_images_distributed:730 - ======================================================================
+2025-06-18 02:18:43,537 [INFO] stitch_images_distributed:731 - Input directory: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
+2025-06-18 02:18:43,537 [INFO] stitch_images_distributed:732 - Minimum match count: 10
+2025-06-18 02:18:43,537 [INFO] stitch_images_distributed:733 - Match ratio threshold: 0.6
+2025-06-18 02:18:43,537 [INFO] stitch_images_distributed:734 - ======================================================================
+2025-06-18 02:18:43,537 [INFO] stitch_images_distributed:740 - 
 ==================================================
-2025-06-18 01:47:25,795 [INFO] stitch_images_distributed:741 - STEP 1: LOADING IMAGES
-2025-06-18 01:47:25,795 [INFO] stitch_images_distributed:742 - ==================================================
-2025-06-18 01:47:25,795 [INFO] load_images_distributed:137 - Searching for files with extensions: ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif']
-2025-06-18 01:47:25,795 [INFO] load_images_distributed:139 - Loading images from: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
-2025-06-18 01:47:25,795 [INFO] load_images_distributed:156 - Found 45 image files
-2025-06-18 01:47:32,265 [INFO] load_images_distributed:217 - Successfully loaded 45 out of 45 images
-2025-06-18 01:47:32,266 [INFO] load_images_distributed:223 - All files: ['DJI_0065.JPG', 'DJI_0066.JPG', 'DJI_0067.JPG', 'DJI_0068.JPG', 'DJI_0069.JPG', 'DJI_0070.JPG', 'DJI_0071.JPG', 'DJI_0072.JPG', 'DJI_0073.JPG', 'DJI_0074.JPG', 'DJI_0075.JPG', 'DJI_0076.JPG', 'DJI_0077.JPG', 'DJI_0078.JPG', 'DJI_0079.JPG', 'DJI_0080.JPG', 'DJI_0081.JPG', 'DJI_0082.JPG', 'DJI_0083.JPG', 'DJI_0084.JPG', 'DJI_0085.JPG', 'DJI_0086.JPG', 'DJI_0087.JPG', 'DJI_0088.JPG', 'DJI_0089.JPG', 'DJI_0090.JPG', 'DJI_0091.JPG', 'DJI_0092.JPG', 'DJI_0093.JPG', 'DJI_0094.JPG', 'DJI_0095.JPG', 'DJI_0096.JPG', 'DJI_0097.JPG', 'DJI_0098.JPG', 'DJI_0099.JPG', 'DJI_0100.JPG', 'DJI_0101.JPG', 'DJI_0102.JPG', 'DJI_0103.JPG', 'DJI_0104.JPG', 'DJI_0105.JPG', 'DJI_0106.JPG', 'DJI_0107.JPG', 'DJI_0108.JPG', 'DJI_0109.JPG']
-2025-06-18 01:47:32,266 [INFO] load_images_distributed:224 - Image files: ['DJI_0065.JPG', 'DJI_0066.JPG', 'DJI_0067.JPG', 'DJI_0068.JPG', 'DJI_0069.JPG', 'DJI_0070.JPG', 'DJI_0071.JPG', 'DJI_0072.JPG', 'DJI_0073.JPG', 'DJI_0074.JPG', 'DJI_0075.JPG', 'DJI_0076.JPG', 'DJI_0077.JPG', 'DJI_0078.JPG', 'DJI_0079.JPG', 'DJI_0080.JPG', 'DJI_0081.JPG', 'DJI_0082.JPG', 'DJI_0083.JPG', 'DJI_0084.JPG', 'DJI_0085.JPG', 'DJI_0086.JPG', 'DJI_0087.JPG', 'DJI_0088.JPG', 'DJI_0089.JPG', 'DJI_0090.JPG', 'DJI_0091.JPG', 'DJI_0092.JPG', 'DJI_0093.JPG', 'DJI_0094.JPG', 'DJI_0095.JPG', 'DJI_0096.JPG', 'DJI_0097.JPG', 'DJI_0098.JPG', 'DJI_0099.JPG', 'DJI_0100.JPG', 'DJI_0101.JPG', 'DJI_0102.JPG', 'DJI_0103.JPG', 'DJI_0104.JPG', 'DJI_0105.JPG', 'DJI_0106.JPG', 'DJI_0107.JPG', 'DJI_0108.JPG', 'DJI_0109.JPG']
-2025-06-18 01:47:32,266 [INFO] stitch_images_distributed:747 - Image loading completed in 6.47 seconds
-2025-06-18 01:47:32,266 [INFO] stitch_images_distributed:748 - Images loaded: 45
-2025-06-18 01:47:32,270 [INFO] stitch_images_distributed:759 - 
+2025-06-18 02:18:43,537 [INFO] stitch_images_distributed:741 - STEP 1: LOADING IMAGES
+2025-06-18 02:18:43,537 [INFO] stitch_images_distributed:742 - ==================================================
+2025-06-18 02:18:43,537 [INFO] load_images_distributed:137 - Searching for files with extensions: ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif']
+2025-06-18 02:18:43,537 [INFO] load_images_distributed:139 - Loading images from: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
+2025-06-18 02:18:43,537 [INFO] load_images_distributed:156 - Found 45 image files
+2025-06-18 02:18:50,189 [INFO] load_images_distributed:217 - Successfully loaded 45 out of 45 images
+2025-06-18 02:18:50,189 [INFO] load_images_distributed:223 - All files: ['DJI_0065.JPG', 'DJI_0066.JPG', 'DJI_0067.JPG', 'DJI_0068.JPG', 'DJI_0069.JPG', 'DJI_0070.JPG', 'DJI_0071.JPG', 'DJI_0072.JPG', 'DJI_0073.JPG', 'DJI_0074.JPG', 'DJI_0075.JPG', 'DJI_0076.JPG', 'DJI_0077.JPG', 'DJI_0078.JPG', 'DJI_0079.JPG', 'DJI_0080.JPG', 'DJI_0081.JPG', 'DJI_0082.JPG', 'DJI_0083.JPG', 'DJI_0084.JPG', 'DJI_0085.JPG', 'DJI_0086.JPG', 'DJI_0087.JPG', 'DJI_0088.JPG', 'DJI_0089.JPG', 'DJI_0090.JPG', 'DJI_0091.JPG', 'DJI_0092.JPG', 'DJI_0093.JPG', 'DJI_0094.JPG', 'DJI_0095.JPG', 'DJI_0096.JPG', 'DJI_0097.JPG', 'DJI_0098.JPG', 'DJI_0099.JPG', 'DJI_0100.JPG', 'DJI_0101.JPG', 'DJI_0102.JPG', 'DJI_0103.JPG', 'DJI_0104.JPG', 'DJI_0105.JPG', 'DJI_0106.JPG', 'DJI_0107.JPG', 'DJI_0108.JPG', 'DJI_0109.JPG']
+2025-06-18 02:18:50,189 [INFO] load_images_distributed:224 - Image files: ['DJI_0065.JPG', 'DJI_0066.JPG', 'DJI_0067.JPG', 'DJI_0068.JPG', 'DJI_0069.JPG', 'DJI_0070.JPG', 'DJI_0071.JPG', 'DJI_0072.JPG', 'DJI_0073.JPG', 'DJI_0074.JPG', 'DJI_0075.JPG', 'DJI_0076.JPG', 'DJI_0077.JPG', 'DJI_0078.JPG', 'DJI_0079.JPG', 'DJI_0080.JPG', 'DJI_0081.JPG', 'DJI_0082.JPG', 'DJI_0083.JPG', 'DJI_0084.JPG', 'DJI_0085.JPG', 'DJI_0086.JPG', 'DJI_0087.JPG', 'DJI_0088.JPG', 'DJI_0089.JPG', 'DJI_0090.JPG', 'DJI_0091.JPG', 'DJI_0092.JPG', 'DJI_0093.JPG', 'DJI_0094.JPG', 'DJI_0095.JPG', 'DJI_0096.JPG', 'DJI_0097.JPG', 'DJI_0098.JPG', 'DJI_0099.JPG', 'DJI_0100.JPG', 'DJI_0101.JPG', 'DJI_0102.JPG', 'DJI_0103.JPG', 'DJI_0104.JPG', 'DJI_0105.JPG', 'DJI_0106.JPG', 'DJI_0107.JPG', 'DJI_0108.JPG', 'DJI_0109.JPG']
+2025-06-18 02:18:50,189 [INFO] stitch_images_distributed:747 - Image loading completed in 6.65 seconds
+2025-06-18 02:18:50,189 [INFO] stitch_images_distributed:748 - Images loaded: 45
+2025-06-18 02:18:50,194 [INFO] stitch_images_distributed:759 - 
 ==================================================
-2025-06-18 01:47:32,270 [INFO] stitch_images_distributed:760 - STEP 2: FEATURE EXTRACTION
-2025-06-18 01:47:32,271 [INFO] stitch_images_distributed:761 - ==================================================
-2025-06-18 01:47:32,271 [INFO] extract_features_distributed:235 - Extracting features from 45 images...
-2025-06-18 01:47:39,186 [INFO] extract_features_distributed:314 - Feature extraction completed for 45 images
-2025-06-18 01:47:39,186 [INFO] stitch_images_distributed:766 - Feature extraction completed in 6.91 seconds
-2025-06-18 01:47:39,186 [INFO] stitch_images_distributed:767 - Images with features: 45
-2025-06-18 01:47:39,216 [INFO] stitch_images_distributed:777 - 
+2025-06-18 02:18:50,194 [INFO] stitch_images_distributed:760 - STEP 2: FEATURE EXTRACTION
+2025-06-18 02:18:50,194 [INFO] stitch_images_distributed:761 - ==================================================
+2025-06-18 02:18:50,194 [INFO] extract_features_distributed:235 - Extracting features from 45 images...
+2025-06-18 02:18:56,960 [INFO] extract_features_distributed:314 - Feature extraction completed for 45 images
+2025-06-18 02:18:56,960 [INFO] stitch_images_distributed:766 - Feature extraction completed in 6.77 seconds
+2025-06-18 02:18:56,960 [INFO] stitch_images_distributed:767 - Images with features: 45
+2025-06-18 02:18:56,991 [INFO] stitch_images_distributed:777 - 
 ==================================================
-2025-06-18 01:47:39,216 [INFO] stitch_images_distributed:778 - STEP 3: FEATURE MATCHING
-2025-06-18 01:47:39,216 [INFO] stitch_images_distributed:779 - ==================================================
-2025-06-18 01:47:39,216 [INFO] find_matches_parallel:330 - Finding matches between 45 images with ratio 0.6...
-2025-06-18 01:47:39,216 [INFO] find_matches_parallel:434 - Created 44 adjacent image pairs for matching
-2025-06-18 01:47:39,216 [INFO] find_matches_parallel:449 - Processing batch 1/5 (10 pairs)
-2025-06-18 01:47:44,803 [INFO] find_matches_parallel:461 - Matched ('DJI_0065.JPG', 'DJI_0066.JPG'): 111 matches (detector: ORB, score: 4.651)
-2025-06-18 01:47:44,803 [INFO] find_matches_parallel:461 - Matched ('DJI_0066.JPG', 'DJI_0067.JPG'): 82 matches (detector: ORB, score: 3.355)
-2025-06-18 01:47:44,803 [INFO] find_matches_parallel:461 - Matched ('DJI_0067.JPG', 'DJI_0068.JPG'): 104 matches (detector: ORB, score: 4.399)
-2025-06-18 01:47:44,803 [INFO] find_matches_parallel:461 - Matched ('DJI_0068.JPG', 'DJI_0069.JPG'): 76 matches (detector: ORB, score: 3.131)
-2025-06-18 01:47:44,803 [INFO] find_matches_parallel:461 - Matched ('DJI_0069.JPG', 'DJI_0070.JPG'): 67 matches (detector: ORB, score: 2.636)
-2025-06-18 01:47:44,803 [INFO] find_matches_parallel:461 - Matched ('DJI_0070.JPG', 'DJI_0071.JPG'): 54 matches (detector: ORB, score: 2.121)
-2025-06-18 01:47:44,803 [INFO] find_matches_parallel:461 - Matched ('DJI_0071.JPG', 'DJI_0072.JPG'): 39 matches (detector: ORB, score: 1.339)
-2025-06-18 01:47:44,803 [INFO] find_matches_parallel:461 - Matched ('DJI_0072.JPG', 'DJI_0073.JPG'): 130 matches (detector: ORB, score: 4.801)
-2025-06-18 01:47:44,803 [INFO] find_matches_parallel:461 - Matched ('DJI_0073.JPG', 'DJI_0074.JPG'): 106 matches (detector: SIFT, score: 0.792)
-2025-06-18 01:47:44,803 [INFO] find_matches_parallel:461 - Matched ('DJI_0074.JPG', 'DJI_0075.JPG'): 119 matches (detector: ORB, score: 4.631)
-2025-06-18 01:47:44,831 [INFO] find_matches_parallel:449 - Processing batch 2/5 (10 pairs)
-2025-06-18 01:47:50,423 [INFO] find_matches_parallel:461 - Matched ('DJI_0075.JPG', 'DJI_0076.JPG'): 33 matches (detector: ORB, score: 1.020)
-2025-06-18 01:47:50,423 [INFO] find_matches_parallel:461 - Matched ('DJI_0076.JPG', 'DJI_0077.JPG'): 124 matches (detector: SIFT, score: 0.990)
-2025-06-18 01:47:50,423 [INFO] find_matches_parallel:461 - Matched ('DJI_0077.JPG', 'DJI_0078.JPG'): 39 matches (detector: ORB, score: 1.384)
-2025-06-18 01:47:50,423 [INFO] find_matches_parallel:461 - Matched ('DJI_0078.JPG', 'DJI_0079.JPG'): 49 matches (detector: ORB, score: 2.009)
-2025-06-18 01:47:50,423 [INFO] find_matches_parallel:461 - Matched ('DJI_0079.JPG', 'DJI_0080.JPG'): 66 matches (detector: ORB, score: 2.561)
-2025-06-18 01:47:50,423 [INFO] find_matches_parallel:461 - Matched ('DJI_0080.JPG', 'DJI_0081.JPG'): 60 matches (detector: ORB, score: 2.632)
-2025-06-18 01:47:50,423 [INFO] find_matches_parallel:461 - Matched ('DJI_0081.JPG', 'DJI_0082.JPG'): 55 matches (detector: ORB, score: 2.164)
-2025-06-18 01:47:50,423 [INFO] find_matches_parallel:461 - Matched ('DJI_0082.JPG', 'DJI_0083.JPG'): 83 matches (detector: ORB, score: 3.181)
-2025-06-18 01:47:50,423 [INFO] find_matches_parallel:461 - Matched ('DJI_0083.JPG', 'DJI_0084.JPG'): 101 matches (detector: ORB, score: 4.184)
-2025-06-18 01:47:50,423 [INFO] find_matches_parallel:461 - Matched ('DJI_0084.JPG', 'DJI_0085.JPG'): 101 matches (detector: ORB, score: 3.829)
-2025-06-18 01:47:50,451 [INFO] find_matches_parallel:449 - Processing batch 3/5 (10 pairs)
-2025-06-18 01:47:56,044 [INFO] find_matches_parallel:461 - Matched ('DJI_0085.JPG', 'DJI_0086.JPG'): 217 matches (detector: ORB, score: 8.699)
-2025-06-18 01:47:56,045 [INFO] find_matches_parallel:461 - Matched ('DJI_0086.JPG', 'DJI_0087.JPG'): 96 matches (detector: ORB, score: 3.456)
-2025-06-18 01:47:56,045 [INFO] find_matches_parallel:461 - Matched ('DJI_0087.JPG', 'DJI_0088.JPG'): 87 matches (detector: ORB, score: 3.272)
-2025-06-18 01:47:56,045 [INFO] find_matches_parallel:461 - Matched ('DJI_0088.JPG', 'DJI_0089.JPG'): 66 matches (detector: ORB, score: 2.518)
-2025-06-18 01:47:56,045 [INFO] find_matches_parallel:461 - Matched ('DJI_0089.JPG', 'DJI_0090.JPG'): 70 matches (detector: ORB, score: 3.015)
-2025-06-18 01:47:56,045 [INFO] find_matches_parallel:461 - Matched ('DJI_0090.JPG', 'DJI_0091.JPG'): 63 matches (detector: ORB, score: 2.464)
-2025-06-18 01:47:56,045 [INFO] find_matches_parallel:461 - Matched ('DJI_0091.JPG', 'DJI_0092.JPG'): 55 matches (detector: ORB, score: 2.033)
-2025-06-18 01:47:56,046 [INFO] find_matches_parallel:461 - Matched ('DJI_0092.JPG', 'DJI_0093.JPG'): 49 matches (detector: ORB, score: 1.843)
-2025-06-18 01:47:56,046 [INFO] find_matches_parallel:461 - Matched ('DJI_0093.JPG', 'DJI_0094.JPG'): 23 matches (detector: ORB, score: 0.885)
-2025-06-18 01:47:56,046 [INFO] find_matches_parallel:461 - Matched ('DJI_0094.JPG', 'DJI_0095.JPG'): 106 matches (detector: SIFT, score: 0.821)
-2025-06-18 01:47:56,075 [INFO] find_matches_parallel:449 - Processing batch 4/5 (10 pairs)
-2025-06-18 01:48:01,653 [INFO] find_matches_parallel:461 - Matched ('DJI_0095.JPG', 'DJI_0096.JPG'): 38 matches (detector: ORB, score: 1.256)
-2025-06-18 01:48:01,653 [INFO] find_matches_parallel:461 - Matched ('DJI_0096.JPG', 'DJI_0097.JPG'): 47 matches (detector: ORB, score: 1.605)
-2025-06-18 01:48:01,654 [INFO] find_matches_parallel:461 - Matched ('DJI_0097.JPG', 'DJI_0098.JPG'): 178 matches (detector: ORB, score: 7.173)
-2025-06-18 01:48:01,654 [INFO] find_matches_parallel:461 - Matched ('DJI_0098.JPG', 'DJI_0099.JPG'): 31 matches (detector: ORB, score: 0.968)
-2025-06-18 01:48:01,654 [INFO] find_matches_parallel:461 - Matched ('DJI_0099.JPG', 'DJI_0100.JPG'): 30 matches (detector: ORB, score: 1.070)
-2025-06-18 01:48:01,654 [INFO] find_matches_parallel:461 - Matched ('DJI_0100.JPG', 'DJI_0101.JPG'): 93 matches (detector: SIFT, score: 0.679)
-2025-06-18 01:48:01,654 [INFO] find_matches_parallel:461 - Matched ('DJI_0101.JPG', 'DJI_0102.JPG'): 37 matches (detector: ORB, score: 1.329)
-2025-06-18 01:48:01,654 [INFO] find_matches_parallel:461 - Matched ('DJI_0102.JPG', 'DJI_0103.JPG'): 38 matches (detector: ORB, score: 1.578)
-2025-06-18 01:48:01,654 [INFO] find_matches_parallel:461 - Matched ('DJI_0103.JPG', 'DJI_0104.JPG'): 51 matches (detector: ORB, score: 2.096)
-2025-06-18 01:48:01,654 [INFO] find_matches_parallel:461 - Matched ('DJI_0104.JPG', 'DJI_0105.JPG'): 50 matches (detector: ORB, score: 1.943)
-2025-06-18 01:48:01,682 [INFO] find_matches_parallel:449 - Processing batch 5/5 (4 pairs)
-2025-06-18 01:48:06,867 [INFO] find_matches_parallel:461 - Matched ('DJI_0105.JPG', 'DJI_0106.JPG'): 48 matches (detector: ORB, score: 1.875)
-2025-06-18 01:48:06,867 [INFO] find_matches_parallel:461 - Matched ('DJI_0106.JPG', 'DJI_0107.JPG'): 60 matches (detector: ORB, score: 2.258)
-2025-06-18 01:48:06,867 [INFO] find_matches_parallel:461 - Matched ('DJI_0107.JPG', 'DJI_0108.JPG'): 91 matches (detector: ORB, score: 3.497)
-2025-06-18 01:48:06,867 [INFO] find_matches_parallel:461 - Matched ('DJI_0108.JPG', 'DJI_0109.JPG'): 82 matches (detector: ORB, score: 2.960)
-2025-06-18 01:48:06,896 [INFO] stitch_images_distributed:784 - Feature matching completed in 27.68 seconds
-2025-06-18 01:48:06,896 [INFO] stitch_images_distributed:785 - Image pairs processed: 44
-2025-06-18 01:48:06,923 [INFO] stitch_images_distributed:791 - 
+2025-06-18 02:18:56,993 [INFO] stitch_images_distributed:778 - STEP 3: FEATURE MATCHING
+2025-06-18 02:18:56,993 [INFO] stitch_images_distributed:779 - ==================================================
+2025-06-18 02:18:56,993 [INFO] find_matches_parallel:330 - Finding matches between 45 images with ratio 0.6...
+2025-06-18 02:18:56,993 [INFO] find_matches_parallel:434 - Created 44 adjacent image pairs for matching
+2025-06-18 02:18:56,993 [INFO] find_matches_parallel:449 - Processing batch 1/5 (10 pairs)
+2025-06-18 02:19:02,624 [INFO] find_matches_parallel:461 - Matched ('DJI_0065.JPG', 'DJI_0066.JPG'): 111 matches (detector: ORB, score: 4.651)
+2025-06-18 02:19:02,624 [INFO] find_matches_parallel:461 - Matched ('DJI_0066.JPG', 'DJI_0067.JPG'): 82 matches (detector: ORB, score: 3.355)
+2025-06-18 02:19:02,624 [INFO] find_matches_parallel:461 - Matched ('DJI_0067.JPG', 'DJI_0068.JPG'): 104 matches (detector: ORB, score: 4.399)
+2025-06-18 02:19:02,624 [INFO] find_matches_parallel:461 - Matched ('DJI_0068.JPG', 'DJI_0069.JPG'): 76 matches (detector: ORB, score: 3.131)
+2025-06-18 02:19:02,624 [INFO] find_matches_parallel:461 - Matched ('DJI_0069.JPG', 'DJI_0070.JPG'): 67 matches (detector: ORB, score: 2.636)
+2025-06-18 02:19:02,624 [INFO] find_matches_parallel:461 - Matched ('DJI_0070.JPG', 'DJI_0071.JPG'): 54 matches (detector: ORB, score: 2.121)
+2025-06-18 02:19:02,625 [INFO] find_matches_parallel:461 - Matched ('DJI_0071.JPG', 'DJI_0072.JPG'): 39 matches (detector: ORB, score: 1.339)
+2025-06-18 02:19:02,625 [INFO] find_matches_parallel:461 - Matched ('DJI_0072.JPG', 'DJI_0073.JPG'): 130 matches (detector: ORB, score: 4.801)
+2025-06-18 02:19:02,625 [INFO] find_matches_parallel:461 - Matched ('DJI_0073.JPG', 'DJI_0074.JPG'): 106 matches (detector: SIFT, score: 0.792)
+2025-06-18 02:19:02,625 [INFO] find_matches_parallel:461 - Matched ('DJI_0074.JPG', 'DJI_0075.JPG'): 119 matches (detector: ORB, score: 4.631)
+2025-06-18 02:19:02,658 [INFO] find_matches_parallel:449 - Processing batch 2/5 (10 pairs)
+2025-06-18 02:19:08,252 [INFO] find_matches_parallel:461 - Matched ('DJI_0075.JPG', 'DJI_0076.JPG'): 33 matches (detector: ORB, score: 1.020)
+2025-06-18 02:19:08,252 [INFO] find_matches_parallel:461 - Matched ('DJI_0076.JPG', 'DJI_0077.JPG'): 124 matches (detector: SIFT, score: 0.990)
+2025-06-18 02:19:08,252 [INFO] find_matches_parallel:461 - Matched ('DJI_0077.JPG', 'DJI_0078.JPG'): 39 matches (detector: ORB, score: 1.384)
+2025-06-18 02:19:08,252 [INFO] find_matches_parallel:461 - Matched ('DJI_0078.JPG', 'DJI_0079.JPG'): 49 matches (detector: ORB, score: 2.009)
+2025-06-18 02:19:08,252 [INFO] find_matches_parallel:461 - Matched ('DJI_0079.JPG', 'DJI_0080.JPG'): 66 matches (detector: ORB, score: 2.561)
+2025-06-18 02:19:08,253 [INFO] find_matches_parallel:461 - Matched ('DJI_0080.JPG', 'DJI_0081.JPG'): 60 matches (detector: ORB, score: 2.632)
+2025-06-18 02:19:08,253 [INFO] find_matches_parallel:461 - Matched ('DJI_0081.JPG', 'DJI_0082.JPG'): 55 matches (detector: ORB, score: 2.164)
+2025-06-18 02:19:08,253 [INFO] find_matches_parallel:461 - Matched ('DJI_0082.JPG', 'DJI_0083.JPG'): 83 matches (detector: ORB, score: 3.181)
+2025-06-18 02:19:08,253 [INFO] find_matches_parallel:461 - Matched ('DJI_0083.JPG', 'DJI_0084.JPG'): 101 matches (detector: ORB, score: 4.184)
+2025-06-18 02:19:08,253 [INFO] find_matches_parallel:461 - Matched ('DJI_0084.JPG', 'DJI_0085.JPG'): 101 matches (detector: ORB, score: 3.829)
+2025-06-18 02:19:08,281 [INFO] find_matches_parallel:449 - Processing batch 3/5 (10 pairs)
+2025-06-18 02:19:13,887 [INFO] find_matches_parallel:461 - Matched ('DJI_0085.JPG', 'DJI_0086.JPG'): 217 matches (detector: ORB, score: 8.699)
+2025-06-18 02:19:13,887 [INFO] find_matches_parallel:461 - Matched ('DJI_0086.JPG', 'DJI_0087.JPG'): 96 matches (detector: ORB, score: 3.456)
+2025-06-18 02:19:13,887 [INFO] find_matches_parallel:461 - Matched ('DJI_0087.JPG', 'DJI_0088.JPG'): 87 matches (detector: ORB, score: 3.272)
+2025-06-18 02:19:13,887 [INFO] find_matches_parallel:461 - Matched ('DJI_0088.JPG', 'DJI_0089.JPG'): 66 matches (detector: ORB, score: 2.518)
+2025-06-18 02:19:13,887 [INFO] find_matches_parallel:461 - Matched ('DJI_0089.JPG', 'DJI_0090.JPG'): 70 matches (detector: ORB, score: 3.015)
+2025-06-18 02:19:13,887 [INFO] find_matches_parallel:461 - Matched ('DJI_0090.JPG', 'DJI_0091.JPG'): 63 matches (detector: ORB, score: 2.464)
+2025-06-18 02:19:13,887 [INFO] find_matches_parallel:461 - Matched ('DJI_0091.JPG', 'DJI_0092.JPG'): 55 matches (detector: ORB, score: 2.033)
+2025-06-18 02:19:13,887 [INFO] find_matches_parallel:461 - Matched ('DJI_0092.JPG', 'DJI_0093.JPG'): 49 matches (detector: ORB, score: 1.843)
+2025-06-18 02:19:13,887 [INFO] find_matches_parallel:461 - Matched ('DJI_0093.JPG', 'DJI_0094.JPG'): 23 matches (detector: ORB, score: 0.885)
+2025-06-18 02:19:13,887 [INFO] find_matches_parallel:461 - Matched ('DJI_0094.JPG', 'DJI_0095.JPG'): 106 matches (detector: SIFT, score: 0.821)
+2025-06-18 02:19:13,918 [INFO] find_matches_parallel:449 - Processing batch 4/5 (10 pairs)
+2025-06-18 02:19:19,480 [INFO] find_matches_parallel:461 - Matched ('DJI_0095.JPG', 'DJI_0096.JPG'): 38 matches (detector: ORB, score: 1.256)
+2025-06-18 02:19:19,480 [INFO] find_matches_parallel:461 - Matched ('DJI_0096.JPG', 'DJI_0097.JPG'): 47 matches (detector: ORB, score: 1.605)
+2025-06-18 02:19:19,481 [INFO] find_matches_parallel:461 - Matched ('DJI_0097.JPG', 'DJI_0098.JPG'): 178 matches (detector: ORB, score: 7.173)
+2025-06-18 02:19:19,481 [INFO] find_matches_parallel:461 - Matched ('DJI_0098.JPG', 'DJI_0099.JPG'): 31 matches (detector: ORB, score: 0.968)
+2025-06-18 02:19:19,481 [INFO] find_matches_parallel:461 - Matched ('DJI_0099.JPG', 'DJI_0100.JPG'): 30 matches (detector: ORB, score: 1.070)
+2025-06-18 02:19:19,481 [INFO] find_matches_parallel:461 - Matched ('DJI_0100.JPG', 'DJI_0101.JPG'): 93 matches (detector: SIFT, score: 0.679)
+2025-06-18 02:19:19,481 [INFO] find_matches_parallel:461 - Matched ('DJI_0101.JPG', 'DJI_0102.JPG'): 37 matches (detector: ORB, score: 1.329)
+2025-06-18 02:19:19,481 [INFO] find_matches_parallel:461 - Matched ('DJI_0102.JPG', 'DJI_0103.JPG'): 38 matches (detector: ORB, score: 1.578)
+2025-06-18 02:19:19,481 [INFO] find_matches_parallel:461 - Matched ('DJI_0103.JPG', 'DJI_0104.JPG'): 51 matches (detector: ORB, score: 2.096)
+2025-06-18 02:19:19,481 [INFO] find_matches_parallel:461 - Matched ('DJI_0104.JPG', 'DJI_0105.JPG'): 50 matches (detector: ORB, score: 1.943)
+2025-06-18 02:19:19,510 [INFO] find_matches_parallel:449 - Processing batch 5/5 (4 pairs)
+2025-06-18 02:19:24,727 [INFO] find_matches_parallel:461 - Matched ('DJI_0105.JPG', 'DJI_0106.JPG'): 48 matches (detector: ORB, score: 1.875)
+2025-06-18 02:19:24,727 [INFO] find_matches_parallel:461 - Matched ('DJI_0106.JPG', 'DJI_0107.JPG'): 60 matches (detector: ORB, score: 2.258)
+2025-06-18 02:19:24,727 [INFO] find_matches_parallel:461 - Matched ('DJI_0107.JPG', 'DJI_0108.JPG'): 91 matches (detector: ORB, score: 3.497)
+2025-06-18 02:19:24,727 [INFO] find_matches_parallel:461 - Matched ('DJI_0108.JPG', 'DJI_0109.JPG'): 82 matches (detector: ORB, score: 2.960)
+2025-06-18 02:19:24,755 [INFO] stitch_images_distributed:784 - Feature matching completed in 27.76 seconds
+2025-06-18 02:19:24,755 [INFO] stitch_images_distributed:785 - Image pairs processed: 44
+2025-06-18 02:19:24,783 [INFO] stitch_images_distributed:791 - 
 MATCH RESULTS SUMMARY:
-2025-06-18 01:48:06,923 [INFO] stitch_images_distributed:792 - --------------------------------------------------
-2025-06-18 01:48:06,923 [INFO] stitch_images_distributed:803 - Pair 1: DJI_0065.JPG -> DJI_0066.JPG
-2025-06-18 01:48:06,924 [INFO] stitch_images_distributed:804 -   Matches: 111 | Detector: ORB | Score: 4.651 | VALID
-2025-06-18 01:48:06,924 [INFO] stitch_images_distributed:803 - Pair 2: DJI_0066.JPG -> DJI_0067.JPG
-2025-06-18 01:48:06,924 [INFO] stitch_images_distributed:804 -   Matches: 82 | Detector: ORB | Score: 3.355 | VALID
-2025-06-18 01:48:06,924 [INFO] stitch_images_distributed:803 - Pair 3: DJI_0067.JPG -> DJI_0068.JPG
-2025-06-18 01:48:06,924 [INFO] stitch_images_distributed:804 -   Matches: 104 | Detector: ORB | Score: 4.399 | VALID
-2025-06-18 01:48:06,924 [INFO] stitch_images_distributed:803 - Pair 4: DJI_0068.JPG -> DJI_0069.JPG
-2025-06-18 01:48:06,925 [INFO] stitch_images_distributed:804 -   Matches: 76 | Detector: ORB | Score: 3.131 | VALID
-2025-06-18 01:48:06,925 [INFO] stitch_images_distributed:803 - Pair 5: DJI_0069.JPG -> DJI_0070.JPG
-2025-06-18 01:48:06,925 [INFO] stitch_images_distributed:804 -   Matches: 67 | Detector: ORB | Score: 2.636 | VALID
-2025-06-18 01:48:06,925 [INFO] stitch_images_distributed:803 - Pair 6: DJI_0070.JPG -> DJI_0071.JPG
-2025-06-18 01:48:06,925 [INFO] stitch_images_distributed:804 -   Matches: 54 | Detector: ORB | Score: 2.121 | VALID
-2025-06-18 01:48:06,925 [INFO] stitch_images_distributed:803 - Pair 7: DJI_0071.JPG -> DJI_0072.JPG
-2025-06-18 01:48:06,925 [INFO] stitch_images_distributed:804 -   Matches: 39 | Detector: ORB | Score: 1.339 | VALID
-2025-06-18 01:48:06,925 [INFO] stitch_images_distributed:803 - Pair 8: DJI_0072.JPG -> DJI_0073.JPG
-2025-06-18 01:48:06,925 [INFO] stitch_images_distributed:804 -   Matches: 130 | Detector: ORB | Score: 4.801 | VALID
-2025-06-18 01:48:06,925 [INFO] stitch_images_distributed:803 - Pair 9: DJI_0073.JPG -> DJI_0074.JPG
-2025-06-18 01:48:06,925 [INFO] stitch_images_distributed:804 -   Matches: 106 | Detector: SIFT | Score: 0.792 | VALID
-2025-06-18 01:48:06,925 [INFO] stitch_images_distributed:803 - Pair 10: DJI_0074.JPG -> DJI_0075.JPG
-2025-06-18 01:48:06,925 [INFO] stitch_images_distributed:804 -   Matches: 119 | Detector: ORB | Score: 4.631 | VALID
-2025-06-18 01:48:06,925 [INFO] stitch_images_distributed:803 - Pair 11: DJI_0075.JPG -> DJI_0076.JPG
-2025-06-18 01:48:06,925 [INFO] stitch_images_distributed:804 -   Matches: 33 | Detector: ORB | Score: 1.020 | VALID
-2025-06-18 01:48:06,925 [INFO] stitch_images_distributed:803 - Pair 12: DJI_0076.JPG -> DJI_0077.JPG
-2025-06-18 01:48:06,925 [INFO] stitch_images_distributed:804 -   Matches: 124 | Detector: SIFT | Score: 0.990 | VALID
-2025-06-18 01:48:06,926 [INFO] stitch_images_distributed:803 - Pair 13: DJI_0077.JPG -> DJI_0078.JPG
-2025-06-18 01:48:06,926 [INFO] stitch_images_distributed:804 -   Matches: 39 | Detector: ORB | Score: 1.384 | VALID
-2025-06-18 01:48:06,926 [INFO] stitch_images_distributed:803 - Pair 14: DJI_0078.JPG -> DJI_0079.JPG
-2025-06-18 01:48:06,926 [INFO] stitch_images_distributed:804 -   Matches: 49 | Detector: ORB | Score: 2.009 | VALID
-2025-06-18 01:48:06,926 [INFO] stitch_images_distributed:803 - Pair 15: DJI_0079.JPG -> DJI_0080.JPG
-2025-06-18 01:48:06,926 [INFO] stitch_images_distributed:804 -   Matches: 66 | Detector: ORB | Score: 2.561 | VALID
-2025-06-18 01:48:06,926 [INFO] stitch_images_distributed:803 - Pair 16: DJI_0080.JPG -> DJI_0081.JPG
-2025-06-18 01:48:06,926 [INFO] stitch_images_distributed:804 -   Matches: 60 | Detector: ORB | Score: 2.632 | VALID
-2025-06-18 01:48:06,926 [INFO] stitch_images_distributed:803 - Pair 17: DJI_0081.JPG -> DJI_0082.JPG
-2025-06-18 01:48:06,926 [INFO] stitch_images_distributed:804 -   Matches: 55 | Detector: ORB | Score: 2.164 | VALID
-2025-06-18 01:48:06,926 [INFO] stitch_images_distributed:803 - Pair 18: DJI_0082.JPG -> DJI_0083.JPG
-2025-06-18 01:48:06,926 [INFO] stitch_images_distributed:804 -   Matches: 83 | Detector: ORB | Score: 3.181 | VALID
-2025-06-18 01:48:06,926 [INFO] stitch_images_distributed:803 - Pair 19: DJI_0083.JPG -> DJI_0084.JPG
-2025-06-18 01:48:06,926 [INFO] stitch_images_distributed:804 -   Matches: 101 | Detector: ORB | Score: 4.184 | VALID
-2025-06-18 01:48:06,926 [INFO] stitch_images_distributed:803 - Pair 20: DJI_0084.JPG -> DJI_0085.JPG
-2025-06-18 01:48:06,926 [INFO] stitch_images_distributed:804 -   Matches: 101 | Detector: ORB | Score: 3.829 | VALID
-2025-06-18 01:48:06,926 [INFO] stitch_images_distributed:803 - Pair 21: DJI_0085.JPG -> DJI_0086.JPG
-2025-06-18 01:48:06,926 [INFO] stitch_images_distributed:804 -   Matches: 217 | Detector: ORB | Score: 8.699 | VALID
-2025-06-18 01:48:06,926 [INFO] stitch_images_distributed:803 - Pair 22: DJI_0086.JPG -> DJI_0087.JPG
-2025-06-18 01:48:06,926 [INFO] stitch_images_distributed:804 -   Matches: 96 | Detector: ORB | Score: 3.456 | VALID
-2025-06-18 01:48:06,926 [INFO] stitch_images_distributed:803 - Pair 23: DJI_0087.JPG -> DJI_0088.JPG
-2025-06-18 01:48:06,927 [INFO] stitch_images_distributed:804 -   Matches: 87 | Detector: ORB | Score: 3.272 | VALID
-2025-06-18 01:48:06,927 [INFO] stitch_images_distributed:803 - Pair 24: DJI_0088.JPG -> DJI_0089.JPG
-2025-06-18 01:48:06,927 [INFO] stitch_images_distributed:804 -   Matches: 66 | Detector: ORB | Score: 2.518 | VALID
-2025-06-18 01:48:06,927 [INFO] stitch_images_distributed:803 - Pair 25: DJI_0089.JPG -> DJI_0090.JPG
-2025-06-18 01:48:06,927 [INFO] stitch_images_distributed:804 -   Matches: 70 | Detector: ORB | Score: 3.015 | VALID
-2025-06-18 01:48:06,927 [INFO] stitch_images_distributed:803 - Pair 26: DJI_0090.JPG -> DJI_0091.JPG
-2025-06-18 01:48:06,927 [INFO] stitch_images_distributed:804 -   Matches: 63 | Detector: ORB | Score: 2.464 | VALID
-2025-06-18 01:48:06,927 [INFO] stitch_images_distributed:803 - Pair 27: DJI_0091.JPG -> DJI_0092.JPG
-2025-06-18 01:48:06,927 [INFO] stitch_images_distributed:804 -   Matches: 55 | Detector: ORB | Score: 2.033 | VALID
-2025-06-18 01:48:06,927 [INFO] stitch_images_distributed:803 - Pair 28: DJI_0092.JPG -> DJI_0093.JPG
-2025-06-18 01:48:06,927 [INFO] stitch_images_distributed:804 -   Matches: 49 | Detector: ORB | Score: 1.843 | VALID
-2025-06-18 01:48:06,927 [INFO] stitch_images_distributed:803 - Pair 29: DJI_0093.JPG -> DJI_0094.JPG
-2025-06-18 01:48:06,927 [INFO] stitch_images_distributed:804 -   Matches: 23 | Detector: ORB | Score: 0.885 | VALID
-2025-06-18 01:48:06,928 [INFO] stitch_images_distributed:803 - Pair 30: DJI_0094.JPG -> DJI_0095.JPG
-2025-06-18 01:48:06,928 [INFO] stitch_images_distributed:804 -   Matches: 106 | Detector: SIFT | Score: 0.821 | VALID
-2025-06-18 01:48:06,928 [INFO] stitch_images_distributed:803 - Pair 31: DJI_0095.JPG -> DJI_0096.JPG
-2025-06-18 01:48:06,928 [INFO] stitch_images_distributed:804 -   Matches: 38 | Detector: ORB | Score: 1.256 | VALID
-2025-06-18 01:48:06,928 [INFO] stitch_images_distributed:803 - Pair 32: DJI_0096.JPG -> DJI_0097.JPG
-2025-06-18 01:48:06,928 [INFO] stitch_images_distributed:804 -   Matches: 47 | Detector: ORB | Score: 1.605 | VALID
-2025-06-18 01:48:06,928 [INFO] stitch_images_distributed:803 - Pair 33: DJI_0097.JPG -> DJI_0098.JPG
-2025-06-18 01:48:06,928 [INFO] stitch_images_distributed:804 -   Matches: 178 | Detector: ORB | Score: 7.173 | VALID
-2025-06-18 01:48:06,928 [INFO] stitch_images_distributed:803 - Pair 34: DJI_0098.JPG -> DJI_0099.JPG
-2025-06-18 01:48:06,928 [INFO] stitch_images_distributed:804 -   Matches: 31 | Detector: ORB | Score: 0.968 | VALID
-2025-06-18 01:48:06,928 [INFO] stitch_images_distributed:803 - Pair 35: DJI_0099.JPG -> DJI_0100.JPG
-2025-06-18 01:48:06,928 [INFO] stitch_images_distributed:804 -   Matches: 30 | Detector: ORB | Score: 1.070 | VALID
-2025-06-18 01:48:06,928 [INFO] stitch_images_distributed:803 - Pair 36: DJI_0100.JPG -> DJI_0101.JPG
-2025-06-18 01:48:06,928 [INFO] stitch_images_distributed:804 -   Matches: 93 | Detector: SIFT | Score: 0.679 | VALID
-2025-06-18 01:48:06,928 [INFO] stitch_images_distributed:803 - Pair 37: DJI_0101.JPG -> DJI_0102.JPG
-2025-06-18 01:48:06,929 [INFO] stitch_images_distributed:804 -   Matches: 37 | Detector: ORB | Score: 1.329 | VALID
-2025-06-18 01:48:06,929 [INFO] stitch_images_distributed:803 - Pair 38: DJI_0102.JPG -> DJI_0103.JPG
-2025-06-18 01:48:06,929 [INFO] stitch_images_distributed:804 -   Matches: 38 | Detector: ORB | Score: 1.578 | VALID
-2025-06-18 01:48:06,929 [INFO] stitch_images_distributed:803 - Pair 39: DJI_0103.JPG -> DJI_0104.JPG
-2025-06-18 01:48:06,929 [INFO] stitch_images_distributed:804 -   Matches: 51 | Detector: ORB | Score: 2.096 | VALID
-2025-06-18 01:48:06,929 [INFO] stitch_images_distributed:803 - Pair 40: DJI_0104.JPG -> DJI_0105.JPG
-2025-06-18 01:48:06,929 [INFO] stitch_images_distributed:804 -   Matches: 50 | Detector: ORB | Score: 1.943 | VALID
-2025-06-18 01:48:06,929 [INFO] stitch_images_distributed:803 - Pair 41: DJI_0105.JPG -> DJI_0106.JPG
-2025-06-18 01:48:06,929 [INFO] stitch_images_distributed:804 -   Matches: 48 | Detector: ORB | Score: 1.875 | VALID
-2025-06-18 01:48:06,929 [INFO] stitch_images_distributed:803 - Pair 42: DJI_0106.JPG -> DJI_0107.JPG
-2025-06-18 01:48:06,929 [INFO] stitch_images_distributed:804 -   Matches: 60 | Detector: ORB | Score: 2.258 | VALID
-2025-06-18 01:48:06,929 [INFO] stitch_images_distributed:803 - Pair 43: DJI_0107.JPG -> DJI_0108.JPG
-2025-06-18 01:48:06,929 [INFO] stitch_images_distributed:804 -   Matches: 91 | Detector: ORB | Score: 3.497 | VALID
-2025-06-18 01:48:06,929 [INFO] stitch_images_distributed:803 - Pair 44: DJI_0108.JPG -> DJI_0109.JPG
-2025-06-18 01:48:06,929 [INFO] stitch_images_distributed:804 -   Matches: 82 | Detector: ORB | Score: 2.960 | VALID
-2025-06-18 01:48:06,930 [INFO] stitch_images_distributed:807 - 
+2025-06-18 02:19:24,783 [INFO] stitch_images_distributed:792 - --------------------------------------------------
+2025-06-18 02:19:24,783 [INFO] stitch_images_distributed:803 - Pair 1: DJI_0065.JPG -> DJI_0066.JPG
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:804 -   Matches: 111 | Detector: ORB | Score: 4.651 | VALID
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:803 - Pair 2: DJI_0066.JPG -> DJI_0067.JPG
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:804 -   Matches: 82 | Detector: ORB | Score: 3.355 | VALID
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:803 - Pair 3: DJI_0067.JPG -> DJI_0068.JPG
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:804 -   Matches: 104 | Detector: ORB | Score: 4.399 | VALID
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:803 - Pair 4: DJI_0068.JPG -> DJI_0069.JPG
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:804 -   Matches: 76 | Detector: ORB | Score: 3.131 | VALID
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:803 - Pair 5: DJI_0069.JPG -> DJI_0070.JPG
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:804 -   Matches: 67 | Detector: ORB | Score: 2.636 | VALID
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:803 - Pair 6: DJI_0070.JPG -> DJI_0071.JPG
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:804 -   Matches: 54 | Detector: ORB | Score: 2.121 | VALID
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:803 - Pair 7: DJI_0071.JPG -> DJI_0072.JPG
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:804 -   Matches: 39 | Detector: ORB | Score: 1.339 | VALID
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:803 - Pair 8: DJI_0072.JPG -> DJI_0073.JPG
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:804 -   Matches: 130 | Detector: ORB | Score: 4.801 | VALID
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:803 - Pair 9: DJI_0073.JPG -> DJI_0074.JPG
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:804 -   Matches: 106 | Detector: SIFT | Score: 0.792 | VALID
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:803 - Pair 10: DJI_0074.JPG -> DJI_0075.JPG
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:804 -   Matches: 119 | Detector: ORB | Score: 4.631 | VALID
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:803 - Pair 11: DJI_0075.JPG -> DJI_0076.JPG
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:804 -   Matches: 33 | Detector: ORB | Score: 1.020 | VALID
+2025-06-18 02:19:24,784 [INFO] stitch_images_distributed:803 - Pair 12: DJI_0076.JPG -> DJI_0077.JPG
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:804 -   Matches: 124 | Detector: SIFT | Score: 0.990 | VALID
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:803 - Pair 13: DJI_0077.JPG -> DJI_0078.JPG
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:804 -   Matches: 39 | Detector: ORB | Score: 1.384 | VALID
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:803 - Pair 14: DJI_0078.JPG -> DJI_0079.JPG
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:804 -   Matches: 49 | Detector: ORB | Score: 2.009 | VALID
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:803 - Pair 15: DJI_0079.JPG -> DJI_0080.JPG
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:804 -   Matches: 66 | Detector: ORB | Score: 2.561 | VALID
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:803 - Pair 16: DJI_0080.JPG -> DJI_0081.JPG
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:804 -   Matches: 60 | Detector: ORB | Score: 2.632 | VALID
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:803 - Pair 17: DJI_0081.JPG -> DJI_0082.JPG
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:804 -   Matches: 55 | Detector: ORB | Score: 2.164 | VALID
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:803 - Pair 18: DJI_0082.JPG -> DJI_0083.JPG
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:804 -   Matches: 83 | Detector: ORB | Score: 3.181 | VALID
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:803 - Pair 19: DJI_0083.JPG -> DJI_0084.JPG
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:804 -   Matches: 101 | Detector: ORB | Score: 4.184 | VALID
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:803 - Pair 20: DJI_0084.JPG -> DJI_0085.JPG
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:804 -   Matches: 101 | Detector: ORB | Score: 3.829 | VALID
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:803 - Pair 21: DJI_0085.JPG -> DJI_0086.JPG
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:804 -   Matches: 217 | Detector: ORB | Score: 8.699 | VALID
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:803 - Pair 22: DJI_0086.JPG -> DJI_0087.JPG
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:804 -   Matches: 96 | Detector: ORB | Score: 3.456 | VALID
+2025-06-18 02:19:24,785 [INFO] stitch_images_distributed:803 - Pair 23: DJI_0087.JPG -> DJI_0088.JPG
+2025-06-18 02:19:24,786 [INFO] stitch_images_distributed:804 -   Matches: 87 | Detector: ORB | Score: 3.272 | VALID
+2025-06-18 02:19:24,786 [INFO] stitch_images_distributed:803 - Pair 24: DJI_0088.JPG -> DJI_0089.JPG
+2025-06-18 02:19:24,786 [INFO] stitch_images_distributed:804 -   Matches: 66 | Detector: ORB | Score: 2.518 | VALID
+2025-06-18 02:19:24,786 [INFO] stitch_images_distributed:803 - Pair 25: DJI_0089.JPG -> DJI_0090.JPG
+2025-06-18 02:19:24,786 [INFO] stitch_images_distributed:804 -   Matches: 70 | Detector: ORB | Score: 3.015 | VALID
+2025-06-18 02:19:24,786 [INFO] stitch_images_distributed:803 - Pair 26: DJI_0090.JPG -> DJI_0091.JPG
+2025-06-18 02:19:24,786 [INFO] stitch_images_distributed:804 -   Matches: 63 | Detector: ORB | Score: 2.464 | VALID
+2025-06-18 02:19:24,786 [INFO] stitch_images_distributed:803 - Pair 27: DJI_0091.JPG -> DJI_0092.JPG
+2025-06-18 02:19:24,786 [INFO] stitch_images_distributed:804 -   Matches: 55 | Detector: ORB | Score: 2.033 | VALID
+2025-06-18 02:19:24,786 [INFO] stitch_images_distributed:803 - Pair 28: DJI_0092.JPG -> DJI_0093.JPG
+2025-06-18 02:19:24,786 [INFO] stitch_images_distributed:804 -   Matches: 49 | Detector: ORB | Score: 1.843 | VALID
+2025-06-18 02:19:24,786 [INFO] stitch_images_distributed:803 - Pair 29: DJI_0093.JPG -> DJI_0094.JPG
+2025-06-18 02:19:24,786 [INFO] stitch_images_distributed:804 -   Matches: 23 | Detector: ORB | Score: 0.885 | VALID
+2025-06-18 02:19:24,786 [INFO] stitch_images_distributed:803 - Pair 30: DJI_0094.JPG -> DJI_0095.JPG
+2025-06-18 02:19:24,786 [INFO] stitch_images_distributed:804 -   Matches: 106 | Detector: SIFT | Score: 0.821 | VALID
+2025-06-18 02:19:24,787 [INFO] stitch_images_distributed:803 - Pair 31: DJI_0095.JPG -> DJI_0096.JPG
+2025-06-18 02:19:24,787 [INFO] stitch_images_distributed:804 -   Matches: 38 | Detector: ORB | Score: 1.256 | VALID
+2025-06-18 02:19:24,787 [INFO] stitch_images_distributed:803 - Pair 32: DJI_0096.JPG -> DJI_0097.JPG
+2025-06-18 02:19:24,787 [INFO] stitch_images_distributed:804 -   Matches: 47 | Detector: ORB | Score: 1.605 | VALID
+2025-06-18 02:19:24,787 [INFO] stitch_images_distributed:803 - Pair 33: DJI_0097.JPG -> DJI_0098.JPG
+2025-06-18 02:19:24,787 [INFO] stitch_images_distributed:804 -   Matches: 178 | Detector: ORB | Score: 7.173 | VALID
+2025-06-18 02:19:24,787 [INFO] stitch_images_distributed:803 - Pair 34: DJI_0098.JPG -> DJI_0099.JPG
+2025-06-18 02:19:24,787 [INFO] stitch_images_distributed:804 -   Matches: 31 | Detector: ORB | Score: 0.968 | VALID
+2025-06-18 02:19:24,787 [INFO] stitch_images_distributed:803 - Pair 35: DJI_0099.JPG -> DJI_0100.JPG
+2025-06-18 02:19:24,787 [INFO] stitch_images_distributed:804 -   Matches: 30 | Detector: ORB | Score: 1.070 | VALID
+2025-06-18 02:19:24,787 [INFO] stitch_images_distributed:803 - Pair 36: DJI_0100.JPG -> DJI_0101.JPG
+2025-06-18 02:19:24,787 [INFO] stitch_images_distributed:804 -   Matches: 93 | Detector: SIFT | Score: 0.679 | VALID
+2025-06-18 02:19:24,787 [INFO] stitch_images_distributed:803 - Pair 37: DJI_0101.JPG -> DJI_0102.JPG
+2025-06-18 02:19:24,788 [INFO] stitch_images_distributed:804 -   Matches: 37 | Detector: ORB | Score: 1.329 | VALID
+2025-06-18 02:19:24,788 [INFO] stitch_images_distributed:803 - Pair 38: DJI_0102.JPG -> DJI_0103.JPG
+2025-06-18 02:19:24,788 [INFO] stitch_images_distributed:804 -   Matches: 38 | Detector: ORB | Score: 1.578 | VALID
+2025-06-18 02:19:24,788 [INFO] stitch_images_distributed:803 - Pair 39: DJI_0103.JPG -> DJI_0104.JPG
+2025-06-18 02:19:24,788 [INFO] stitch_images_distributed:804 -   Matches: 51 | Detector: ORB | Score: 2.096 | VALID
+2025-06-18 02:19:24,788 [INFO] stitch_images_distributed:803 - Pair 40: DJI_0104.JPG -> DJI_0105.JPG
+2025-06-18 02:19:24,788 [INFO] stitch_images_distributed:804 -   Matches: 50 | Detector: ORB | Score: 1.943 | VALID
+2025-06-18 02:19:24,788 [INFO] stitch_images_distributed:803 - Pair 41: DJI_0105.JPG -> DJI_0106.JPG
+2025-06-18 02:19:24,788 [INFO] stitch_images_distributed:804 -   Matches: 48 | Detector: ORB | Score: 1.875 | VALID
+2025-06-18 02:19:24,788 [INFO] stitch_images_distributed:803 - Pair 42: DJI_0106.JPG -> DJI_0107.JPG
+2025-06-18 02:19:24,788 [INFO] stitch_images_distributed:804 -   Matches: 60 | Detector: ORB | Score: 2.258 | VALID
+2025-06-18 02:19:24,788 [INFO] stitch_images_distributed:803 - Pair 43: DJI_0107.JPG -> DJI_0108.JPG
+2025-06-18 02:19:24,788 [INFO] stitch_images_distributed:804 -   Matches: 91 | Detector: ORB | Score: 3.497 | VALID
+2025-06-18 02:19:24,788 [INFO] stitch_images_distributed:803 - Pair 44: DJI_0108.JPG -> DJI_0109.JPG
+2025-06-18 02:19:24,789 [INFO] stitch_images_distributed:804 -   Matches: 82 | Detector: ORB | Score: 2.960 | VALID
+2025-06-18 02:19:24,789 [INFO] stitch_images_distributed:807 - 
 Total matches found: 3305
-2025-06-18 01:48:06,930 [INFO] stitch_images_distributed:808 - Valid pairs (>=10 matches): 44/44
-2025-06-18 01:48:06,930 [INFO] stitch_images_distributed:815 - 
+2025-06-18 02:19:24,789 [INFO] stitch_images_distributed:808 - Valid pairs (>=10 matches): 44/44
+2025-06-18 02:19:24,789 [INFO] stitch_images_distributed:815 - 
 ==================================================
-2025-06-18 01:48:06,930 [INFO] stitch_images_distributed:816 - STEP 4: SEQUENTIAL STITCHING
-2025-06-18 01:48:06,930 [INFO] stitch_images_distributed:817 - ==================================================
-2025-06-18 01:48:06,930 [INFO] stitch_sequentially:612 - Starting sequential stitching...
-2025-06-18 01:48:07,019 [INFO] _try_stitch_with_images:673 - Attempting to stitch 45 images...
-2025-06-18 01:48:07,033 [INFO] _try_stitch_with_images:702 - Calculating cumulative homographies...
-2025-06-18 01:48:07,033 [INFO] warp_and_blend_all:479 - Starting global warping and simple feather blending of all images.
-2025-06-18 01:48:07,034 [INFO] warp_and_blend_all:503 - Calculated canvas size: 667x1468
-2025-06-18 01:48:07,034 [INFO] warp_and_blend_all:546 - Estimated memory requirement: 11.2 MB
-2025-06-18 01:48:07,034 [INFO] warp_and_blend_all:560 - Processing 45 images for blending...
-2025-06-18 01:48:07,790 [INFO] warp_and_blend_all:588 - Saved uncropped panorama
-2025-06-18 01:48:07,790 [INFO] warp_and_blend_all:593 - Cropping final panorama...
-2025-06-18 01:48:07,791 [INFO] warp_and_blend_all:601 - Cropped panorama size: 667x1468
-2025-06-18 01:48:07,792 [INFO] _try_stitch_with_images:722 - Computed 45 valid global homographies.
-2025-06-18 01:48:07,793 [INFO] stitch_images_distributed:821 - Sequential stitching completed in 0.86 seconds
-2025-06-18 01:48:07,793 [INFO] stitch_images_distributed:826 - 
+2025-06-18 02:19:24,789 [INFO] stitch_images_distributed:816 - STEP 4: SEQUENTIAL STITCHING
+2025-06-18 02:19:24,789 [INFO] stitch_images_distributed:817 - ==================================================
+2025-06-18 02:19:24,789 [INFO] stitch_sequentially:612 - Starting sequential stitching...
+2025-06-18 02:19:24,881 [INFO] _try_stitch_with_images:673 - Attempting to stitch 45 images...
+2025-06-18 02:19:24,894 [INFO] _try_stitch_with_images:702 - Calculating cumulative homographies...
+2025-06-18 02:19:24,894 [INFO] warp_and_blend_all:479 - Starting global warping and simple feather blending of all images.
+2025-06-18 02:19:24,895 [INFO] warp_and_blend_all:503 - Calculated canvas size: 667x1468
+2025-06-18 02:19:24,895 [INFO] warp_and_blend_all:546 - Estimated memory requirement: 11.2 MB
+2025-06-18 02:19:24,895 [INFO] warp_and_blend_all:560 - Processing 45 images for blending...
+2025-06-18 02:19:25,652 [INFO] warp_and_blend_all:588 - Saved uncropped panorama
+2025-06-18 02:19:25,652 [INFO] warp_and_blend_all:593 - Cropping final panorama...
+2025-06-18 02:19:25,654 [INFO] warp_and_blend_all:601 - Cropped panorama size: 667x1468
+2025-06-18 02:19:25,655 [INFO] _try_stitch_with_images:722 - Computed 45 valid global homographies.
+2025-06-18 02:19:25,656 [INFO] stitch_images_distributed:821 - Sequential stitching completed in 0.87 seconds
+2025-06-18 02:19:25,656 [INFO] stitch_images_distributed:826 - 
 ======================================================================
-2025-06-18 01:48:07,793 [INFO] stitch_images_distributed:827 - TIMING SUMMARY
-2025-06-18 01:48:07,794 [INFO] stitch_images_distributed:828 - ======================================================================
-2025-06-18 01:48:07,794 [INFO] stitch_images_distributed:829 - Total processing time: 42.00 seconds
-2025-06-18 01:48:07,794 [INFO] stitch_images_distributed:830 -   * Image loading:     6.47s (15.4%)
-2025-06-18 01:48:07,794 [INFO] stitch_images_distributed:831 -   * Feature extraction: 6.91s (16.5%)
-2025-06-18 01:48:07,794 [INFO] stitch_images_distributed:832 -   * Feature matching:   27.68s (65.9%)
-2025-06-18 01:48:07,794 [INFO] stitch_images_distributed:833 -   * Image stitching:    0.86s (2.1%)
-2025-06-18 01:48:07,794 [INFO] stitch_images_distributed:834 - ======================================================================
-2025-06-18 01:48:07,794 [INFO] stitch_images_distributed:837 - SUCCESS! Final panorama shape: (1468, 667, 3)
-2025-06-18 01:48:07,886 [INFO] stitch_images_distributed:855 - Sharpened and contrast-enhanced panoramas saved as 'spark_distributed_panorama_sharpened.jpg' and 'spark_distributed_panorama_enhanced.jpg'
-2025-06-18 01:48:07,909 [INFO] main:915 - Saving panorama to: spark_distributed_panorama.jpg
-2025-06-18 01:48:07,914 [INFO] main:919 -  Panorama saved successfully: spark_distributed_panorama.jpg
-2025-06-18 01:48:07,914 [INFO] main:923 -   File size: 0.29 MB
-2025-06-18 01:48:07,914 [INFO] main:924 -   Image dimensions: (1468, 667, 3)
-2025-06-18 01:48:08,149 [INFO] main:931 - Attempting to display result...
-2025-06-18 01:48:20,435 [INFO] main:941 - Panorama displayed and preview saved
-2025-06-18 01:48:20,435 [INFO] stop:871 - Stopping Spark session...
-2025-06-18 01:48:20,967 [INFO] stop:873 - Spark session stopped successfully
-2025-06-18 01:48:20,967 [INFO] main:971 - Program execution completed
-2025-06-18 01:48:20,968 [INFO] close:543 - Closing down clientserver connection
-2025-06-18 01:50:42,911 [INFO] main:880 - ======================================================================
-2025-06-18 01:50:42,912 [INFO] main:881 - SPARK DISTRIBUTED IMAGE STITCHING
-2025-06-18 01:50:42,912 [INFO] main:882 - ======================================================================
-2025-06-18 01:50:42,912 [INFO] main:888 - Initializing Spark Image Stitcher...
-2025-06-18 01:50:42,912 [INFO] __init__:31 - Initializing SparkImageStitcher...
-2025-06-18 01:50:42,912 [INFO] __init__:37 - Using Python executable: C:\Users\user\AppData\Local\Programs\Python\Python310\python.exe
-2025-06-18 01:50:44,154 [INFO] __init__:82 - Spark session initialized successfully. Application ID: app-20250618015043-0026
-2025-06-18 01:50:44,154 [INFO] main:895 - Input directory: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
-2025-06-18 01:50:44,154 [INFO] main:896 - Output filename: spark_distributed_panorama.jpg
-2025-06-18 01:50:44,154 [INFO] main:904 - Starting distributed stitching process...
-2025-06-18 01:50:44,154 [INFO] stitch_images_distributed:728 - ======================================================================
-2025-06-18 01:50:44,154 [INFO] stitch_images_distributed:729 - DISTRIBUTED IMAGE STITCHING WITH SPARK
-2025-06-18 01:50:44,154 [INFO] stitch_images_distributed:730 - ======================================================================
-2025-06-18 01:50:44,154 [INFO] stitch_images_distributed:731 - Input directory: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
-2025-06-18 01:50:44,154 [INFO] stitch_images_distributed:732 - Minimum match count: 10
-2025-06-18 01:50:44,154 [INFO] stitch_images_distributed:733 - Match ratio threshold: 0.6
-2025-06-18 01:50:44,154 [INFO] stitch_images_distributed:734 - ======================================================================
-2025-06-18 01:50:44,154 [INFO] stitch_images_distributed:740 - 
-==================================================
-2025-06-18 01:50:44,154 [INFO] stitch_images_distributed:741 - STEP 1: LOADING IMAGES
-2025-06-18 01:50:44,154 [INFO] stitch_images_distributed:742 - ==================================================
-2025-06-18 01:50:44,154 [INFO] load_images_distributed:137 - Searching for files with extensions: ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif']
-2025-06-18 01:50:44,154 [INFO] load_images_distributed:139 - Loading images from: C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING
-2025-06-18 01:50:44,155 [INFO] load_images_distributed:156 - Found 45 image files
-2025-06-18 01:50:50,612 [INFO] load_images_distributed:217 - Successfully loaded 45 out of 45 images
-2025-06-18 01:50:50,613 [INFO] load_images_distributed:223 - All files: ['DJI_0065.JPG', 'DJI_0066.JPG', 'DJI_0067.JPG', 'DJI_0068.JPG', 'DJI_0069.JPG', 'DJI_0070.JPG', 'DJI_0071.JPG', 'DJI_0072.JPG', 'DJI_0073.JPG', 'DJI_0074.JPG', 'DJI_0075.JPG', 'DJI_0076.JPG', 'DJI_0077.JPG', 'DJI_0078.JPG', 'DJI_0079.JPG', 'DJI_0080.JPG', 'DJI_0081.JPG', 'DJI_0082.JPG', 'DJI_0083.JPG', 'DJI_0084.JPG', 'DJI_0085.JPG', 'DJI_0086.JPG', 'DJI_0087.JPG', 'DJI_0088.JPG', 'DJI_0089.JPG', 'DJI_0090.JPG', 'DJI_0091.JPG', 'DJI_0092.JPG', 'DJI_0093.JPG', 'DJI_0094.JPG', 'DJI_0095.JPG', 'DJI_0096.JPG', 'DJI_0097.JPG', 'DJI_0098.JPG', 'DJI_0099.JPG', 'DJI_0100.JPG', 'DJI_0101.JPG', 'DJI_0102.JPG', 'DJI_0103.JPG', 'DJI_0104.JPG', 'DJI_0105.JPG', 'DJI_0106.JPG', 'DJI_0107.JPG', 'DJI_0108.JPG', 'DJI_0109.JPG']
-2025-06-18 01:50:50,613 [INFO] load_images_distributed:224 - Image files: ['DJI_0065.JPG', 'DJI_0066.JPG', 'DJI_0067.JPG', 'DJI_0068.JPG', 'DJI_0069.JPG', 'DJI_0070.JPG', 'DJI_0071.JPG', 'DJI_0072.JPG', 'DJI_0073.JPG', 'DJI_0074.JPG', 'DJI_0075.JPG', 'DJI_0076.JPG', 'DJI_0077.JPG', 'DJI_0078.JPG', 'DJI_0079.JPG', 'DJI_0080.JPG', 'DJI_0081.JPG', 'DJI_0082.JPG', 'DJI_0083.JPG', 'DJI_0084.JPG', 'DJI_0085.JPG', 'DJI_0086.JPG', 'DJI_0087.JPG', 'DJI_0088.JPG', 'DJI_0089.JPG', 'DJI_0090.JPG', 'DJI_0091.JPG', 'DJI_0092.JPG', 'DJI_0093.JPG', 'DJI_0094.JPG', 'DJI_0095.JPG', 'DJI_0096.JPG', 'DJI_0097.JPG', 'DJI_0098.JPG', 'DJI_0099.JPG', 'DJI_0100.JPG', 'DJI_0101.JPG', 'DJI_0102.JPG', 'DJI_0103.JPG', 'DJI_0104.JPG', 'DJI_0105.JPG', 'DJI_0106.JPG', 'DJI_0107.JPG', 'DJI_0108.JPG', 'DJI_0109.JPG']
-2025-06-18 01:50:50,613 [INFO] stitch_images_distributed:747 - Image loading completed in 6.46 seconds
-2025-06-18 01:50:50,613 [INFO] stitch_images_distributed:748 - Images loaded: 45
-2025-06-18 01:50:50,617 [INFO] stitch_images_distributed:759 - 
-==================================================
-2025-06-18 01:50:50,617 [INFO] stitch_images_distributed:760 - STEP 2: FEATURE EXTRACTION
-2025-06-18 01:50:50,617 [INFO] stitch_images_distributed:761 - ==================================================
-2025-06-18 01:50:50,617 [INFO] extract_features_distributed:235 - Extracting features from 45 images...
-2025-06-18 01:50:57,441 [INFO] extract_features_distributed:314 - Feature extraction completed for 45 images
-2025-06-18 01:50:57,441 [INFO] stitch_images_distributed:766 - Feature extraction completed in 6.82 seconds
-2025-06-18 01:50:57,441 [INFO] stitch_images_distributed:767 - Images with features: 45
-2025-06-18 01:50:57,469 [INFO] stitch_images_distributed:777 - 
-==================================================
-2025-06-18 01:50:57,470 [INFO] stitch_images_distributed:778 - STEP 3: FEATURE MATCHING
-2025-06-18 01:50:57,470 [INFO] stitch_images_distributed:779 - ==================================================
-2025-06-18 01:50:57,470 [INFO] find_matches_parallel:330 - Finding matches between 45 images with ratio 0.6...
-2025-06-18 01:50:57,470 [INFO] find_matches_parallel:434 - Created 44 adjacent image pairs for matching
-2025-06-18 01:50:57,470 [INFO] find_matches_parallel:449 - Processing batch 1/5 (10 pairs)
-2025-06-18 01:51:02,998 [INFO] find_matches_parallel:461 - Matched ('DJI_0065.JPG', 'DJI_0066.JPG'): 111 matches (detector: ORB, score: 4.651)
-2025-06-18 01:51:02,998 [INFO] find_matches_parallel:461 - Matched ('DJI_0066.JPG', 'DJI_0067.JPG'): 82 matches (detector: ORB, score: 3.355)
-2025-06-18 01:51:02,998 [INFO] find_matches_parallel:461 - Matched ('DJI_0067.JPG', 'DJI_0068.JPG'): 104 matches (detector: ORB, score: 4.399)
-2025-06-18 01:51:02,998 [INFO] find_matches_parallel:461 - Matched ('DJI_0068.JPG', 'DJI_0069.JPG'): 76 matches (detector: ORB, score: 3.131)
-2025-06-18 01:51:02,998 [INFO] find_matches_parallel:461 - Matched ('DJI_0069.JPG', 'DJI_0070.JPG'): 67 matches (detector: ORB, score: 2.636)
-2025-06-18 01:51:02,998 [INFO] find_matches_parallel:461 - Matched ('DJI_0070.JPG', 'DJI_0071.JPG'): 54 matches (detector: ORB, score: 2.121)
-2025-06-18 01:51:02,998 [INFO] find_matches_parallel:461 - Matched ('DJI_0071.JPG', 'DJI_0072.JPG'): 39 matches (detector: ORB, score: 1.339)
-2025-06-18 01:51:02,998 [INFO] find_matches_parallel:461 - Matched ('DJI_0072.JPG', 'DJI_0073.JPG'): 130 matches (detector: ORB, score: 4.801)
-2025-06-18 01:51:02,998 [INFO] find_matches_parallel:461 - Matched ('DJI_0073.JPG', 'DJI_0074.JPG'): 106 matches (detector: SIFT, score: 0.792)
-2025-06-18 01:51:02,998 [INFO] find_matches_parallel:461 - Matched ('DJI_0074.JPG', 'DJI_0075.JPG'): 119 matches (detector: ORB, score: 4.631)
-2025-06-18 01:51:03,027 [INFO] find_matches_parallel:449 - Processing batch 2/5 (10 pairs)
-2025-06-18 01:51:08,679 [INFO] find_matches_parallel:461 - Matched ('DJI_0075.JPG', 'DJI_0076.JPG'): 33 matches (detector: ORB, score: 1.020)
-2025-06-18 01:51:08,679 [INFO] find_matches_parallel:461 - Matched ('DJI_0076.JPG', 'DJI_0077.JPG'): 124 matches (detector: SIFT, score: 0.990)
-2025-06-18 01:51:08,679 [INFO] find_matches_parallel:461 - Matched ('DJI_0077.JPG', 'DJI_0078.JPG'): 39 matches (detector: ORB, score: 1.384)
-2025-06-18 01:51:08,679 [INFO] find_matches_parallel:461 - Matched ('DJI_0078.JPG', 'DJI_0079.JPG'): 49 matches (detector: ORB, score: 2.009)
-2025-06-18 01:51:08,679 [INFO] find_matches_parallel:461 - Matched ('DJI_0079.JPG', 'DJI_0080.JPG'): 66 matches (detector: ORB, score: 2.561)
-2025-06-18 01:51:08,679 [INFO] find_matches_parallel:461 - Matched ('DJI_0080.JPG', 'DJI_0081.JPG'): 60 matches (detector: ORB, score: 2.632)
-2025-06-18 01:51:08,679 [INFO] find_matches_parallel:461 - Matched ('DJI_0081.JPG', 'DJI_0082.JPG'): 55 matches (detector: ORB, score: 2.164)
-2025-06-18 01:51:08,679 [INFO] find_matches_parallel:461 - Matched ('DJI_0082.JPG', 'DJI_0083.JPG'): 83 matches (detector: ORB, score: 3.181)
-2025-06-18 01:51:08,680 [INFO] find_matches_parallel:461 - Matched ('DJI_0083.JPG', 'DJI_0084.JPG'): 101 matches (detector: ORB, score: 4.184)
-2025-06-18 01:51:08,680 [INFO] find_matches_parallel:461 - Matched ('DJI_0084.JPG', 'DJI_0085.JPG'): 101 matches (detector: ORB, score: 3.829)
-2025-06-18 01:51:08,712 [INFO] find_matches_parallel:449 - Processing batch 3/5 (10 pairs)
-2025-06-18 01:51:14,245 [INFO] find_matches_parallel:461 - Matched ('DJI_0085.JPG', 'DJI_0086.JPG'): 217 matches (detector: ORB, score: 8.699)
-2025-06-18 01:51:14,246 [INFO] find_matches_parallel:461 - Matched ('DJI_0086.JPG', 'DJI_0087.JPG'): 96 matches (detector: ORB, score: 3.456)
-2025-06-18 01:51:14,246 [INFO] find_matches_parallel:461 - Matched ('DJI_0087.JPG', 'DJI_0088.JPG'): 87 matches (detector: ORB, score: 3.272)
-2025-06-18 01:51:14,246 [INFO] find_matches_parallel:461 - Matched ('DJI_0088.JPG', 'DJI_0089.JPG'): 66 matches (detector: ORB, score: 2.518)
-2025-06-18 01:51:14,246 [INFO] find_matches_parallel:461 - Matched ('DJI_0089.JPG', 'DJI_0090.JPG'): 70 matches (detector: ORB, score: 3.015)
-2025-06-18 01:51:14,246 [INFO] find_matches_parallel:461 - Matched ('DJI_0090.JPG', 'DJI_0091.JPG'): 63 matches (detector: ORB, score: 2.464)
-2025-06-18 01:51:14,246 [INFO] find_matches_parallel:461 - Matched ('DJI_0091.JPG', 'DJI_0092.JPG'): 55 matches (detector: ORB, score: 2.033)
-2025-06-18 01:51:14,246 [INFO] find_matches_parallel:461 - Matched ('DJI_0092.JPG', 'DJI_0093.JPG'): 49 matches (detector: ORB, score: 1.843)
-2025-06-18 01:51:14,246 [INFO] find_matches_parallel:461 - Matched ('DJI_0093.JPG', 'DJI_0094.JPG'): 23 matches (detector: ORB, score: 0.885)
-2025-06-18 01:51:14,246 [INFO] find_matches_parallel:461 - Matched ('DJI_0094.JPG', 'DJI_0095.JPG'): 106 matches (detector: SIFT, score: 0.821)
-2025-06-18 01:51:14,276 [INFO] find_matches_parallel:449 - Processing batch 4/5 (10 pairs)
-2025-06-18 01:51:19,853 [INFO] find_matches_parallel:461 - Matched ('DJI_0095.JPG', 'DJI_0096.JPG'): 38 matches (detector: ORB, score: 1.256)
-2025-06-18 01:51:19,853 [INFO] find_matches_parallel:461 - Matched ('DJI_0096.JPG', 'DJI_0097.JPG'): 47 matches (detector: ORB, score: 1.605)
-2025-06-18 01:51:19,853 [INFO] find_matches_parallel:461 - Matched ('DJI_0097.JPG', 'DJI_0098.JPG'): 178 matches (detector: ORB, score: 7.173)
-2025-06-18 01:51:19,853 [INFO] find_matches_parallel:461 - Matched ('DJI_0098.JPG', 'DJI_0099.JPG'): 31 matches (detector: ORB, score: 0.968)
-2025-06-18 01:51:19,853 [INFO] find_matches_parallel:461 - Matched ('DJI_0099.JPG', 'DJI_0100.JPG'): 30 matches (detector: ORB, score: 1.070)
-2025-06-18 01:51:19,853 [INFO] find_matches_parallel:461 - Matched ('DJI_0100.JPG', 'DJI_0101.JPG'): 93 matches (detector: SIFT, score: 0.679)
-2025-06-18 01:51:19,853 [INFO] find_matches_parallel:461 - Matched ('DJI_0101.JPG', 'DJI_0102.JPG'): 37 matches (detector: ORB, score: 1.329)
-2025-06-18 01:51:19,853 [INFO] find_matches_parallel:461 - Matched ('DJI_0102.JPG', 'DJI_0103.JPG'): 38 matches (detector: ORB, score: 1.578)
-2025-06-18 01:51:19,853 [INFO] find_matches_parallel:461 - Matched ('DJI_0103.JPG', 'DJI_0104.JPG'): 51 matches (detector: ORB, score: 2.096)
-2025-06-18 01:51:19,853 [INFO] find_matches_parallel:461 - Matched ('DJI_0104.JPG', 'DJI_0105.JPG'): 50 matches (detector: ORB, score: 1.943)
-2025-06-18 01:51:19,882 [INFO] find_matches_parallel:449 - Processing batch 5/5 (4 pairs)
-2025-06-18 01:51:25,030 [INFO] find_matches_parallel:461 - Matched ('DJI_0105.JPG', 'DJI_0106.JPG'): 48 matches (detector: ORB, score: 1.875)
-2025-06-18 01:51:25,030 [INFO] find_matches_parallel:461 - Matched ('DJI_0106.JPG', 'DJI_0107.JPG'): 60 matches (detector: ORB, score: 2.258)
-2025-06-18 01:51:25,030 [INFO] find_matches_parallel:461 - Matched ('DJI_0107.JPG', 'DJI_0108.JPG'): 91 matches (detector: ORB, score: 3.497)
-2025-06-18 01:51:25,030 [INFO] find_matches_parallel:461 - Matched ('DJI_0108.JPG', 'DJI_0109.JPG'): 82 matches (detector: ORB, score: 2.960)
-2025-06-18 01:51:25,058 [INFO] stitch_images_distributed:784 - Feature matching completed in 27.59 seconds
-2025-06-18 01:51:25,059 [INFO] stitch_images_distributed:785 - Image pairs processed: 44
-2025-06-18 01:51:25,088 [INFO] stitch_images_distributed:791 - 
-MATCH RESULTS SUMMARY:
-2025-06-18 01:51:25,088 [INFO] stitch_images_distributed:792 - --------------------------------------------------
-2025-06-18 01:51:25,088 [INFO] stitch_images_distributed:803 - Pair 1: DJI_0065.JPG -> DJI_0066.JPG
-2025-06-18 01:51:25,088 [INFO] stitch_images_distributed:804 -   Matches: 111 | Detector: ORB | Score: 4.651 | VALID
-2025-06-18 01:51:25,088 [INFO] stitch_images_distributed:803 - Pair 2: DJI_0066.JPG -> DJI_0067.JPG
-2025-06-18 01:51:25,088 [INFO] stitch_images_distributed:804 -   Matches: 82 | Detector: ORB | Score: 3.355 | VALID
-2025-06-18 01:51:25,088 [INFO] stitch_images_distributed:803 - Pair 3: DJI_0067.JPG -> DJI_0068.JPG
-2025-06-18 01:51:25,088 [INFO] stitch_images_distributed:804 -   Matches: 104 | Detector: ORB | Score: 4.399 | VALID
-2025-06-18 01:51:25,088 [INFO] stitch_images_distributed:803 - Pair 4: DJI_0068.JPG -> DJI_0069.JPG
-2025-06-18 01:51:25,088 [INFO] stitch_images_distributed:804 -   Matches: 76 | Detector: ORB | Score: 3.131 | VALID
-2025-06-18 01:51:25,088 [INFO] stitch_images_distributed:803 - Pair 5: DJI_0069.JPG -> DJI_0070.JPG
-2025-06-18 01:51:25,088 [INFO] stitch_images_distributed:804 -   Matches: 67 | Detector: ORB | Score: 2.636 | VALID
-2025-06-18 01:51:25,088 [INFO] stitch_images_distributed:803 - Pair 6: DJI_0070.JPG -> DJI_0071.JPG
-2025-06-18 01:51:25,088 [INFO] stitch_images_distributed:804 -   Matches: 54 | Detector: ORB | Score: 2.121 | VALID
-2025-06-18 01:51:25,088 [INFO] stitch_images_distributed:803 - Pair 7: DJI_0071.JPG -> DJI_0072.JPG
-2025-06-18 01:51:25,088 [INFO] stitch_images_distributed:804 -   Matches: 39 | Detector: ORB | Score: 1.339 | VALID
-2025-06-18 01:51:25,088 [INFO] stitch_images_distributed:803 - Pair 8: DJI_0072.JPG -> DJI_0073.JPG
-2025-06-18 01:51:25,088 [INFO] stitch_images_distributed:804 -   Matches: 130 | Detector: ORB | Score: 4.801 | VALID
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:803 - Pair 9: DJI_0073.JPG -> DJI_0074.JPG
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:804 -   Matches: 106 | Detector: SIFT | Score: 0.792 | VALID
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:803 - Pair 10: DJI_0074.JPG -> DJI_0075.JPG
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:804 -   Matches: 119 | Detector: ORB | Score: 4.631 | VALID
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:803 - Pair 11: DJI_0075.JPG -> DJI_0076.JPG
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:804 -   Matches: 33 | Detector: ORB | Score: 1.020 | VALID
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:803 - Pair 12: DJI_0076.JPG -> DJI_0077.JPG
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:804 -   Matches: 124 | Detector: SIFT | Score: 0.990 | VALID
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:803 - Pair 13: DJI_0077.JPG -> DJI_0078.JPG
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:804 -   Matches: 39 | Detector: ORB | Score: 1.384 | VALID
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:803 - Pair 14: DJI_0078.JPG -> DJI_0079.JPG
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:804 -   Matches: 49 | Detector: ORB | Score: 2.009 | VALID
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:803 - Pair 15: DJI_0079.JPG -> DJI_0080.JPG
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:804 -   Matches: 66 | Detector: ORB | Score: 2.561 | VALID
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:803 - Pair 16: DJI_0080.JPG -> DJI_0081.JPG
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:804 -   Matches: 60 | Detector: ORB | Score: 2.632 | VALID
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:803 - Pair 17: DJI_0081.JPG -> DJI_0082.JPG
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:804 -   Matches: 55 | Detector: ORB | Score: 2.164 | VALID
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:803 - Pair 18: DJI_0082.JPG -> DJI_0083.JPG
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:804 -   Matches: 83 | Detector: ORB | Score: 3.181 | VALID
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:803 - Pair 19: DJI_0083.JPG -> DJI_0084.JPG
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:804 -   Matches: 101 | Detector: ORB | Score: 4.184 | VALID
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:803 - Pair 20: DJI_0084.JPG -> DJI_0085.JPG
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:804 -   Matches: 101 | Detector: ORB | Score: 3.829 | VALID
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:803 - Pair 21: DJI_0085.JPG -> DJI_0086.JPG
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:804 -   Matches: 217 | Detector: ORB | Score: 8.699 | VALID
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:803 - Pair 22: DJI_0086.JPG -> DJI_0087.JPG
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:804 -   Matches: 96 | Detector: ORB | Score: 3.456 | VALID
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:803 - Pair 23: DJI_0087.JPG -> DJI_0088.JPG
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:804 -   Matches: 87 | Detector: ORB | Score: 3.272 | VALID
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:803 - Pair 24: DJI_0088.JPG -> DJI_0089.JPG
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:804 -   Matches: 66 | Detector: ORB | Score: 2.518 | VALID
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:803 - Pair 25: DJI_0089.JPG -> DJI_0090.JPG
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:804 -   Matches: 70 | Detector: ORB | Score: 3.015 | VALID
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:803 - Pair 26: DJI_0090.JPG -> DJI_0091.JPG
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:804 -   Matches: 63 | Detector: ORB | Score: 2.464 | VALID
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:803 - Pair 27: DJI_0091.JPG -> DJI_0092.JPG
-2025-06-18 01:51:25,089 [INFO] stitch_images_distributed:804 -   Matches: 55 | Detector: ORB | Score: 2.033 | VALID
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:803 - Pair 28: DJI_0092.JPG -> DJI_0093.JPG
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:804 -   Matches: 49 | Detector: ORB | Score: 1.843 | VALID
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:803 - Pair 29: DJI_0093.JPG -> DJI_0094.JPG
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:804 -   Matches: 23 | Detector: ORB | Score: 0.885 | VALID
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:803 - Pair 30: DJI_0094.JPG -> DJI_0095.JPG
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:804 -   Matches: 106 | Detector: SIFT | Score: 0.821 | VALID
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:803 - Pair 31: DJI_0095.JPG -> DJI_0096.JPG
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:804 -   Matches: 38 | Detector: ORB | Score: 1.256 | VALID
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:803 - Pair 32: DJI_0096.JPG -> DJI_0097.JPG
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:804 -   Matches: 47 | Detector: ORB | Score: 1.605 | VALID
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:803 - Pair 33: DJI_0097.JPG -> DJI_0098.JPG
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:804 -   Matches: 178 | Detector: ORB | Score: 7.173 | VALID
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:803 - Pair 34: DJI_0098.JPG -> DJI_0099.JPG
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:804 -   Matches: 31 | Detector: ORB | Score: 0.968 | VALID
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:803 - Pair 35: DJI_0099.JPG -> DJI_0100.JPG
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:804 -   Matches: 30 | Detector: ORB | Score: 1.070 | VALID
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:803 - Pair 36: DJI_0100.JPG -> DJI_0101.JPG
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:804 -   Matches: 93 | Detector: SIFT | Score: 0.679 | VALID
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:803 - Pair 37: DJI_0101.JPG -> DJI_0102.JPG
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:804 -   Matches: 37 | Detector: ORB | Score: 1.329 | VALID
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:803 - Pair 38: DJI_0102.JPG -> DJI_0103.JPG
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:804 -   Matches: 38 | Detector: ORB | Score: 1.578 | VALID
-2025-06-18 01:51:25,090 [INFO] stitch_images_distributed:803 - Pair 39: DJI_0103.JPG -> DJI_0104.JPG
-2025-06-18 01:51:25,091 [INFO] stitch_images_distributed:804 -   Matches: 51 | Detector: ORB | Score: 2.096 | VALID
-2025-06-18 01:51:25,091 [INFO] stitch_images_distributed:803 - Pair 40: DJI_0104.JPG -> DJI_0105.JPG
-2025-06-18 01:51:25,091 [INFO] stitch_images_distributed:804 -   Matches: 50 | Detector: ORB | Score: 1.943 | VALID
-2025-06-18 01:51:25,091 [INFO] stitch_images_distributed:803 - Pair 41: DJI_0105.JPG -> DJI_0106.JPG
-2025-06-18 01:51:25,091 [INFO] stitch_images_distributed:804 -   Matches: 48 | Detector: ORB | Score: 1.875 | VALID
-2025-06-18 01:51:25,091 [INFO] stitch_images_distributed:803 - Pair 42: DJI_0106.JPG -> DJI_0107.JPG
-2025-06-18 01:51:25,091 [INFO] stitch_images_distributed:804 -   Matches: 60 | Detector: ORB | Score: 2.258 | VALID
-2025-06-18 01:51:25,091 [INFO] stitch_images_distributed:803 - Pair 43: DJI_0107.JPG -> DJI_0108.JPG
-2025-06-18 01:51:25,091 [INFO] stitch_images_distributed:804 -   Matches: 91 | Detector: ORB | Score: 3.497 | VALID
-2025-06-18 01:51:25,091 [INFO] stitch_images_distributed:803 - Pair 44: DJI_0108.JPG -> DJI_0109.JPG
-2025-06-18 01:51:25,091 [INFO] stitch_images_distributed:804 -   Matches: 82 | Detector: ORB | Score: 2.960 | VALID
-2025-06-18 01:51:25,091 [INFO] stitch_images_distributed:807 - 
-Total matches found: 3305
-2025-06-18 01:51:25,091 [INFO] stitch_images_distributed:808 - Valid pairs (>=10 matches): 44/44
-2025-06-18 01:51:25,091 [INFO] stitch_images_distributed:815 - 
-==================================================
-2025-06-18 01:51:25,091 [INFO] stitch_images_distributed:816 - STEP 4: SEQUENTIAL STITCHING
-2025-06-18 01:51:25,091 [INFO] stitch_images_distributed:817 - ==================================================
-2025-06-18 01:51:25,091 [INFO] stitch_sequentially:612 - Starting sequential stitching...
-2025-06-18 01:51:25,181 [INFO] _try_stitch_with_images:673 - Attempting to stitch 45 images...
-2025-06-18 01:51:25,195 [INFO] _try_stitch_with_images:702 - Calculating cumulative homographies...
-2025-06-18 01:51:25,195 [INFO] warp_and_blend_all:479 - Starting global warping and simple feather blending of all images.
-2025-06-18 01:51:25,196 [INFO] warp_and_blend_all:503 - Calculated canvas size: 667x1468
-2025-06-18 01:51:25,196 [INFO] warp_and_blend_all:546 - Estimated memory requirement: 11.2 MB
-2025-06-18 01:51:25,196 [INFO] warp_and_blend_all:560 - Processing 45 images for blending...
-2025-06-18 01:51:25,956 [INFO] warp_and_blend_all:588 - Saved uncropped panorama
-2025-06-18 01:51:25,956 [INFO] warp_and_blend_all:593 - Cropping final panorama...
-2025-06-18 01:51:25,957 [INFO] warp_and_blend_all:601 - Cropped panorama size: 667x1468
-2025-06-18 01:51:25,959 [INFO] _try_stitch_with_images:722 - Computed 45 valid global homographies.
-2025-06-18 01:51:25,960 [INFO] stitch_images_distributed:821 - Sequential stitching completed in 0.87 seconds
-2025-06-18 01:51:25,960 [INFO] stitch_images_distributed:826 - 
-======================================================================
-2025-06-18 01:51:25,960 [INFO] stitch_images_distributed:827 - TIMING SUMMARY
-2025-06-18 01:51:25,960 [INFO] stitch_images_distributed:828 - ======================================================================
-2025-06-18 01:51:25,960 [INFO] stitch_images_distributed:829 - Total processing time: 41.81 seconds
-2025-06-18 01:51:25,960 [INFO] stitch_images_distributed:830 -   * Image loading:     6.46s (15.5%)
-2025-06-18 01:51:25,960 [INFO] stitch_images_distributed:831 -   * Feature extraction: 6.82s (16.3%)
-2025-06-18 01:51:25,960 [INFO] stitch_images_distributed:832 -   * Feature matching:   27.59s (66.0%)
-2025-06-18 01:51:25,960 [INFO] stitch_images_distributed:833 -   * Image stitching:    0.87s (2.1%)
-2025-06-18 01:51:25,960 [INFO] stitch_images_distributed:834 - ======================================================================
-2025-06-18 01:51:25,960 [INFO] stitch_images_distributed:837 - SUCCESS! Final panorama shape: (1468, 667, 3)
-2025-06-18 01:51:26,051 [INFO] stitch_images_distributed:855 - Sharpened and contrast-enhanced panoramas saved as 'spark_distributed_panorama_sharpened.jpg' and 'spark_distributed_panorama_enhanced.jpg'
-2025-06-18 01:51:26,076 [INFO] main:915 - Saving panorama to: spark_distributed_panorama.jpg
-2025-06-18 01:51:26,081 [INFO] main:919 -  Panorama saved successfully: spark_distributed_panorama.jpg
-2025-06-18 01:51:26,081 [INFO] main:923 -   File size: 0.29 MB
-2025-06-18 01:51:26,082 [INFO] main:924 -   Image dimensions: (1468, 667, 3)
-2025-06-18 01:51:26,319 [INFO] main:931 - Attempting to display result...
-2025-06-18 01:54:59,907 [INFO] main:941 - Panorama displayed and preview saved
-2025-06-18 01:54:59,907 [INFO] stop:871 - Stopping Spark session...
-2025-06-18 01:55:00,521 [INFO] stop:873 - Spark session stopped successfully
-2025-06-18 01:55:00,521 [INFO] main:971 - Program execution completed
-2025-06-18 01:55:00,522 [INFO] close:543 - Closing down clientserver connection
+2025-06-18 02:19:25,656 [INFO] stitch_images_distributed:827 - TIMING SUMMARY
+2025-06-18 02:19:25,656 [INFO] stitch_images_distributed:828 - ======================================================================
+2025-06-18 02:19:25,656 [INFO] stitch_images_distributed:829 - Total processing time: 42.12 seconds
+2025-06-18 02:19:25,656 [INFO] stitch_images_distributed:830 -   * Image loading:     6.65s (15.8%)
+2025-06-18 02:19:25,656 [INFO] stitch_images_distributed:831 -   * Feature extraction: 6.77s (16.1%)
+2025-06-18 02:19:25,656 [INFO] stitch_images_distributed:832 -   * Feature matching:   27.76s (65.9%)
+2025-06-18 02:19:25,656 [INFO] stitch_images_distributed:833 -   * Image stitching:    0.87s (2.1%)
+2025-06-18 02:19:25,656 [INFO] stitch_images_distributed:834 - ======================================================================
+2025-06-18 02:19:25,657 [INFO] stitch_images_distributed:837 - SUCCESS! Final panorama shape: (1468, 667, 3)
+2025-06-18 02:19:25,750 [INFO] stitch_images_distributed:855 - Sharpened and contrast-enhanced panoramas saved as 'spark_distributed_panorama_sharpened.jpg' and 'spark_distributed_panorama_enhanced.jpg'
+2025-06-18 02:19:25,777 [INFO] main:939 - Saving panorama to: spark_distributed_panorama.jpg
+2025-06-18 02:19:25,782 [INFO] main:943 -  Panorama saved successfully: spark_distributed_panorama.jpg
+2025-06-18 02:19:25,782 [INFO] main:947 -   File size: 0.29 MB
+2025-06-18 02:19:25,782 [INFO] main:948 -   Image dimensions: (1468, 667, 3)
+2025-06-18 02:19:26,056 [INFO] main:955 - Attempting to display result...
+2025-06-18 02:21:55,052 [INFO] main:965 - Panorama displayed and preview saved
+2025-06-18 02:21:55,054 [INFO] stop:871 - Stopping Spark session...
+2025-06-18 02:21:55,627 [INFO] stop:873 - Spark session stopped successfully
+2025-06-18 02:21:55,628 [INFO] main:995 - Program execution completed
+2025-06-18 02:21:57,613 [INFO] close:543 - Closing down clientserver connection

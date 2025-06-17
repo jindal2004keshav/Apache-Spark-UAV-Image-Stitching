@@ -49,3 +49,10 @@ Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
 25/06/13 22:12:46 INFO Worker: Connecting to master 10.0.42.43:7077...
 25/06/13 22:12:46 INFO TransportClientFactory: Successfully created connection to /10.0.42.43:7077 after 23 ms (0 ms spent in bootstraps)
 25/06/13 22:12:46 INFO Worker: Successfully registered with master spark://10.0.42.43:7077
+
+
+----------------------------------------------------
+Set worker on other pc
+----------------------------------------------------
+
+(base) PS C:\Spark\bin> spark-class org.apache.spark.deploy.worker.Worker --cores 12 --memory 18g --webui-port 8083 spark://10.0.42.43:7077
