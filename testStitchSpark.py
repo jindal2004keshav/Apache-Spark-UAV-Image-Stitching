@@ -687,7 +687,7 @@ class SparkImageStitcher:
                         src_pts = np.float32([kp2_data[m[1]] for m in result['matches'] if m[1] < len(kp2_data)])
                         dst_pts = np.float32([kp1_data[m[0]] for m in result['matches'] if m[0] < len(kp1_data)])
                         if len(src_pts) >= 4:
-                            H, inlier_mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 4.0, maxIters=5000)
+                            H, inlier_mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 1.5, maxIters=10000)
                             if H is not None and inlier_mask is not None:
                                 inlier_count = int(np.sum(inlier_mask))
                                 inlier_src = src_pts[inlier_mask.ravel() == 1]
@@ -696,12 +696,12 @@ class SparkImageStitcher:
                                     x_max, y_max = np.max(inlier_src, axis=0)
                                     spatial_spread = float((x_max - x_min) * (y_max - y_min))
                                 logger.info(f"Homography inliers: {inlier_count}, spatial spread: {spatial_spread:.1f}")
-                                if inlier_count < 10 or spatial_spread < 5000:
+                                if inlier_count < 20 or spatial_spread < 10000:
                                     logger.warning(f"Homography inliers/spread too low. Trying affine fallback.")
                                     H = None
                         if H is None:
                             if len(src_pts) >= 3:
-                                H_affine, inlier_mask_affine = cv2.estimateAffine2D(src_pts, dst_pts, method=cv2.RANSAC, ransacReprojThreshold=4.0, maxIters=5000)
+                                H_affine, inlier_mask_affine = cv2.estimateAffine2D(src_pts, dst_pts, method=cv2.RANSAC, ransacReprojThreshold=1.5, maxIters=10000)
                                 if H_affine is not None and inlier_mask_affine is not None:
                                     inlier_count_affine = int(np.sum(inlier_mask_affine))
                                     inlier_src_affine = src_pts[inlier_mask_affine.ravel() == 1]
@@ -712,7 +712,7 @@ class SparkImageStitcher:
                                     else:
                                         spatial_spread_affine = 0
                                     logger.info(f"Affine inliers: {inlier_count_affine}, spatial spread: {spatial_spread_affine:.1f}")
-                                    if inlier_count_affine >= 10 and spatial_spread_affine >= 5000:
+                                    if inlier_count_affine >= 20 and spatial_spread_affine >= 10000:
                                         H = np.eye(3)
                                         H[:2, :] = H_affine
                                         logger.info("Affine fallback accepted.")
@@ -943,7 +943,7 @@ def main():
         stitcher = SparkImageStitcher(spark_master="spark://10.0.42.43:7077")
         
         # Configuration
-        custom_dir = r'C:\Users\user\Desktop\Keshav\RGB 2'
+        custom_dir = r'C:\Users\user\Desktop\Keshav\RGB'
         output_filename = "spark_distributed_panorama.jpg"
         
         logger.info(f"Input directory: {custom_dir}")
