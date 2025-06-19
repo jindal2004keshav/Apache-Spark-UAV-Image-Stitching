@@ -239,9 +239,9 @@ class SparkImageStitcher:
             return []
             
         detector_configs = {
-            'SIFT': {'type': 'SIFT', 'nfeatures': 500, 'contrastThreshold': 0.04, 'edgeThreshold': 10},
-            'ORB': {'type': 'ORB', 'nfeatures': 500, 'scaleFactor': 1.2, 'nlevels': 8},
-            'AKAZE': {'type': 'AKAZE', 'threshold': 0.0008}
+            'SIFT': {'type': 'SIFT', 'nfeatures': 2000, 'contrastThreshold': 0.025, 'edgeThreshold': 8},
+            'ORB': {'type': 'ORB', 'nfeatures': 2000, 'scaleFactor': 1.1, 'nlevels': 12},
+            'AKAZE': {'type': 'AKAZE', 'threshold': 0.0002}
         }
         
         def extract_features_from_image(image_data):
@@ -325,7 +325,7 @@ class SparkImageStitcher:
             logger.error(traceback.format_exc())
             return []
 
-    def find_matches_parallel(self, features_data_list, match_ratio=0.75, adjacent_only=True):
+    def find_matches_parallel(self, features_data_list, match_ratio=0.8, adjacent_only=True):
        
         logger.info(f"Finding matches between {len(features_data_list)} images with ratio {match_ratio}...")
         
@@ -442,31 +442,30 @@ class SparkImageStitcher:
             
             # Process matches in batches to reduce memory usage
             batch_size = 10  # Process 10 pairs at a time
+            overlap = 2  # Number of pairs to overlap between batches
             all_match_results = []
-            
-            for i in range(0, len(pairs), batch_size):
-                batch_pairs = pairs[i:i+batch_size]
-                logger.info(f"Processing batch {i//batch_size + 1}/{(len(pairs) + batch_size - 1)//batch_size} ({len(batch_pairs)} pairs)")
-                
-                # Match pairs in parallel for this batch
+            i = 0
+            while i < len(pairs):
+                # Overlap batches at the edges
+                end = min(i + batch_size, len(pairs))
+                batch_pairs = pairs[i:end]
+                if i != 0:
+                    # Add overlap from previous batch
+                    batch_pairs = pairs[i - overlap:end]
+                logger.info(f"Processing batch {(i//batch_size) + 1}/{(len(pairs) + batch_size - 1)//batch_size} ({len(batch_pairs)} pairs, overlap {overlap})")
                 pairs_rdd = self.sc.parallelize(batch_pairs)
                 matches_rdd = pairs_rdd.map(match_image_pair)
                 batch_results = matches_rdd.collect()
-                
-                # Log matching results for this batch
                 for result in batch_results:
                     if 'error' in result:
                         logger.warning(f"Matching error for {result['filenames']}: {result['error']}")
                     else:
                         logger.info(f"Matched {result['filenames']}: {len(result['matches'])} matches "
                                   f"(detector: {result['detector']}, score: {result['score']:.3f})")
-                
                 all_match_results.extend(batch_results)
-                
-                # Force garbage collection after each batch
                 import gc
                 gc.collect()
-            
+                i += batch_size - overlap  # Move to next batch with overlap
             return all_match_results
             
         except Exception as e:
@@ -607,97 +606,126 @@ class SparkImageStitcher:
             logger.warning(f"Cropping failed: {e}, returning uncropped image.")
             return panorama
 
-    def stitch_sequentially(self, match_results, features_data_list, min_match_count):
-        """Sequential stitching method with fallback for large datasets"""
-        logger.info("Starting sequential stitching...")
+    def stitch_sequentially(self, match_results, features_data_list, min_match_count, skip_window=3):
+        """Sequential stitching with skip-ahead fallback for low-overlap gaps."""
+        logger.info("Starting robust sequential stitching with skip-ahead fallback...")
         if not match_results:
             logger.error("No match results for sequential stitching")
             return None
 
         images = [self.decode_image(f[2]) for f in features_data_list]
-        
-        # Try with all images first
-        panorama = self._try_stitch_with_images(images, match_results, features_data_list, min_match_count)
-        
-        if panorama is not None:
-            return panorama
-        
-        # If failed, try with fewer images (every 2nd image)
-        logger.warning("Stitching failed with all images. Trying with reduced dataset...")
-        reduced_images = images[::2]  # Take every 2nd image
-        reduced_features = features_data_list[::2]
-        
-        # Create reduced match results for the subset
-        reduced_matches = []
-        for i in range(len(reduced_images) - 1):
-            # Find the corresponding match result for this pair
-            for result in match_results:
-                if (result['pair'][0] == i*2 and result['pair'][1] == i*2 + 1):
-                    # Adjust pair indices for reduced dataset
-                    adjusted_result = result.copy()
-                    adjusted_result['pair'] = (i, i+1)
-                    reduced_matches.append(adjusted_result)
+        n = len(images)
+        used = [False] * n
+        chain = [0]  # Always start from the first image
+        used[0] = True
+        current = 0
+        while True:
+            found = False
+            for skip in range(1, skip_window+1):
+                next_idx = current + skip
+                if next_idx >= n:
                     break
-        
-        if len(reduced_matches) > 0:
-            panorama = self._try_stitch_with_images(reduced_images, reduced_matches, reduced_features, min_match_count)
-            if panorama is not None:
-                logger.info("Successfully created panorama with reduced dataset")
-                return panorama
-        
-        # If still failed, try with even fewer images (every 3rd image)
-        logger.warning("Stitching failed with reduced dataset. Trying with minimal dataset...")
-        minimal_images = images[::3]  # Take every 3rd image
-        minimal_features = features_data_list[::3]
-        
-        minimal_matches = []
-        for i in range(len(minimal_images) - 1):
-            for result in match_results:
-                if (result['pair'][0] == i*3 and result['pair'][1] == i*3 + 1):
-                    adjusted_result = result.copy()
-                    adjusted_result['pair'] = (i, i+1)
-                    minimal_matches.append(adjusted_result)
+                # Find match result for (current, next_idx)
+                for result in match_results:
+                    if result['pair'] == (current, next_idx) and len(result['matches']) >= min_match_count:
+                        chain.append(next_idx)
+                        used[next_idx] = True
+                        current = next_idx
+                        found = True
+                        logger.info(f"Chained image {current} (skip {skip})")
+                        break
+                if found:
                     break
-        
-        if len(minimal_matches) > 0:
-            panorama = self._try_stitch_with_images(minimal_images, minimal_matches, minimal_features, min_match_count)
-            if panorama is not None:
-                logger.info("Successfully created panorama with minimal dataset")
-                return panorama
-        
-        logger.error("All stitching attempts failed")
-        return None
+            if not found:
+                # Try to find the next unused image to start a new chain (optional)
+                next_unused = None
+                for i in range(n):
+                    if not used[i]:
+                        next_unused = i
+                        break
+                if next_unused is not None:
+                    logger.info(f"Starting new chain from image {next_unused}")
+                    chain.append(next_unused)
+                    used[next_unused] = True
+                    current = next_unused
+                else:
+                    break
+        # Prepare images and features for the chain
+        chain_images = [images[i] for i in chain]
+        chain_features = [features_data_list[i] for i in chain]
+        # Prepare match_results for the chain
+        chain_matches = []
+        for i in range(len(chain)-1):
+            for result in match_results:
+                if result['pair'] == (chain[i], chain[i+1]) and len(result['matches']) >= min_match_count:
+                    chain_matches.append(result)
+                    break
+        if len(chain_matches) == 0:
+            logger.error("No valid matches found in robust chain.")
+            return None
+        logger.info(f"Stitching {len(chain_images)} images in robust chain: {chain}")
+        return self._try_stitch_with_images(chain_images, chain_matches, chain_features, min_match_count)
 
     def _try_stitch_with_images(self, images, match_results, features_data_list, min_match_count):
-        """Helper function to attempt stitching with a given set of images"""
+        """Helper function to attempt stitching with a given set of images, with inlier and spatial checks, and affine fallback."""
         logger.info(f"Attempting to stitch {len(images)} images...")
-        
+        import numpy as np
+        import cv2
         # Calculate pairwise homographies (H_i+1 -> H_i)
         pairwise_homographies = []
         for result in match_results:
+            H = None
+            inlier_mask = None
+            inlier_count = 0
+            spatial_spread = 0
             if result['matches'] and len(result['matches']) >= min_match_count:
                 detector_name = result['detector']
                 if detector_name:
                     try:
                         kp1_data = features_data_list[result['pair'][0]][1][detector_name]['keypoints']
                         kp2_data = features_data_list[result['pair'][1]][1][detector_name]['keypoints']
-                        
                         src_pts = np.float32([kp2_data[m[1]] for m in result['matches'] if m[1] < len(kp2_data)])
                         dst_pts = np.float32([kp1_data[m[0]] for m in result['matches'] if m[0] < len(kp1_data)])
-
                         if len(src_pts) >= 4:
-                            H, _ = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
-                            pairwise_homographies.append(H)
-                        else:
-                            pairwise_homographies.append(None)
+                            H, inlier_mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 4.0, maxIters=5000)
+                            if H is not None and inlier_mask is not None:
+                                inlier_count = int(np.sum(inlier_mask))
+                                inlier_src = src_pts[inlier_mask.ravel() == 1]
+                                if len(inlier_src) > 0:
+                                    x_min, y_min = np.min(inlier_src, axis=0)
+                                    x_max, y_max = np.max(inlier_src, axis=0)
+                                    spatial_spread = float((x_max - x_min) * (y_max - y_min))
+                                logger.info(f"Homography inliers: {inlier_count}, spatial spread: {spatial_spread:.1f}")
+                                if inlier_count < 10 or spatial_spread < 5000:
+                                    logger.warning(f"Homography inliers/spread too low. Trying affine fallback.")
+                                    H = None
+                        if H is None:
+                            if len(src_pts) >= 3:
+                                H_affine, inlier_mask_affine = cv2.estimateAffine2D(src_pts, dst_pts, method=cv2.RANSAC, ransacReprojThreshold=4.0, maxIters=5000)
+                                if H_affine is not None and inlier_mask_affine is not None:
+                                    inlier_count_affine = int(np.sum(inlier_mask_affine))
+                                    inlier_src_affine = src_pts[inlier_mask_affine.ravel() == 1]
+                                    if len(inlier_src_affine) > 0:
+                                        x_min, y_min = np.min(inlier_src_affine, axis=0)
+                                        x_max, y_max = np.max(inlier_src_affine, axis=0)
+                                        spatial_spread_affine = float((x_max - x_min) * (y_max - y_min))
+                                    else:
+                                        spatial_spread_affine = 0
+                                    logger.info(f"Affine inliers: {inlier_count_affine}, spatial spread: {spatial_spread_affine:.1f}")
+                                    if inlier_count_affine >= 10 and spatial_spread_affine >= 5000:
+                                        H = np.eye(3)
+                                        H[:2, :] = H_affine
+                                        logger.info("Affine fallback accepted.")
+                                    else:
+                                        logger.warning("Affine fallback inliers/spread too low.")
+                        pairwise_homographies.append(H)
                     except Exception as e:
-                        logger.error(f"Error computing homography for {result['filenames']}: {e}")
+                        logger.error(f"Error computing homography/affine for {result['filenames']}: {e}")
                         pairwise_homographies.append(None)
                 else:
                     pairwise_homographies.append(None)
             else:
                 pairwise_homographies.append(None)
-
         # Convert pairwise to global homographies (H_i -> H_0)
         logger.info("Calculating cumulative homographies...")
         global_homographies = [np.identity(3)]
@@ -708,16 +736,18 @@ class SparkImageStitcher:
                 global_homographies.append(h_cumulative)
             else:
                 logger.warning("Broken link in homography chain. Stitching will stop here.")
-                remaining = len(images) - len(global_homographies)
-                global_homographies.extend([None] * remaining)
                 break
-
-        panorama = self.warp_and_blend_all(images, global_homographies)
-        
+        # Ensure images and homographies are the same length
+        valid_length = len(global_homographies)
+        images_to_stitch = images[:valid_length]
+        global_homographies = global_homographies[:len(images_to_stitch)]
+        if len(images_to_stitch) < 2:
+            logger.error("Not enough images to stitch after chain break.")
+            return None
+        panorama = self.warp_and_blend_all(images_to_stitch, global_homographies)
         if panorama is None:
             logger.error("Panorama creation failed in warp_and_blend_all.")
             return None
-
         valid_homographies = [h for h in global_homographies if h is not None]
         logger.info(f"Computed {len(valid_homographies)} valid global homographies.")
         return panorama
@@ -913,7 +943,7 @@ def main():
         stitcher = SparkImageStitcher(spark_master="spark://10.0.42.43:7077")
         
         # Configuration
-        custom_dir = r'C:\Users\user\Desktop\Keshav\Shillong_Fire_MAPPING'
+        custom_dir = r'C:\Users\user\Desktop\Keshav\RGB 2'
         output_filename = "spark_distributed_panorama.jpg"
         
         logger.info(f"Input directory: {custom_dir}")
@@ -928,7 +958,7 @@ def main():
         logger.info("Starting distributed stitching process...")
         final_panorama = stitcher.stitch_images_distributed(
             directory_path=custom_dir,
-            min_match_count=10,
+            min_match_count=2,
             match_ratio=0.6
         )
         
