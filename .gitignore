@@ -1,0 +1,27 @@
+RGB/
+RGB 2/
+RGB 3/
+RGB 4/
+RGB 5/
+RGB final/
+Shillong_Fire_MAPPING/
+Shillong_Fire_MAPPING 2/
+Shillong_Fire_MAPPING 3/
+Nesac_Outreach_Mapping/
+drone_dataset_sheffield_park_3/
+_pycache_/
+panorama_preview.png
+spark_distributed_panorama_enhanced.jpg
+spark_distributed_panorama_sharpened.jpg
+spark_distributed_panorama_uncropped_bilateral.jpg
+spark_distributed_panorama_uncropped_gaussian.jpg
+spark_distributed_panorama_uncropped_nlmeans.jpg
+spark_distributed_panorama_uncropped_smooth_combo.jpg
+spark_distributed_panorama_uncropped.jpg
+spark_distributed_panorama.jpg
+spark_image_stitcher.log
+stitch.py
+Stitching.ipynb
+testImage.py
+testSp.py
+testSpark.ipynb
