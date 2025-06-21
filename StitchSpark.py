@@ -26,7 +26,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 class SparkImageStitcher:
-    def __init__(self, spark_master="spark://10.0.42.43:7077"):
+    def __init__(self, spark_master="spark://10.*.**.**:7077"):
         """Initialize Spark session with optimized configuration"""
         logger.info("Initializing SparkImageStitcher...")
         
@@ -940,10 +940,10 @@ def main():
     
     try:
         logger.info("Initializing Spark Image Stitcher...")
-        stitcher = SparkImageStitcher(spark_master="spark://10.0.42.43:7077")
+        stitcher = SparkImageStitcher(spark_master="spark://10.*.**.**:7077")
         
         # Configuration
-        custom_dir = r'C:\Users\user\Desktop\Keshav\RGB'
+        custom_dir = r'C:\Users\user\Desktop\Keshav\RBG'
         output_filename = "spark_distributed_panorama.jpg"
         
         logger.info(f"Input directory: {custom_dir}")
